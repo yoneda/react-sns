@@ -20,8 +20,9 @@ app.use(json());
 // postのパラメータをctx.request.body に挿入する
 app.use(bodyParser());
 
-router.get("/", (ctx, next) => {
-  ctx.body = "hello, server";
+router.get("/helth", (ctx, next) => {
+  ctx.status = 200;
+  ctx.body = "helth";
 });
 
 app.use(router.routes()).use(router.allowedMethods());
