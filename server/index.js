@@ -21,7 +21,6 @@ app.use(json());
 app.use(bodyParser());
 
 router.get("/helth", (ctx, next) => {
-  ctx.status = 200;
   ctx.body = "helth";
 });
 
