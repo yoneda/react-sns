@@ -19,8 +19,4 @@ Index.getInitialProps = async () => {
   return json;
 };
 
-Index.propTypes = {
-  val: PropTypes.string
-};
-
 export default Index;
