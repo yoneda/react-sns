@@ -1,18 +1,18 @@
 import fetch from 'isomorphic-unfetch'
 import Sub from "../components/subComponent";
 
-const Index = ({count}) => (
+const Index = ({val}) => (
   <div>
     <Sub />
-    <div> count is … {count}</div>
+    <div> count is … {val}</div>
   </div>
 )
 
 // リクエスト時にサーバーサイドでレンダリングして値を返す
 Index.getInitialProps = async ({ req }) => {
-  const res = await fetch('https://api.github.com/repos/zeit/next.js')
+  const res = await fetch('http://localhost:3000/api/helth')
   const json = await res.json()
-  return { count: json.stargazers_count }
+  return json
 }
 
 export default Index;

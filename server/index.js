@@ -1,29 +1,34 @@
-"use strict";
+const express = require("express");
+const next = require("next");
 const env = require("dotenv");
-const koa = require("koa");
-const cors = require("@koa/cors");
-const json = require("koa-json");
-const bodyParser = require("koa-bodyparser");
-const Router = require("koa-router");
-const router = new Router();
-const app = new koa();
+const dev = process.env.NODE_ENV !== "production";
+const nextApp = next({ dev, dir: "./client" });
+const handle = nextApp.getRequestHandler();
 
-// .envファイルを使用
-env.config();
+nextApp
+  .prepare()
+  .then(() => {
+    // .envファイルを使用
+    env.config();
 
-// corsを許可
-app.use(cors());
+    const server = express();
 
-// jsonを返す場合 pretty-print
-app.use(json());
+    // api を定義
+    server.get("/api/helth", (req, res) => {
+      res.send({ val: "OK" });
+    });
 
-// postのパラメータをctx.request.body に挿入する
-app.use(bodyParser());
+    // その他はすべてNextのrouterに飛ばす
+    server.get("*", (req, res) => {
+      return handle(req, res);
+    });
 
-router.get("/helth", (ctx, next) => {
-  ctx.body = "helth";
-});
-
-app.use(router.routes()).use(router.allowedMethods());
-
-app.listen(process.env.PORT || 3000, () => console.log(process.env.PORT));
+    server.listen(3000, err => {
+      if (err) throw err;
+      console.log("ready on localhost:3000");
+    });
+  })
+  .catch(ex => {
+    console.error(ex.stack);
+    process.exit(1);
+  });
