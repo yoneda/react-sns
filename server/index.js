@@ -7,6 +7,7 @@ const handle = nextApp.getRequestHandler();
 
 const db = require("./db");
 const asyncHandler = require("express-async-handler");
+import routes from "./routes";
 
 import getUserData from "./util/getUser";
 
@@ -24,6 +25,7 @@ nextApp
       res.send({ val: "OK" });
     });
 
+    
     // async/await 構文を用いた遅延処理
     server.get(
       "/api/users",
@@ -59,6 +61,8 @@ nextApp
         res.send("javascript");
       })
     );
+
+    server.use("/api", routes);
 
     // その他はすべてNextのrouterに飛ばす
     server.get("*", (req, res) => {

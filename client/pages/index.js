@@ -4,6 +4,7 @@ import fetch from "isomorphic-unfetch";
 import Sub from "../components/subComponent";
 
 const Index = ({ val }) => {
+  console.log(val);
   return (
     <div>
       <Sub />
