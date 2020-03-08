@@ -13,7 +13,7 @@ const fake = {
       pass: "yonedapass",
       account: "yoneda",
       showStatus: true,
-      showClaendar: true
+      showCalendar: true
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ const fake = {
       pass: "tanakapass",
       account: "tanaka",
       showStatus: false,
-      showClaendar: false
+      showCalendar: false
     }
   ],
   notes: [
@@ -31,7 +31,7 @@ const fake = {
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
-      userId: 1
+      user: 1
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ const fake = {
       body: "text text text 2",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
-      userId: 1
+      user: 1
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ const fake = {
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
-      userId: 2
+      user: 2
     }
   ]
 };
