@@ -6,6 +6,8 @@ const router = Router();
 
 router.get("/:account", asyncHandler(users.get));
 
+router.post("/", asyncHandler(users.post));
+
 router.delete("/:account", asyncHandler(users.remove));
 
 export default router;
