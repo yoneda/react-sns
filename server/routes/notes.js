@@ -6,6 +6,6 @@ import * as notes from "../handlers/notes";
 const router = Router();
 
 router.get("/", asyncHandler(notes.get));
-router.delete("/", asyncHandler(notes.remove));
+router.delete("/:id", asyncHandler(notes.remove));
 
 export default router;
