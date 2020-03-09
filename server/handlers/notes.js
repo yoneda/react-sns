@@ -2,7 +2,7 @@ import db from "../db";
 import { pick } from "lodash";
 
 export const get = async (req, res) => {
-  const { account } = req.params;
+  const { account } = req.query;
   const notes = await db("notes")
     .join("users", "users.id", "notes.user")
     .where("users.account", account)
@@ -16,3 +16,4 @@ export const get = async (req, res) => {
     );
   res.send(notes);
 };
+

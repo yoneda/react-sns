@@ -5,7 +5,7 @@ import * as notes from "../handlers/notes";
 
 const router = Router();
 
-router.get("/:account", asyncHandler(notes.get));
+router.get("/", asyncHandler(notes.get));
 router.delete("/", asyncHandler(notes.remove));
 
 export default router;
