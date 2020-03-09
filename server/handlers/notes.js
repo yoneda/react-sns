@@ -1,10 +1,8 @@
-const data = [
-  { text: "text text text", updated: "2020-3-4" },
-  { text: "text text text", updated: "2020-3-5" }
-];
+const db = require("../db");
 
-export const get = async (req, res) => {
-  res.send({ note: data });
+export const get = async () => {
+  const users = await db("users").select();
+  console.log(users);
 };
 
 export const remove = async (req, res) => {

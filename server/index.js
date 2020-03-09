@@ -16,25 +16,16 @@ nextApp
   .then(() => {
     // .envファイルを使用
     env.config();
-    console.log(env.config());
 
     const server = express();
 
+    server.use(express.json());
+    server.use(express.urlencoded({ extended: true }));
+
     // api を定義
     server.get("/api/helth", (req, res) => {
-      res.send({ val: "OK" });
+      res.send({ val: "not ok" });
     });
-
-    
-    // async/await 構文を用いた遅延処理
-    server.get(
-      "/api/users",
-      asyncHandler(async (req, res, next) => {
-        // const users = await db.select().from("users");
-        const users = getUserData();
-        res.send(users);
-      })
-    );
 
     const sleep = () =>
       new Promise((resolve, reject) => {
@@ -67,6 +58,12 @@ nextApp
     // その他はすべてNextのrouterに飛ばす
     server.get("*", (req, res) => {
       return handle(req, res);
+    });
+
+    server.post("/bodyTest", (req, res, next) => {
+      console.log(req.body);
+      console.log("hogehoge");
+      res.send("aa");
     });
 
     server.listen(3000, err => {

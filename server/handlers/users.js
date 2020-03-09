@@ -1,14 +1,18 @@
-const data = [
-  { name: "yamada", mail: "yamada@gmail.com" },
-  { name: "tanaka", mail: "tanaka@gmail.com" },
-  { name: "suzuki", mail: "suzuki@gmail.com" }
-];
+const db = require("../db");
 
 export const get = async (req, res) => {
-  res.send({ user: data });
+  const { account } = req.params;
+  const user = await db("users").where({ account: account });
+  res.send(user);
 };
 
 export const remove = async (req, res) => {
-  // 削除処理
-  res.send({ success: true });
+  const { account } = req.params;
+  const num = await db("users")
+    .where({ account: account })
+    .del();
+  if (!num) {
+    throw new Error(`Not found that account is ${account} in this database.`);
+  }
+  res.send({ message: "User has been deleted successfully." });
 };
