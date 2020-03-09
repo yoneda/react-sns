@@ -26,6 +26,7 @@
     "express-async-handler": "^1.1.4",
     "isomorphic-unfetch": "^3.0.0",
     "knex": "^0.20.10",
+    "lodash": "^4.17.15",
     "mysql": "^2.18.1",
     "next": "^9.2.1",
     "react": "^16.12.0",
