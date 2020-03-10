@@ -1,5 +1,7 @@
-import db from "../db";
 import { pick } from "lodash";
+import dayjs from "dayjs";
+import db from "../db";
+
 
 export const get = async (req, res) => {
   const { account } = req.query;
@@ -18,14 +20,31 @@ export const get = async (req, res) => {
   res.send(notes);
 };
 
-export const post = async(req, res) => {
-  const { account } = req.query;
-  
-}
+export const post = async (req, res) => {
+  const { account, title, body } = req.body;
+  const [{ id: userId }] = await db("users")
+    .select("id")
+    .where({ account });
+  const today = dayjs().format("YYYY-M-D H:mm:ss");
+  const [id] = await db("notes").insert({
+    title,
+    body,
+    createdAt: today,
+    updatedAt: today,
+    user: userId
+  });
+  const note = await db("notes")
+    .where({ id })
+    .limit(1);
+  res
+    .status(201)
+    .location("location")
+    .send(user);
+  // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
+  // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
+};
 
-export const put = async(req, res) => {
-  
-}
+export const put = async (req, res) => {};
 
 export const remove = async (req, res) => {
   const { id } = req.params;
@@ -35,6 +54,6 @@ export const remove = async (req, res) => {
   if (!num) {
     throw new Error("Note is not found");
   }
-    // TODO: エラー時の status code が500で間違いないかチェックする
+  // TODO: エラー時の status code が500で間違いないかチェックする
   res.status(200).send({ message: "Note has been deleted successfully." });
-}
+};

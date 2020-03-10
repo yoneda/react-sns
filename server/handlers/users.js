@@ -32,10 +32,10 @@ export const post = async (req, res) => {
 
 export const put = async (req, res) => {
   const { account } = req.params;
-  const query = pick(req.body, ["mail", "pass", "showStatus", "showCalendar"]);
+  const payload = pick(req.body, ["mail", "pass", "showStatus", "showCalendar"]);
   const id = await db("users")
     .where({ account })
-    .update(query);
+    .update(payload);
   const user = await db("users").where({ id });
   res.send(user);
   // TODO: メールアドレスも変更できるように修正
