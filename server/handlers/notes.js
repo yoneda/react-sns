@@ -2,7 +2,6 @@ import { pick } from "lodash";
 import dayjs from "dayjs";
 import db from "../db";
 
-
 export const get = async (req, res) => {
   const { account } = req.query;
   // MEMO: ここは後で認証済みのuserオブジェクトから取得する予定
@@ -39,12 +38,21 @@ export const post = async (req, res) => {
   res
     .status(201)
     .location("location")
-    .send(user);
+    .send(note);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
-export const put = async (req, res) => {};
+export const put = async (req, res) => {
+  const { id } = req.params;
+  const payload = pick(req.body, ["title", "body"]);
+  const today = dayjs().format("YYYY-M-D H:mm:ss");
+  await db("notes")
+    .where({ id })
+    .update({ ...payload, updatedAt: today });
+  const note = await db("notes").where({ id });
+  res.send(note);
+};
 
 export const remove = async (req, res) => {
   const { id } = req.params;

@@ -33,7 +33,7 @@ export const post = async (req, res) => {
 export const put = async (req, res) => {
   const { account } = req.params;
   const payload = pick(req.body, ["mail", "pass", "showStatus", "showCalendar"]);
-  const num = await db("users")
+  await db("users")
     .where({ account })
     .update(payload);
   const user = await db("users").where({ account });
