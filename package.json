@@ -1,5 +1,5 @@
 {
-  "name": "invoice",
+  "name": "simple-dialry",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yoneda/invoice.git"
+    "url": "git+https://github.com/yoneda/simple-dialry.git"
   },
   "author": "yoneda",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yoneda/invoice/issues"
+    "url": "https://github.com/yoneda/simple-dialry/issues"
   },
-  "homepage": "https://github.com/yoneda/invoice#readme",
+  "homepage": "https://github.com/yoneda/simple-dialry#readme",
   "dependencies": {
     "dayjs": "^1.8.22",
     "dotenv": "^8.2.0",
