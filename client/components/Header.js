@@ -1,10 +1,13 @@
 import React from "react";
+import Link from "next/link";
 
 const Header = props => (
   <div>
     <h2>Simple Diary</h2>
     <div>
-      Top | New | Setting | Logout
+      <Link href="/"><a>Top</a></Link> |
+      <Link href="/new"><a>New</a></Link> |
+      <Link href="/setting"><a>Setting</a></Link>
     </div>
   </div>
 )

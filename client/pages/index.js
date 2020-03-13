@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import fetch from "isomorphic-unfetch";
 import Sub from "../components/subComponent";
+import Header from "../components/Header";
 
 const Index = ({ val }) => {
-  console.log(val);
   return (
     <div>
+      <Header />
       <Sub />
       <div> count is … {val}</div>
     </div>
