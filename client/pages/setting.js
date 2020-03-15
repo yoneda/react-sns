@@ -5,16 +5,21 @@ import { isEmpty } from "lodash";
 
 const Setting = props => {
   const user = useStoreState(state => state.user.item);
-  const updateUser = useStoreActions(actions => actions.user.update);
+  const [loadUser, updateUser] = useStoreActions(actions => [
+    actions.user.get,
+    actions.user.update
+  ]);
   const [showStatus, setShowStatus] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
-    if (!isEmpty(user)) {
+    console.log("effect");
+    if (isEmpty(user)) loadUser();
+    else {
       setShowStatus(user.showStatus);
       setShowCalendar(user.showCalendar);
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>
