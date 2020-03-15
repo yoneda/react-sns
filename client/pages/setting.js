@@ -9,7 +9,7 @@ const Setting = props => {
   const user = useStoreState(state => state.user.item);
   // const getUser = useStoreActions(actions => actions.user.get);
   const load = useStoreActions(actions => actions.page.load);
-  console.log(user);
+  
   return (
     <div>
       <Header />

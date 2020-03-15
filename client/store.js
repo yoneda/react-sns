@@ -1,5 +1,5 @@
-import { createStore, action, thunk } from "easy-peasy";
-const request = require("superagent");
+import { createStore, action, thunk, computed } from "easy-peasy";
+import request from "superagent";
 
 const page = {
   load: thunk(async (actions, payload, { getStoreActions }) => {
