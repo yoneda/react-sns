@@ -18,7 +18,7 @@ const notes = {
     actions.set(notes);
   }),
   set: action((state, payload) => {
-    state.items = payload;
+    return { ...state, items: payload };
   })
 };
 
@@ -30,8 +30,16 @@ const user = {
       .then(res => res.body[0]);
     actions.set(user);
   }),
+  update: thunk(async (actions, payload) => {
+    const { showStatus, showCalendar } = payload;
+    const user = request
+      .put("http://localhost:3000/api/users/yoneda")
+      .send({ showStatus, showCalendar })
+      .then(res => res.body[0]);
+    actions.set(user);
+  }),
   set: action((state, payload) => {
-    state.item = payload;
+    return { ...state, item: payload };
   })
 };
 

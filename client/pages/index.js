@@ -30,8 +30,21 @@ const Index = ({ val }) => {
     <div>
       <Header />
       <div>
-        <div>status:</div>
-        <div>{isPosted ? "done" : "you should post"}</div>
+        <h3>Status:</h3>
+        <div>{isPosted ? "done" : "you should post"}</div><br />
+      </div>
+      <div>
+        <h3>Notes:</h3>
+        <div>
+          {notes.length > 0 &&
+            notes.map((note, key) => (
+              <div key={key}>
+                <div>{note.title}</div>
+                <div>{note.body}</div>
+                <div>{note.createdAt}</div>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
