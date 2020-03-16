@@ -32,7 +32,7 @@ export const post = async (req, res) => {
     updatedAt: today,
     user: userId
   });
-  const note = await db("notes")
+  const [note] = await db("notes")
     .where({ id })
     .limit(1);
   res
@@ -50,7 +50,7 @@ export const put = async (req, res) => {
   await db("notes")
     .where({ id })
     .update({ ...payload, updatedAt: today });
-  const note = await db("notes").where({ id });
+  const [note] = await db("notes").where({ id });
   res.send(note);
 };
 
