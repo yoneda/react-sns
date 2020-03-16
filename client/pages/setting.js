@@ -13,7 +13,6 @@ const Setting = props => {
   const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
-    console.log("effect");
     if (isEmpty(user)) loadUser();
     else {
       setShowStatus(user.showStatus);
