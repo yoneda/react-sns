@@ -10,6 +10,16 @@ const page = {
 
 const notes = {
   items: [],
+  create: thunk(async (actions, payload, { getState }) => {
+    const { account, title, body, onSuccess} = payload;
+    const note = await request
+      .post("http://localhost:3000/api/notes")
+      .send({ account, title, body })
+      .then(res => res.body);
+    const { items } = getState();
+    actions.set([...items, note]);
+    onSuccess();
+  }),
   get: thunk(async (actions, payload) => {
     const notes = await request
       .get("http://localhost:3000/api/notes")

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Header from "../components/Header";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import dayjs from "dayjs";
+import Header from "../components/Header";
 
 const isTodayPosted = notes => {
   const preDay = dayjs(dayjs().format("YYYY-M-D"));
@@ -15,7 +15,7 @@ const isTodayPosted = notes => {
   return isPosted;
 };
 
-const Index = props => {
+const Index = () => {
   const loadNotes = useStoreActions(actions => actions.notes.get);
   const notes = useStoreState(state => state.notes.items);
   const isPosted = notes.length > 0 && isTodayPosted(notes);
