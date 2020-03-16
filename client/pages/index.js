@@ -15,23 +15,22 @@ const isTodayPosted = notes => {
   return isPosted;
 };
 
-const Index = ({ val }) => {
-  const pageLoad = useStoreActions(actions => actions.page.load);
-  const [user, notes] = useStoreState(state => [
-    state.user.item,
-    state.notes.items
-  ]);
-  const isPosted = !isEmpty(notes) && isTodayPosted(notes);
+const Index = props => {
+  const loadNotes = useStoreActions(actions => actions.notes.get);
+  const notes = useStoreState(state => state.notes.items);
+  const isPosted = notes.length > 0 && isTodayPosted(notes);
 
   useEffect(() => {
-    if (isEmpty(user) && isEmpty(notes)) pageLoad();
-  }, [user, notes]);
+    if (isEmpty(notes)) loadNotes();
+  }, [notes]);
+
   return (
     <div>
       <Header />
       <div>
         <h3>Status:</h3>
-        <div>{isPosted ? "done" : "you should post"}</div><br />
+        <div>{isPosted ? "done" : "you should post"}</div>
+        <br />
       </div>
       <div>
         <h3>Notes:</h3>
