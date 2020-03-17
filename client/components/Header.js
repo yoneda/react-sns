@@ -6,8 +6,9 @@ const Header = props => (
     <h2>Simple Diary</h2>
     <div>
       <Link href="/"><a>Top</a></Link> |
-      <Link href="/new"><a>New</a></Link> |
-      <Link href="/setting"><a>Setting</a></Link>
+      <Link href="/new"><a itemProp="hello, world">New</a></Link> |
+      <Link href="/setting"><a>Setting</a></Link> |
+      <Link href="/test"><a>Test</a></Link>
     </div>
   </div>
 )

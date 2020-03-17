@@ -4,7 +4,7 @@ import { useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 import Header from "../components/Header";
 
-const New = () => {
+const New = props => {
   const today = dayjs().format("YYYY-M-D");
 
   const [title, setTitle] = useState("");

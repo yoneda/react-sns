@@ -27,8 +27,23 @@ const notes = {
       .then(res => res.body);
     actions.set(notes);
   }),
+  update: thunk(async (actions, payload) => {
+    const { id, title, body, onSuccess } = payload;
+    console.log(payload);
+    const note = request
+      .put(`http://localhost:3000/api/notes/${id}`)
+      .send({ title, body })
+      .then(res => res.body);
+    const notes = await request
+      .get("http://localhost:3000/api/notes")
+      .query({ account: "yoneda" })
+      .then(res => res.body);
+    actions.set(notes);
+    onSuccess();
+  }),
   set: action((state, payload) => {
-    return { ...state, items: payload };
+    // return { ...state, items: payload };
+    state.items = payload;
   })
 };
 
