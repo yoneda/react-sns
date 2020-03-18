@@ -3,8 +3,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import dayjs from "dayjs";
 import Header from "../components/Header";
-import Note from "../components/Note";
-import EditableNote from "../components/EditableNote";
+import NoteList from "../components/NoteList";
 
 const isTodayPosted = notes => {
   const preDay = dayjs(dayjs().format("YYYY-M-D"));
@@ -38,16 +37,14 @@ const Index = () => {
         <br />
       </div>
       <div>
-        <h3>Notes:</h3>
-        <div>
-          {notes.length > 0 &&
-            notes.map((note, key) => <Note key={key} {...note} />)}
-        </div>
+        <h3>Calendar:</h3>
+        <div>work in progress</div>
+        <br />
       </div>
-      <EditableNote
-        {...notes[0]}
-        onSave={()=>{}}
-      />
+      <div>
+        <h3>Notes:</h3>
+        <NoteList notes={notes} updateNote={updateNote} />
+      </div>
     </div>
   );
 };

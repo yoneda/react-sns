@@ -8,7 +8,8 @@ const Header = props => (
       <Link href="/"><a>Top</a></Link> |
       <Link href="/new"><a itemProp="hello, world">New</a></Link> |
       <Link href="/setting"><a>Setting</a></Link> |
-      <Link href="/test"><a>Test</a></Link>
+      <Link href="/register"><a>Register</a></Link> |
+      <Link href="/login"><a>Login</a></Link>
     </div>
   </div>
 )
