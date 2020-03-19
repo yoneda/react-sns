@@ -29,8 +29,7 @@ const notes = {
   }),
   update: thunk(async (actions, payload) => {
     const { id, title, body, onSuccess } = payload;
-    console.log(payload);
-    const note = request
+    const note = await request
       .put(`http://localhost:3000/api/notes/${id}`)
       .send({ title, body })
       .then(res => res.body);
@@ -42,8 +41,7 @@ const notes = {
     onSuccess();
   }),
   set: action((state, payload) => {
-    // return { ...state, items: payload };
-    state.items = payload;
+    return { ...state, items: payload };
   })
 };
 
