@@ -24,7 +24,7 @@ nextApp
 
     // api を定義
     server.get("/api/helth", (req, res) => {
-      res.send({ val: "not ok" });
+      res.send({ val: "ok" });
     });
 
     const sleep = () =>

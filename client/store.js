@@ -1,5 +1,6 @@
 import { createStore, action, thunk, computed } from "easy-peasy";
 import request from "superagent";
+import agent from "./agent";
 
 const page = {
   load: thunk(async (actions, payload, { getStoreActions }) => {
@@ -11,32 +12,20 @@ const page = {
 const notes = {
   items: [],
   create: thunk(async (actions, payload, { getState }) => {
-    const { account, title, body, onSuccess} = payload;
-    const note = await request
-      .post("http://localhost:3000/api/notes")
-      .send({ account, title, body })
-      .then(res => res.body);
+    const { account, title, body, onSuccess } = payload;
+    const note = await agent.Note.post({ account, title, body });
     const { items } = getState();
     actions.set([...items, note]);
     onSuccess();
   }),
   get: thunk(async (actions, payload) => {
-    const notes = await request
-      .get("http://localhost:3000/api/notes")
-      .query({ account: "yoneda" })
-      .then(res => res.body);
+    const notes = await agent.Note.get("yoneda");
     actions.set(notes);
   }),
   update: thunk(async (actions, payload) => {
     const { id, title, body, onSuccess } = payload;
-    const note = await request
-      .put(`http://localhost:3000/api/notes/${id}`)
-      .send({ title, body })
-      .then(res => res.body);
-    const notes = await request
-      .get("http://localhost:3000/api/notes")
-      .query({ account: "yoneda" })
-      .then(res => res.body);
+    const note = await agent.Note.put({ id, title, body });
+    const notes = await agent.Note.get("yoneda");
     actions.set(notes);
     onSuccess();
   }),
