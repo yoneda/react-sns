@@ -1,5 +1,4 @@
 import { createStore, action, thunk, computed } from "easy-peasy";
-import request from "superagent";
 import agent from "./agent";
 
 const page = {
@@ -24,7 +23,7 @@ const notes = {
   }),
   update: thunk(async (actions, payload) => {
     const { id, title, body, onSuccess } = payload;
-    const note = await agent.Note.put({ id, title, body });
+    await agent.Note.put({ id, title, body });
     const notes = await agent.Note.get("yoneda");
     actions.set(notes);
     onSuccess();
@@ -37,17 +36,16 @@ const notes = {
 const user = {
   item: {},
   get: thunk(async (actions, payload) => {
-    const user = await request
-      .get("http://localhost:3000/api/users/yoneda")
-      .then(res => res.body[0]);
+    const user = await agent.User.get("yoneda");
     actions.set(user);
   }),
   update: thunk(async (actions, payload) => {
     const { showStatus, showCalendar } = payload;
-    const user = request
-      .put("http://localhost:3000/api/users/yoneda")
-      .send({ showStatus, showCalendar })
-      .then(res => res.body[0]);
+    const user = await agent.User.put({
+      account: "yoneda",
+      showStatus,
+      showCalendar
+    });
     actions.set(user);
   }),
   set: action((state, payload) => {

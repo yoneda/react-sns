@@ -29,11 +29,19 @@ const Note = {
 };
 
 const User = {
-  get: () => {},
-  put: () => {}
+  get: account =>
+    request.get(`${base}/users/${account}`).then(res => res.body[0]),
+  put: params => {
+    const { account, showStatus, showCalendar } = params;
+    return request
+      .put(`${base}/users/${account}`)
+      .send({ showStatus, showCalendar })
+      .then(res => res.body[0]);
+  }
 };
 
 export default {
+  Helth,
   Note,
   User
 };
