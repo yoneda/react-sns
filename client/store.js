@@ -1,13 +1,6 @@
 import { createStore, action, thunk, computed } from "easy-peasy";
 import agent from "./agent";
 
-const page = {
-  load: thunk(async (actions, payload, { getStoreActions }) => {
-    await getStoreActions().notes.get();
-    await getStoreActions().user.get();
-  })
-};
-
 const notes = {
   items: [],
   create: thunk(async (actions, payload, { getState }) => {
@@ -53,6 +46,6 @@ const user = {
   })
 };
 
-const store = createStore({ page, user, notes });
+const store = createStore({ user, notes });
 
 export default store;
