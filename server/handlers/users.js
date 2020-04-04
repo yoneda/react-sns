@@ -17,8 +17,8 @@ export const post = async (req, res) => {
     account,
     pass,
     showCalendar: true,
-    editDate: false,
-    calendarStartWith: 0,
+    showDateEditor: false,
+    calendarStart: 0,
     bio: "hi",
   });
   const user = await db("users").where({ id }).limit(1);
@@ -33,8 +33,8 @@ export const put = async (req, res) => {
     "mail",
     "pass",
     "showCalendar",
-    "editDate",
-    "calendarStartWith",
+    "showDateEditor",
+    "calendarStart",
     "bio",
   ]);
   await db("users").where({ account }).update(payload);

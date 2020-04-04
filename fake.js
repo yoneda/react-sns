@@ -13,8 +13,8 @@ const fake = {
       pass: "yonedapass",
       account: "yoneda",
       showCalendar: true,
-      editDate: false,
-      calendarStartWith: 0, // TODO: 0:日曜はじまり、1:月曜はじまりだと定義。あとで詳しく調べて修正する。
+      showDateEditor: false,
+      calendarStart: 0, // TODO: 0:日曜はじまり、1:月曜はじまりだと定義。あとで詳しく調べて修正する。
       bio: "hello",
     },
     {
@@ -23,8 +23,8 @@ const fake = {
       pass: "tanakapass",
       account: "tanaka",
       showCalendar: true,
-      editDate: false,
-      calendarStartWith: 0,
+      showDateEditor: false,
+      calendarStart: 0,
       bio: "hi",
     }
   ],

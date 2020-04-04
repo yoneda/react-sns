@@ -19,7 +19,7 @@ const notes = {
     await agent.Note.put({ id, title, body });
     const notes = await agent.Note.get("yoneda");
     actions.set(notes);
-    onSuccess();
+    if (onSuccess !== undefined) onSuccess();
   }),
   set: action((state, payload) => {
     return { ...state, items: payload };
@@ -33,15 +33,26 @@ const user = {
     actions.set(user);
   }),
   update: thunk(async (actions, payload) => {
-    const { mail, pass, bio, onSuccess } = payload;
+    const {
+      mail,
+      pass,
+      bio,
+      showCalendar,
+      showDateEditor,
+      calendarStart,
+      onSuccess,
+    } = payload;
     const user = await agent.User.put({
       account: "yoneda",
       mail,
       pass,
       bio,
+      showCalendar,
+      showDateEditor,
+      calendarStart,
     });
     actions.set(user);
-    onSuccess();
+    if (onSuccess !== undefined) onSuccess();
   }),
   set: action((state, payload) => {
     return { ...state, item: payload };

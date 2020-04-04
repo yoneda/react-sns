@@ -6,8 +6,8 @@ exports.up = function(knex) {
       table.string("pass");
       table.string("account");
       table.boolean("showCalendar");
-      table.boolean("editDate");
-      table.integer("calendarStartWith");
+      table.boolean("showDateEditor");
+      table.integer("calendarStart");
       table.string("bio");
     })
     .createTable("notes", table => {

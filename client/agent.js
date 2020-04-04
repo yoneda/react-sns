@@ -32,10 +32,18 @@ const User = {
   get: (account) =>
     request.get(`${base}/users/${account}`).then((res) => res.body[0]),
   put: (params) => {
-    const { account, mail, pass, bio } = params;
+    const {
+      account,
+      mail,
+      pass,
+      bio,
+      showCalendar,
+      showDateEditor,
+      calendarStart,
+    } = params;
     return request
       .put(`${base}/users/${account}`)
-      .send({ mail, pass, bio })
+      .send({ mail, pass, bio, showCalendar, showDateEditor, calendarStart })
       .then((res) => res.body[0]);
   },
 };

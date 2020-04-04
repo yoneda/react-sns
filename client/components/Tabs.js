@@ -31,7 +31,7 @@ export const Tabs = (props) => {
 export const TabPanel = (props) => {
   const { children } = props;
   return (
-    <div style={{ width: "400px", backgroundColor: "white", border: "1px solid" }}>
+    <div style={{ width: "300px", backgroundColor: "white", border: "1px solid" }}>
       {children}
     </div>
   );

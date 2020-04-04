@@ -131,3 +131,42 @@ export const PassChanger = () => {
     </Fragment>
   );
 };
+
+export const OtherChanger = (props) => {
+  const { showCalendar, showDateEditor, calendarStart } = useStoreState(
+    (state) => state.user.item
+  );
+  const updateUser = useStoreActions((actions) => actions.user.update);
+  return (
+    <Fragment>
+      <div>その他</div>
+      <div>カレンダーを表示</div>
+      <input
+        type="checkbox"
+        checked={showCalendar}
+        onChange={() => updateUser({ showCalendar: !showCalendar })}
+      />
+      <div>日付変更可能か</div>
+      <input
+        type="checkbox"
+        checked={showDateEditor}
+        onChange={() => updateUser({ showDateEditor: !showDateEditor })}
+      />
+      <div>カレンダーのはじまり</div>
+      <input
+        type="checkbox"
+        checked={calendarStart === 0}
+        onChange={() => updateUser({ calendarStart: 0 })}
+      />
+      <span>日曜</span>
+      <br />
+      <input
+        type="checkbox"
+        checked={calendarStart === 1}
+        onChange={() => updateUser({ calendarStart: 1 })}
+      />
+      <span>月曜</span>
+      <br />
+    </Fragment>
+  );
+};
