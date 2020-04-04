@@ -23,7 +23,7 @@ const notes = {
   }),
   set: action((state, payload) => {
     return { ...state, items: payload };
-  })
+  }),
 };
 
 const user = {
@@ -33,17 +33,18 @@ const user = {
     actions.set(user);
   }),
   update: thunk(async (actions, payload) => {
-    const { showStatus, showCalendar } = payload;
+    console.log(payload);
+    const { pass, onSuccess } = payload;
     const user = await agent.User.put({
       account: "yoneda",
-      showStatus,
-      showCalendar
+      pass,
     });
     actions.set(user);
+    onSuccess();
   }),
   set: action((state, payload) => {
     return { ...state, item: payload };
-  })
+  }),
 };
 
 const store = createStore({ user, notes });

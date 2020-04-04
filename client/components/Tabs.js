@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-const TabItem = props => {
+const TabItem = (props) => {
   const { title, isSelected } = props;
   if (isSelected) {
     return <span style={{ fontWeight: "bold" }}>{title}</span>;
@@ -8,7 +8,7 @@ const TabItem = props => {
   return <span>{title}</span>;
 };
 
-export const Tabs = props => {
+export const Tabs = (props) => {
   const { titles, tabIndex, tabOnClick } = props;
   return (
     <div
@@ -24,6 +24,15 @@ export const Tabs = props => {
           <br />
         </div>
       ))}
+    </div>
+  );
+};
+
+export const TabPanel = (props) => {
+  const { children } = props;
+  return (
+    <div style={{ width: "400px", backgroundColor: "white", border: "1px solid" }}>
+      {children}
     </div>
   );
 };
