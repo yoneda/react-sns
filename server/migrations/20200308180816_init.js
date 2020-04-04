@@ -5,8 +5,9 @@ exports.up = function(knex) {
       table.string("mail");
       table.string("pass");
       table.string("account");
-      table.boolean("showStatus");
       table.boolean("showCalendar");
+      table.boolean("editDate");
+      table.integer("calendarStartWith")
     })
     .createTable("notes", table => {
       table.increments("id");

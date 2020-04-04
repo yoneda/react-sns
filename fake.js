@@ -12,16 +12,18 @@ const fake = {
       mail: "yoneda@yoneda.com",
       pass: "yonedapass",
       account: "yoneda",
-      showStatus: true,
-      showCalendar: true
+      showCalendar: true,
+      editDate: false,
+      calendarStartWith: 0, // TODO: 0:日曜はじまり、1:月曜はじまりだと定義。あとで詳しく調べて修正する。
     },
     {
       id: 2,
       mail: "tanaka@tanaka.com",
       pass: "tanakapass",
       account: "tanaka",
-      showStatus: false,
-      showCalendar: false
+      showCalendar: true,
+      editDate: false,
+      calendarStartWith: 0,
     }
   ],
   notes: [
