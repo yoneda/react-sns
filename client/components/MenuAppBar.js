@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from "@material-ui/core";
 const MenuAppBar = props => {
   const { num, name } = props;
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
         <Typography>Simple Diary</Typography>
       </Toolbar>

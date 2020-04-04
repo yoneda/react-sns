@@ -3,9 +3,11 @@ import store from "../store";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <StoreProvider store={store}>
-      <Component {...pageProps} />
-    </StoreProvider>
+    <div style={{ backgroundColor: "lightgray" }}>
+      <StoreProvider store={store}>
+        <Component {...pageProps} />
+      </StoreProvider>
+    </div>
   );
 };
 
