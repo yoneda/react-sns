@@ -5,43 +5,43 @@ import request from "superagent";
 const base = "http://localhost:3000/api";
 
 const Helth = {
-  get: () => request.get(`${base}/helth`)
+  get: () => request.get(`${base}/helth`),
 };
 
 const Note = {
-  get: account =>
+  get: (account) =>
     request
       .get(`${base}/notes`)
       .query({ account })
-      .then(res => res.body), // TODO: ここで返り値の型を指定したいところ
-  post: params =>
+      .then((res) => res.body), // TODO: ここで返り値の型を指定したいところ
+  post: (params) =>
     request
       .post(`${base}/notes`)
       .send(params)
-      .then(res => res.body), // TODO: ここで返り値の型を指定したいところ
-  put: params => {
+      .then((res) => res.body), // TODO: ここで返り値の型を指定したいところ
+  put: (params) => {
     const { id, title, body } = params;
     return request
       .put(`${base}/notes/${id}`)
       .send({ title, body })
-      .then(res => res.body); // TODO: ここで返り値の型を指定したいところ
-  }
+      .then((res) => res.body); // TODO: ここで返り値の型を指定したいところ
+  },
 };
 
 const User = {
-  get: account =>
-    request.get(`${base}/users/${account}`).then(res => res.body[0]),
-  put: params => {
-    const { account, pass } = params;
+  get: (account) =>
+    request.get(`${base}/users/${account}`).then((res) => res.body[0]),
+  put: (params) => {
+    const { account, mail, pass } = params;
     return request
       .put(`${base}/users/${account}`)
-      .send({ pass })
-      .then(res => res.body[0]);
-  }
+      .send({ mail, pass })
+      .then((res) => res.body[0]);
+  },
 };
 
 export default {
   Helth,
   Note,
-  User
+  User,
 };

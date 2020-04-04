@@ -33,10 +33,10 @@ const user = {
     actions.set(user);
   }),
   update: thunk(async (actions, payload) => {
-    console.log(payload);
-    const { pass, onSuccess } = payload;
+    const { mail, pass, onSuccess } = payload;
     const user = await agent.User.put({
       account: "yoneda",
+      mail,
       pass,
     });
     actions.set(user);
