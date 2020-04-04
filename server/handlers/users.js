@@ -16,26 +16,26 @@ export const post = async (req, res) => {
     mail,
     account,
     pass,
-    showStatus: true,
-    showCalendar: true
+    showCalendar: true,
+    editDate: false,
+    calendarStartWith: 0,
   });
-  const user = await db("users")
-    .where({ id })
-    .limit(1);
-  res
-    .status(201)
-    .location("location")
-    .send(user);
+  const user = await db("users").where({ id }).limit(1);
+  res.status(201).location("location").send(user);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
 export const put = async (req, res) => {
   const { account } = req.params;
-  const payload = pick(req.body, ["mail", "pass", "showStatus", "showCalendar"]);
-  await db("users")
-    .where({ account })
-    .update(payload);
+  const payload = pick(req.body, [
+    "mail",
+    "pass",
+    "showCalendar",
+    "editDate",
+    "calendarStartWith",
+  ]);
+  await db("users").where({ account }).update(payload);
   const user = await db("users").where({ account });
   res.send(user);
   // TODO: メールアドレスも変更できるように修正
@@ -45,9 +45,7 @@ export const put = async (req, res) => {
 
 export const remove = async (req, res) => {
   const { account } = req.params;
-  const num = await db("users")
-    .where({ account: account })
-    .del();
+  const num = await db("users").where({ account: account }).del();
   if (!num) {
     throw new Error(`Not found that account is ${account} in this database.`);
   }
