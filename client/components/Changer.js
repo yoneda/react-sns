@@ -11,14 +11,42 @@ export const ThemeChanger = () => (
   </Fragment>
 );
 
+export const ProfileChanger = () => {
+  const user = useStoreState((state) => state.user.item);
+  const [bio, setBio] = useState(isEmpty(user) ? "" : user.bio);
+  const updateUser = useStoreActions((actions) => actions.user.update);
+  const onSuccess = () => Router.push("/"); // TODO:成功したましたというToastを表示する
+
+  return (
+    <Fragment>
+      <div>プロフィール変更</div>
+      <input
+        type="text"
+        value={bio}
+        placeholder="bio"
+        onChange={(e) => setBio(e.target.value)}
+      />
+      <br />
+      <button
+        onClick={() => {
+          updateUser({ bio, onSuccess });
+        }}
+      >
+        save
+      </button>
+    </Fragment>
+  );
+};
+
 export const MailChanger = () => {
-  const [mail, setMail] = useState("");
+  const user = useStoreState((state) => state.user.item);
+  const [mail, setMail] = useState(isEmpty(user) ? "" : user.mail);
   const [error, setError] = useState("");
   const updateUser = useStoreActions((actions) => actions.user.update);
   const onSuccess = () => Router.push("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
-    setMail("");
+    setMail(user.mail);
   };
 
   return (

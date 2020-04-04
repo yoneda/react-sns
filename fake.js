@@ -15,6 +15,7 @@ const fake = {
       showCalendar: true,
       editDate: false,
       calendarStartWith: 0, // TODO: 0:日曜はじまり、1:月曜はじまりだと定義。あとで詳しく調べて修正する。
+      bio: "hello",
     },
     {
       id: 2,
@@ -24,6 +25,7 @@ const fake = {
       showCalendar: true,
       editDate: false,
       calendarStartWith: 0,
+      bio: "hi",
     }
   ],
   notes: [

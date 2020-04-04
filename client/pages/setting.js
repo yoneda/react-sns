@@ -4,7 +4,12 @@ import { Container } from "@material-ui/core";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import { Tabs, TabPanel } from "../components/Tabs";
-import { ThemeChanger, PassChanger, MailChanger } from "../components/Changer";
+import {
+  ThemeChanger,
+  PassChanger,
+  MailChanger,
+  ProfileChanger,
+} from "../components/Changer";
 
 const Setting = (props) => {
   const user = useStoreState((state) => state.user.item);
@@ -53,7 +58,11 @@ const Setting = (props) => {
               <PassChanger />
             </TabPanel>
           )}
-          {tabIndex === 2 && <TabPanel>ccc</TabPanel>}
+          {tabIndex === 2 && (
+            <TabPanel>
+              <ProfileChanger />
+            </TabPanel>
+          )}
           {tabIndex === 3 && (
             <TabPanel>
               <ThemeChanger />

@@ -5,10 +5,10 @@ import dayjs from "dayjs";
 import Header from "../components/Header";
 import NoteList from "../components/NoteList";
 
-const isTodayPosted = notes => {
+const isTodayPosted = (notes) => {
   const preDay = dayjs(dayjs().format("YYYY-M-D"));
   const nextDay = preDay.add(1, "day");
-  const isPosted = notes.some(note => {
+  const isPosted = notes.some((note) => {
     const noteDay = dayjs(note.updatedAt);
     const isSame = noteDay.isAfter(preDay) && noteDay.isBefore(nextDay);
     return isSame;
@@ -17,15 +17,19 @@ const isTodayPosted = notes => {
 };
 
 const Index = () => {
-  const [loadNotes, updateNote] = useStoreActions(actions => [
+  const [loadUser, loadNotes, updateNote] = useStoreActions((actions) => [
+    actions.user.get,
     actions.notes.get,
-    actions.notes.update
+    actions.notes.update,
   ]);
-  const notes = useStoreState(state => state.notes.items);
+  const notes = useStoreState((state) => state.notes.items);
   const isPosted = notes.length > 0 && isTodayPosted(notes);
 
   useEffect(() => {
-    if (isEmpty(notes)) loadNotes();
+    if (isEmpty(notes)) {
+      loadNotes();
+      loadUser();
+    }
   }, [notes]);
 
   return (

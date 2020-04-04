@@ -19,6 +19,7 @@ export const post = async (req, res) => {
     showCalendar: true,
     editDate: false,
     calendarStartWith: 0,
+    bio: "hi",
   });
   const user = await db("users").where({ id }).limit(1);
   res.status(201).location("location").send(user);
@@ -34,6 +35,7 @@ export const put = async (req, res) => {
     "showCalendar",
     "editDate",
     "calendarStartWith",
+    "bio",
   ]);
   await db("users").where({ account }).update(payload);
   const user = await db("users").where({ account });
