@@ -7,6 +7,13 @@ import { Tabs, TabPanel } from "../components/Tabs";
 import { isLength } from "validator";
 import Router from "next/router";
 
+const ThemeChanger = () => (
+  <Fragment>
+    <div>テーマ変更</div>
+    <div>comming soon!</div>
+  </Fragment>
+);
+
 const PassChanger = () => {
   const [current, setCurrent] = useState("");
   const [future, setFuture] = useState("");
@@ -108,7 +115,11 @@ const Setting = (props) => {
             </TabPanel>
           )}
           {tabIndex === 2 && <TabPanel>ccc</TabPanel>}
-          {tabIndex === 3 && <TabPanel>ddd</TabPanel>}
+          {tabIndex === 3 && (
+            <TabPanel>
+              <ThemeChanger />
+            </TabPanel>
+          )}
           {tabIndex === 4 && <TabPanel>eee</TabPanel>}
           <div>Show status:</div>
           <input
