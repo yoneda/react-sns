@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Router from "next/router";
 import { useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
-import Header from "../components/Header";
 
 const New = props => {
   const today = dayjs().format("YYYY-M-D");
@@ -14,7 +13,6 @@ const New = props => {
 
   return (
     <div>
-      <Header />
       <h3>New:</h3>
       <div>{today}</div>
       <div>

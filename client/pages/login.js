@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
 import { Button } from "@material-ui/core";
 
 const Register = props => {
@@ -8,7 +7,6 @@ const Register = props => {
 
   return (
     <div>
-      <Header />
       <h3>login:</h3>
       <input
         type="text"

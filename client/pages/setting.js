@@ -7,7 +7,6 @@ import {
   ProfileChanger,
   OtherChanger,
 } from "../components/Changer";
-import Header from "../components/Header";
 
 const Setting = (props) => {
   // MEMO: 複雑さ回避のため、userはホームで読み込まれてる前提で進める
@@ -21,7 +20,6 @@ const Setting = (props) => {
   ];
   return (
     <Fragment>
-      <Header />
       <Tabs
         tabOnClick={(index) => setTabIndex(index)}
         {...{ titles, tabIndex }}

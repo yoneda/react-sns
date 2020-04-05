@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
 
 const Register = props => {
   const [mail, setMail] = useState("");
@@ -8,7 +7,6 @@ const Register = props => {
 
   return (
     <div>
-      <Header />
       <h3>register:</h3>
       <input
         type="text"

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
 import dayjs from "dayjs";
-import Header from "../components/Header";
 import NoteList from "../components/NoteList";
 
 const isTodayPosted = (notes) => {
@@ -23,7 +22,6 @@ const Index = () => {
     actions.notes.update,
   ]);
   const notes = useStoreState((state) => state.notes.items);
-  const isPosted = notes.length > 0 && isTodayPosted(notes);
 
   useEffect(() => {
     if (isEmpty(notes)) {
@@ -34,12 +32,6 @@ const Index = () => {
 
   return (
     <div>
-      <Header />
-      <div>
-        <h3>Status:</h3>
-        <div>{isPosted ? "done" : "you should post"}</div>
-        <br />
-      </div>
       <div>
         <h3>Calendar:</h3>
         <div>work in progress</div>
