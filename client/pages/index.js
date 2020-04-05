@@ -1,19 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
-import dayjs from "dayjs";
 import NoteList from "../components/NoteList";
-
-const isTodayPosted = (notes) => {
-  const preDay = dayjs(dayjs().format("YYYY-M-D"));
-  const nextDay = preDay.add(1, "day");
-  const isPosted = notes.some((note) => {
-    const noteDay = dayjs(note.updatedAt);
-    const isSame = noteDay.isAfter(preDay) && noteDay.isBefore(nextDay);
-    return isSame;
-  });
-  return isPosted;
-};
+import EditorModal from "../components/EditorModal";
 
 const Index = () => {
   const [loadUser, loadNotes, updateNote] = useStoreActions((actions) => [
@@ -22,6 +11,8 @@ const Index = () => {
     actions.notes.update,
   ]);
   const notes = useStoreState((state) => state.notes.items);
+
+  const [operateIndex, setOperateIndex] = useState(-1);
 
   useEffect(() => {
     if (isEmpty(notes)) {
@@ -39,8 +30,25 @@ const Index = () => {
       </div>
       <div>
         <h3>Notes:</h3>
-        <NoteList notes={notes} updateNote={updateNote} />
+        <NoteList
+          notes={notes}
+          operateHandler={(index) => setOperateIndex(index)}
+        />
       </div>
+      {operateIndex >= 0 && (
+        <EditorModal
+          datetime={notes[operateIndex].createdAt}
+          body={notes[operateIndex].body}
+          closeHandler={() => setOperateIndex(-1)}
+          saveHandler={(text) =>
+            updateNote({
+              id: notes[operateIndex].id,
+              body: text,
+              onSuccess: () => setOperateIndex(-1),
+            })
+          }
+        />
+      )}
     </div>
   );
 };
