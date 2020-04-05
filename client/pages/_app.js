@@ -3,9 +3,11 @@ import { StoreProvider } from "easy-peasy";
 import store from "../store";
 import Header from "../components/Header";
 import EditorModal from "../components/EditorModal";
+import { useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 
 const MyApp = ({ Component, pageProps }) => {
+  const createNote = store.getActions().notes.create;
   const [open, setOpen] = useState(false);
   const today = dayjs().format("YYYY-M-D");
   return (
@@ -18,7 +20,13 @@ const MyApp = ({ Component, pageProps }) => {
           datetime={today}
           text=""
           closeHandler={() => setOpen(false)}
-          saveHandler={(text) => console.log(text)}
+          saveHandler={(text) =>
+            createNote({
+              account: "yoneda",
+              body: text,
+              onSuccess: () => setOpen(false),
+            })
+          }
         />
       )}
       <StoreProvider store={store}>
