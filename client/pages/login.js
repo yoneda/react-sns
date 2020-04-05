@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
 
 const Register = props => {
   const [mail, setMail] = useState("");
@@ -23,10 +22,6 @@ const Register = props => {
       />
       <br />
       <button onClick={() => {}}>send</button>
-      <br />
-      <Button variant="contained" color="primary">
-        Hello, World
-      </Button>
     </div>
   );
 };
