@@ -36,6 +36,7 @@
     "react-dom": "^16.13.0",
     "sqlite3": "^4.1.1",
     "superagent": "^5.2.2",
+    "tabler-react": "^2.0.0-alpha.1",
     "validator": "^13.0.0"
   },
   "devDependencies": {

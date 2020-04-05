@@ -10,7 +10,7 @@ const MyApp = ({ Component, pageProps }) => {
   const [open, setOpen] = useState(false);
   const today = dayjs().format("YYYY-M-D");
   return (
-    <div style={{ backgroundColor: "lightgray" }}>
+    <div>
       <Header>
         <button onClick={() => setOpen(!open)}>add</button>
       </Header>
