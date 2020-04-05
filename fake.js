@@ -31,7 +31,6 @@ const fake = {
   notes: [
     {
       id: 1,
-      title: "test note",
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
@@ -39,7 +38,6 @@ const fake = {
     },
     {
       id: 2,
-      title: "test note 2",
       body: "text text text 2",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
@@ -47,7 +45,6 @@ const fake = {
     },
     {
       id: 3,
-      title: "test note",
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),

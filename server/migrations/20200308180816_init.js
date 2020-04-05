@@ -12,7 +12,6 @@ exports.up = function(knex) {
     })
     .createTable("notes", table => {
       table.increments("id");
-      table.string("title");
       table.string("body");
       table.datetime("createdAt");
       table.datetime("updatedAt");

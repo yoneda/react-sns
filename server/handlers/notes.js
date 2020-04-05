@@ -10,7 +10,6 @@ export const get = async (req, res) => {
     .where("users.account", account)
     .select(
       "notes.id",
-      "notes.title",
       "notes.body",
       "notes.createdAt",
       "notes.updatedAt",
@@ -20,13 +19,12 @@ export const get = async (req, res) => {
 };
 
 export const post = async (req, res) => {
-  const { account, title, body } = req.body;
+  const { account,  body } = req.body;
   const [{ id: userId }] = await db("users")
     .select("id")
     .where({ account });
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("notes").insert({
-    title,
     body,
     createdAt: today,
     updatedAt: today,
@@ -45,7 +43,7 @@ export const post = async (req, res) => {
 
 export const put = async (req, res) => {
   const { id } = req.params;
-  const payload = pick(req.body, ["title", "body"]);
+  const payload = pick(req.body, ["body"]);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   await db("notes")
     .where({ id })
