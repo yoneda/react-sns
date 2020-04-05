@@ -1,12 +1,14 @@
 import React from "react";
 
-const Note = props => {
+const Note = (props) => {
   const { body, createdAt, onEdit } = props;
   return (
-    <div>
-      <div>{body}</div>
+    <div
+      style={{ border: "1px solid", width: "300px", cursor: "pointer" }}
+      onClick={() => onEdit()}
+    >
       <div>{createdAt}</div>
-      <button onClick={() => onEdit()}>edit</button>
+      <div>{body}</div>
     </div>
   );
 };

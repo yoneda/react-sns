@@ -6,12 +6,15 @@ const NoteList = (props) => {
   return (
     <Fragment>
       {notes.map((note, index) => (
-        <Note
-          key={index}
-          body={note.body}
-          createdAt={note.createdAt}
-          onEdit={() => operateHandler(index)}
-        />
+        <Fragment>
+          <Note
+            key={index}
+            body={note.body}
+            createdAt={note.createdAt}
+            onEdit={() => operateHandler(index)}
+          />
+          <br />
+        </Fragment>
       ))}
     </Fragment>
   );
