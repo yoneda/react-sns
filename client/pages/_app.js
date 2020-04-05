@@ -3,7 +3,6 @@ import { StoreProvider } from "easy-peasy";
 import store from "../store";
 import Header from "../components/Header";
 import EditorModal from "../components/EditorModal";
-import { useStoreActions } from "easy-peasy";
 import dayjs from "dayjs";
 
 const MyApp = ({ Component, pageProps }) => {
