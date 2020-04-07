@@ -24,11 +24,6 @@ const Index = () => {
   return (
     <div>
       <div>
-        <h3>Calendar:</h3>
-        <div>work in progress</div>
-        <br />
-      </div>
-      <div>
         <h3>Notes:</h3>
         <NoteList
           notes={notes}

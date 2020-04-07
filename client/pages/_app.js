@@ -13,6 +13,7 @@ const MyApp = ({ Component, pageProps }) => {
     <div>
       <Header>
         <button onClick={() => setOpen(!open)}>add</button>
+        <button onClick={() => setOpen(!open)}>menu</button>
       </Header>
       {open && (
         <EditorModal

@@ -20,11 +20,12 @@ const Setting = (props) => {
   ];
   return (
     <Fragment>
+      <h3>Tabs</h3>
       <Tabs
         tabOnClick={(index) => setTabIndex(index)}
         {...{ titles, tabIndex }}
       />
-      <br />
+      <h3>Panel</h3>
       {tabIndex === 0 && (
         <TabPanel>
           <MailChanger />
