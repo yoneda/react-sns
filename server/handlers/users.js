@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const db = require("../db");
 import { pick } from "lodash";
 
@@ -12,10 +14,11 @@ export const get = async (req, res) => {
 
 export const post = async (req, res) => {
   const { mail, account, pass } = req.body;
+  const hashed = await bcrypt.hash(pass, 12);
   const [id] = await db("users").insert({
     mail,
     account,
-    pass,
+    pass: hashed,
     showCalendar: true,
     showDateEditor: false,
     calendarStart: 0,
@@ -52,4 +55,29 @@ export const remove = async (req, res) => {
     throw new Error(`Not found that account is ${account} in this database.`);
   }
   res.status(200).send({ message: "User has been deleted successfully." });
+};
+
+export const login = async (req, res) => {
+  const { mail, pass } = req.body;
+  const user = await db("users")
+    .where({ mail })
+    .then((users) => {
+      if (users.length === 1) {
+        return users[0];
+      } else {
+        throw new Error("any users not found");
+      }
+    })
+    .catch((err) => {
+      return res.status(401).json({ error: "incorrect email or password" });
+    });
+  const isMatch = await bcrypt.compare(pass, user.pass);
+  if (!isMatch) {
+    return res.status(401).json({ error: "incorrect email or password" });
+  }
+  const payload = { mail };
+  const secret = process.env.SECRET;
+  console.log(secret);
+  const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+  res.cookie("token", token, { httpOnly: true }).sendStatus(200);
 };

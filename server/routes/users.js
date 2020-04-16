@@ -9,4 +9,6 @@ router.post("/", asyncHandler(users.post));
 router.put("/:account", asyncHandler(users.put));
 router.delete("/:account", asyncHandler(users.remove));
 
+router.post("/login", asyncHandler(users.login));
+
 export default router;
