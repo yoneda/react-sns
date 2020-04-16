@@ -27,43 +27,11 @@ nextApp
       res.send({ val: "ok" });
     });
 
-    const sleep = () =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve("ok");
-        }, 1000);
-      });
-
-    server.get(
-      "/continue",
-      asyncHandler(async (req, res, next) => {
-        await sleep();
-        console.log("hello");
-        next();
-      }),
-      asyncHandler(async (req, res, next) => {
-        await sleep();
-        console.log("world");
-        next();
-      }),
-      asyncHandler(async (req, res, next) => {
-        await sleep();
-        console.log("express");
-        res.send("javascript");
-      })
-    );
-
     server.use("/api", routes);
 
     // その他はすべてNextのrouterに飛ばす
     server.get("*", (req, res) => {
       return handle(req, res);
-    });
-
-    server.post("/bodyTest", (req, res, next) => {
-      console.log(req.body);
-      console.log("hogehoge");
-      res.send("aa");
     });
 
     server.listen(3000, err => {
