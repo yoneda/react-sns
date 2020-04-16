@@ -10,7 +10,7 @@ const fake = {
     {
       id: 1,
       mail: "yoneda@yoneda.com",
-      pass: "yonedapass",
+      pass: "yoneda",
       account: "yoneda",
       showCalendar: true,
       showDateEditor: false,
@@ -20,7 +20,7 @@ const fake = {
     {
       id: 2,
       mail: "tanaka@tanaka.com",
-      pass: "tanakapass",
+      pass: "tanaka",
       account: "tanaka",
       showCalendar: true,
       showDateEditor: false,
