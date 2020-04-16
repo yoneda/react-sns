@@ -4,12 +4,7 @@ const env = require("dotenv");
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev, dir: "./client" });
 const handle = nextApp.getRequestHandler();
-
-const db = require("./db");
-const asyncHandler = require("express-async-handler");
 import routes from "./routes";
-
-import getUserData from "./util/getUser";
 
 nextApp
   .prepare()
