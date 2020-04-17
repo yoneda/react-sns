@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import LandingWrapper from "../components/LandingWrapper";
 
-const Login = (props) => {
+const Signup = (props) => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
+  const [account, setAccount] = useState("");
 
   return (
     <div>
       <LandingWrapper>
-        <h3>login:</h3>
+        <h3>signup:</h3>
         <input
           type="text"
           onChange={(e) => setMail(e.target.value)}
@@ -23,10 +24,17 @@ const Login = (props) => {
           placeholder="pass"
         />
         <br />
+        <input
+          type="text"
+          onChange={(e) => setAccount(e.target.value)}
+          value={account}
+          placeholder="account"
+        />
+        <br />
         <button onClick={() => {}}>send</button>
       </LandingWrapper>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
