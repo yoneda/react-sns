@@ -34,6 +34,7 @@ function AppWrapper(props) {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const today = dayjs().format("YYYY-M-D");
+
   return (
     <div>
       <Header>

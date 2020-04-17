@@ -7,7 +7,6 @@ exports.seed = async function (knex) {
     user.pass = await bcrypt.hash(user.pass,12);
     users.push(user);
   }
-  console.log(users);
   await knex("users").del();
   await knex("users").insert(users);
 };

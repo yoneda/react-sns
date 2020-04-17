@@ -22,37 +22,37 @@ const Setting = (props) => {
   return (
     <Fragment>
       <AppWrapper>
-        <h3>Tabs</h3>
-        <Tabs
-          tabOnClick={(index) => setTabIndex(index)}
-          {...{ titles, tabIndex }}
-        />
-        <h3>Panel</h3>
-        {tabIndex === 0 && (
-          <TabPanel>
-            <MailChanger />
-          </TabPanel>
-        )}
-        {tabIndex === 1 && (
-          <TabPanel>
-            <PassChanger />
-          </TabPanel>
-        )}
-        {tabIndex === 2 && (
-          <TabPanel>
-            <ProfileChanger />
-          </TabPanel>
-        )}
-        {tabIndex === 3 && (
-          <TabPanel>
-            <ThemeChanger />
-          </TabPanel>
-        )}
-        {tabIndex === 4 && (
-          <TabPanel>
-            <OtherChanger />
-          </TabPanel>
-        )}
+          <h3>Tabs</h3>
+          <Tabs
+            tabOnClick={(index) => setTabIndex(index)}
+            {...{ titles, tabIndex }}
+          />
+          <h3>Panel</h3>
+          {tabIndex === 0 && (
+            <TabPanel>
+              <MailChanger />
+            </TabPanel>
+          )}
+          {tabIndex === 1 && (
+            <TabPanel>
+              <PassChanger />
+            </TabPanel>
+          )}
+          {tabIndex === 2 && (
+            <TabPanel>
+              <ProfileChanger />
+            </TabPanel>
+          )}
+          {tabIndex === 3 && (
+            <TabPanel>
+              <ThemeChanger />
+            </TabPanel>
+          )}
+          {tabIndex === 4 && (
+            <TabPanel>
+              <OtherChanger />
+            </TabPanel>
+          )}
       </AppWrapper>
     </Fragment>
   );

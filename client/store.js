@@ -11,7 +11,8 @@ const notes = {
     onSuccess();
   }),
   get: thunk(async (actions, payload) => {
-    const notes = await agent.Note.get("yoneda");
+    const account = payload;
+    const notes = await agent.Note.get(account);
     actions.set(notes);
   }),
   update: thunk(async (actions, payload) => {
@@ -87,6 +88,6 @@ const app = {
     return { ...state, isAuth: payload };
   }),
 };
-const store = createStore({ user, notes, app});
+const store = createStore({ user, notes, app });
 
 export default store;
