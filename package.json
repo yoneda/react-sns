@@ -21,6 +21,7 @@
   "homepage": "https://github.com/yoneda/simple-dialry#readme",
   "dependencies": {
     "bcrypt": "3.0.0",
+    "cookie-parser": "^1.4.5",
     "dayjs": "^1.8.22",
     "dotenv": "^8.2.0",
     "easy-peasy": "^3.3.0",

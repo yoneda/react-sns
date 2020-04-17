@@ -4,8 +4,8 @@ const db = require("../db");
 import { pick } from "lodash";
 
 export const get = async (req, res) => {
-  const { account } = req.params;
-  const user = await db("users").where({ account: account });
+  const mail = req.mail;
+  const user = await db("users").where({ mail });
   if (user && user.length === 0) {
     res.status(404).send({ message: "not found" });
   }
@@ -77,7 +77,6 @@ export const login = async (req, res) => {
   }
   const payload = { mail };
   const secret = process.env.SECRET;
-  console.log(secret);
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
   res.cookie("token", token, { httpOnly: true }).sendStatus(200);
 };

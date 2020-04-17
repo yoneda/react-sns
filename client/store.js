@@ -54,6 +54,13 @@ const user = {
     actions.set(user);
     if (onSuccess !== undefined) onSuccess();
   }),
+  login: thunk(async (actions, payload) => {
+    const { mail, pass, onSuccess} = payload;
+    const isSuccess = await agent.User.login({mail, pass});
+    if(!isSuccess) return;
+    const user = await agent.User.get();
+    actions.set(user);
+  }),
   set: action((state, payload) => {
     return { ...state, item: payload };
   }),

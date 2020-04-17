@@ -5,6 +5,9 @@ const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev, dir: "./client" });
 const handle = nextApp.getRequestHandler();
 import routes from "./routes";
+import cookieParser from "cookie-parser";
+import asyncHandler from "express-async-handler";
+import auth from "./handlers/auth";
 
 nextApp
   .prepare()
@@ -14,6 +17,8 @@ nextApp
 
     const server = express();
 
+    server.use(cookieParser());
+
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +27,14 @@ nextApp
       res.send({ val: "ok" });
     });
 
+    server.get(
+      "/check",
+      asyncHandler(auth),
+      asyncHandler(async function (req, res, next) {
+        res.sendStatus(200);
+      })
+    );
+
     server.use("/api", routes);
 
     // その他はすべてNextのrouterに飛ばす
@@ -29,12 +42,12 @@ nextApp
       return handle(req, res);
     });
 
-    server.listen(3000, err => {
+    server.listen(3000, (err) => {
       if (err) throw err;
       console.log("ready on localhost:3000");
     });
   })
-  .catch(ex => {
+  .catch((ex) => {
     console.error(ex.stack);
     process.exit(1);
   });
