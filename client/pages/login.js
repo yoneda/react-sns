@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import LandingWrapper from "../components/LandingWrapper";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import Router from "next/router";
 
 const Login = (props) => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
+  const doLogin = useStoreActions((actions) => actions.app.login);
+  const onSuccess = () => Router.push("/");
 
   return (
     <div>
@@ -23,7 +27,7 @@ const Login = (props) => {
           placeholder="pass"
         />
         <br />
-        <button onClick={() => {}}>send</button>
+        <button onClick={() => doLogin({ mail, pass, onSuccess })}>send</button>
       </LandingWrapper>
     </div>
   );

@@ -29,8 +29,7 @@ const Note = {
 };
 
 const User = {
-  get: (account) =>
-    request.get(`${base}/users`).then((res) => res.body[0]),
+  get: (account) => request.get(`${base}/users`).then((res) => res.body[0]),
   put: (params) => {
     const {
       account,
@@ -49,10 +48,12 @@ const User = {
   login: function (params) {
     const { mail, pass } = params;
     return request
-      .post(`${base}/users/${account}`)
+      .post(`${base}/users/login`)
       .send({ mail, pass })
-      .then((res) => res.status === 2000);
+      .then((res) => res.status === 200);
   },
+  logout: () =>
+    request.post(`${base}/users/logout`).then((res) => res.status === 200),
 };
 
 export default {

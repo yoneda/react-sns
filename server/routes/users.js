@@ -11,5 +11,8 @@ router.put("/:account", asyncHandler(users.put));
 router.delete("/:account", asyncHandler(users.remove));
 
 router.post("/login", asyncHandler(users.login));
+router.post("/logout", users.logout);
+
+// TODO: handlersはexpressのミドルウェアの集まりと解釈をしてasyncHandlerはhandlers側に寄せる
 
 export default router;

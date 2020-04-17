@@ -55,9 +55,9 @@ const user = {
     if (onSuccess !== undefined) onSuccess();
   }),
   login: thunk(async (actions, payload) => {
-    const { mail, pass, onSuccess} = payload;
-    const isSuccess = await agent.User.login({mail, pass});
-    if(!isSuccess) return;
+    const { mail, pass, onSuccess } = payload;
+    const isSuccess = await agent.User.login({ mail, pass });
+    if (!isSuccess) return;
     const user = await agent.User.get();
     actions.set(user);
   }),
@@ -66,6 +66,27 @@ const user = {
   }),
 };
 
-const store = createStore({ user, notes });
+const app = {
+  isAuth: false,
+  login: thunk(async (actions, payload) => {
+    const { mail, pass, onSuccess } = payload;
+    const isSuccess = await agent.User.login({ mail, pass });
+    if (!isSuccess) return;
+    const user = await agent.User.get();
+    actions.setAuth(user);
+    onSuccess();
+  }),
+  logout: thunk(async (actions, payload) => {
+    const { onSuccess } = payload;
+    const isSuccess = await agent.User.logout();
+    if (!isSuccess) return;
+    actions.setAuth(false);
+    onSuccess();
+  }),
+  setAuth: action((state, payload) => {
+    return { ...state, isAuth: payload };
+  }),
+};
+const store = createStore({ user, notes, app});
 
 export default store;

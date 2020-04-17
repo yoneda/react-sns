@@ -3,23 +3,30 @@ import store from "../store";
 import Header from "../components/Header";
 import EditorModal from "../components/EditorModal";
 import dayjs from "dayjs";
+import { useStoreActions } from "easy-peasy";
+import Router from "next/router";
 import Link from "next/link";
 
-const Menu = () => (
-  <Fragment>
-    <Link href="/">
-      <a>Top</a>
-    </Link>{" "}
-    |
-    <Link href="/new">
-      <a>New</a>
-    </Link>{" "}
-    |
-    <Link href="/setting">
-      <a>Setting</a>
-    </Link>{" "}
-  </Fragment>
-);
+const Menu = () => {
+  const logout = useStoreActions((actions) => actions.app.logout);
+  const onSuccess = () => Router.push("/");
+  return (
+    <Fragment>
+      <Link href="/">
+        <a>Top</a>
+      </Link>{" "}
+      |
+      <Link href="/new">
+        <a>New</a>
+      </Link>{" "}
+      |
+      <Link href="/setting">
+        <a>Setting</a>
+      </Link>{" "}
+      |<button onClick={() => logout({ onSuccess })}>logout</button>
+    </Fragment>
+  );
+};
 
 function AppWrapper(props) {
   const { children } = props;
