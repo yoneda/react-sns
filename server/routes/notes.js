@@ -1,6 +1,6 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
-import * as notes from "../handlers/notes";
+const { Router } = require("express");
+const asyncHandler = require("express-async-handler");
+const notes = require("../handlers/notes");
 
 const router = Router();
 
@@ -9,4 +9,4 @@ router.post("/", asyncHandler(notes.post));
 router.put("/:id", asyncHandler(notes.put));
 router.delete("/:id", asyncHandler(notes.remove));
 
-export default router;
+module.exports = router;

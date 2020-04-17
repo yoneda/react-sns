@@ -1,7 +1,7 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
-import auth from "../handlers/auth";
-import * as users from "../handlers/users";
+const { Router } = require("express");
+const asyncHandler = require("express-async-handler");
+const auth = require("../handlers/auth");
+const users = require("../handlers/users");
 
 const router = Router();
 
@@ -15,4 +15,4 @@ router.post("/logout", users.logout);
 
 // TODO: handlersはexpressのミドルウェアの集まりと解釈をしてasyncHandlerはhandlers側に寄せる
 
-export default router;
+module.exports = router;

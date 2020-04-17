@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "react-scripts build",
-    "dev": "nodemon --exec babel-node server/index.js",
+    "dev": "nodemon server/index.js",
     "lint": "eslint client"
   },
   "repository": {
@@ -30,7 +30,6 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.11",
     "lodash": "^4.17.15",
-    "next": "^9.3.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "sqlite3": "^4.1.1",
@@ -38,9 +37,6 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.3",

@@ -1,8 +1,8 @@
-import { pick } from "lodash";
-import dayjs from "dayjs";
-import db from "../db";
+const { pick } = require("lodash");
+const dayjs = require("dayjs");
+const db = require("../db");
 
-export const get = async (req, res) => {
+module.exports.get = async (req, res) => {
   const { account } = req.query;
   // MEMO: ここは後で認証済みのuserオブジェクトから取得する予定
   const notes = await db("notes")
@@ -18,7 +18,7 @@ export const get = async (req, res) => {
   res.send(notes);
 };
 
-export const post = async (req, res) => {
+module.exports.post = async (req, res) => {
   const { account,  body } = req.body;
   const [{ id: userId }] = await db("users")
     .select("id")
@@ -41,7 +41,7 @@ export const post = async (req, res) => {
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
-export const put = async (req, res) => {
+module.exports.put = async (req, res) => {
   const { id } = req.params;
   const payload = pick(req.body, ["body"]);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
@@ -52,7 +52,7 @@ export const put = async (req, res) => {
   res.send(note);
 };
 
-export const remove = async (req, res) => {
+module.exports.remove = async (req, res) => {
   const { id } = req.params;
   const num = await db("notes")
     .where({ id })

@@ -1,9 +1,9 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const db = require("../db");
-import { pick } from "lodash";
+const { pick } = require("lodash");
 
-export const get = async (req, res) => {
+module.exports.get = async (req, res) => {
   const mail = req.mail;
   const user = await db("users").where({ mail });
   if (user && user.length === 0) {
@@ -12,7 +12,7 @@ export const get = async (req, res) => {
   res.send(user);
 };
 
-export const post = async (req, res) => {
+module.exports.post = async (req, res) => {
   const { mail, account, pass } = req.body;
   const hashed = await bcrypt.hash(pass, 12);
   const [id] = await db("users").insert({
@@ -30,7 +30,7 @@ export const post = async (req, res) => {
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
-export const put = async (req, res) => {
+module.exports.put = async (req, res) => {
   const { account } = req.params;
   const payload = pick(req.body, [
     "mail",
@@ -48,7 +48,7 @@ export const put = async (req, res) => {
   // TODO: バリデーション実装が必要か検討
 };
 
-export const remove = async (req, res) => {
+module.exports.emove = async (req, res) => {
   const { account } = req.params;
   const num = await db("users").where({ account: account }).del();
   if (!num) {
@@ -57,7 +57,7 @@ export const remove = async (req, res) => {
   res.status(200).send({ message: "User has been deleted successfully." });
 };
 
-export const login = async (req, res) => {
+module.exports.login = async (req, res) => {
   const { mail, pass } = req.body;
   const user = await db("users")
     .where({ mail })
@@ -81,6 +81,6 @@ export const login = async (req, res) => {
   res.cookie("token", token, { httpOnly: true }).sendStatus(200);
 };
 
-export const logout = (req, res) => {
+module.exports.logout = (req, res) => {
   res.clearCookie("token").sendStatus(200);
 };
