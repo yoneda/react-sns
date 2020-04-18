@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useStoreActions } from "easy-peasy";
-import { redirectTo } from "@reach/router";
+import { navigate } from "@reach/router";
 import LandingHeader from "../components/LandingHeader";
 
 const Login = (props) => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
-  const onSuccess = () => redirectTo("/");
+  const onSuccess = () => navigate("/");
 
   return (
     <div>

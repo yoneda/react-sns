@@ -69,12 +69,16 @@ const user = {
 
 const app = {
   isAuth: false,
-  login: thunk(async (actions, payload) => {
+  login: thunk(async (actions, payload, { getStoreActions }) => {
     const { mail, pass, onSuccess } = payload;
     const isSuccess = await agent.User.login({ mail, pass });
     if (!isSuccess) return;
     const user = await agent.User.get();
     actions.setAuth(user);
+
+    const notes = await agent.Note.get(user.account);
+    const setNotes = getStoreActions().notes.set;
+    setNotes(notes);
     onSuccess();
   }),
   logout: thunk(async (actions, payload) => {

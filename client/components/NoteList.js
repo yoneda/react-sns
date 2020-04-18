@@ -6,9 +6,8 @@ const NoteList = (props) => {
   return (
     <Fragment>
       {notes.map((note, index) => (
-        <Fragment>
+        <Fragment key={index}>
           <Note
-            key={index}
             body={note.body}
             createdAt={note.createdAt}
             onEdit={() => operateHandler(index)}
