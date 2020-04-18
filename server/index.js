@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const asyncHandler = require("express-async-handler");
 const auth = require("./handlers/auth");
 
+const Bundler = require("parcel-bundler");
+
 // .envファイルを使用
 env.config();
 const server = express();
@@ -27,6 +29,10 @@ server.get(
 );
 
 server.use("/api", routes);
+
+// クライアントへのアクセス
+const bundler = new Bundler("./client/index.html", {});
+server.use(bundler.middleware());
 
 server.listen(3000, (err) => {
   if (err) throw err;

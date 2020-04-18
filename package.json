@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "react-scripts build",
-    "dev": "nodemon server/index.js",
+    "dev": "node server/index.js",
     "lint": "eslint client"
   },
   "repository": {
@@ -37,9 +37,13 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.3",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "parcel-bundler": "^1.12.4"
   }
 }
