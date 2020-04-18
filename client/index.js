@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import agent from "./agent";
+import App from "./pages/app";
 
 function HelloMessage(props) {
   const { name } = props;
@@ -18,4 +19,4 @@ function HelloMessage(props) {
   );
 }
 
-ReactDOM.render(<HelloMessage name={"kohei"} />, document.getElementById("app"));
+ReactDOM.render(<App />, document.getElementById("app"));

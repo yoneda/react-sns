@@ -4,8 +4,6 @@ import Header from "../components/Header";
 import EditorModal from "../components/EditorModal";
 import dayjs from "dayjs";
 import { useStoreActions } from "easy-peasy";
-import Router from "next/router";
-import Link from "next/link";
 
 const Menu = () => {
   const logout = useStoreActions((actions) => actions.app.logout);
