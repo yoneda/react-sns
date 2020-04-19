@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
+import { useStoreActions } from "easy-peasy";
 
 const backStyle = {
   width: "100%",
@@ -11,6 +12,8 @@ const backStyle = {
 
 function Menu(props) {
   const { closeHandler } = props;
+  const logout = useStoreActions((actions) => actions.app.logout);
+  const onSuccess = () => navigate("/login");
   return (
     <div>
       <div style={backStyle} onClick={() => closeHandler()}></div>
@@ -26,7 +29,7 @@ function Menu(props) {
         >
           <Link to="/">home</Link>
           <Link to="/setting">setting</Link>
-          <button>logout</button>
+          <button onClick={() => logout({ onSuccess })}>logout</button>
         </div>
       </div>
     </div>

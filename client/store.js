@@ -72,7 +72,6 @@ const app = {
   user: {},
   isLoggedIn: computed((state) => !isEmpty(state.user)),
   login: thunk(async (actions, payload, { getStoreActions }) => {
-    console.log(payload);
     const { mail, pass, onSuccess } = payload;
     // ログイン情報をもったクッキーを取得
     const isSuccess = await agent.User.login({ mail, pass });
