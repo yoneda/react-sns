@@ -29,10 +29,7 @@ const Note = {
 };
 
 const User = {
-  get: () =>
-    request
-      .get(`${base}/users`)
-      .then((res) => res.body[0]),
+  get: () => request.get(`${base}/users`).then((res) => res.body[0]),
   put: (params) => {
     const {
       account,
@@ -59,8 +56,15 @@ const User = {
     request.post(`${base}/users/logout`).then((res) => res.status === 200),
 };
 
+const CheckAuth = () =>
+  request
+    .get(`${base}/checkAuth`)
+    .then((res) => res.status === 200)
+    .catch((err) => false);
+
 export default {
   Helth,
   Note,
   User,
+  CheckAuth,
 };

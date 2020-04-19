@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isLength, isEmail } from "validator";
 import { isEmpty } from "lodash";
-import Router from "next/router";
+import { redirectTo } from "@reach/router";
 
 export const ThemeChanger = () => (
   <Fragment>
@@ -15,7 +15,7 @@ export const ProfileChanger = () => {
   const user = useStoreState((state) => state.user.item);
   const [bio, setBio] = useState(isEmpty(user) ? "" : user.bio);
   const updateUser = useStoreActions((actions) => actions.user.update);
-  const onSuccess = () => Router.push("/"); // TODO:成功したましたというToastを表示する
+  const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
 
   return (
     <Fragment>
@@ -43,7 +43,7 @@ export const MailChanger = () => {
   const [mail, setMail] = useState(isEmpty(user) ? "" : user.mail);
   const [error, setError] = useState("");
   const updateUser = useStoreActions((actions) => actions.user.update);
-  const onSuccess = () => Router.push("/"); // TODO:成功したましたというToastを表示する
+  const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
     setMail(user.mail);
@@ -82,7 +82,7 @@ export const PassChanger = () => {
   const [error, setError] = useState("");
   const user = useStoreState((state) => state.user.item);
   const updateUser = useStoreActions((actions) => actions.user.update);
-  const onSuccess = () => Router.push("/"); // TODO:成功したましたというToastを表示する
+  const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
     setCurrent("");

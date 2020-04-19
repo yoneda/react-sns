@@ -4,6 +4,7 @@ import store from "../store";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
 import Index from "../pages/index";
+import Setting from "../pages/setting";
 import { Router } from "@reach/router";
 
 function App(props) {
@@ -14,6 +15,7 @@ function App(props) {
           <Index path="/" />
           <Login path="/login" />
           <Signup path="/signup" />
+          <Setting path="/setting" />
         </Router>
       </StoreProvider>
     </Fragment>

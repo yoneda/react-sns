@@ -85,6 +85,20 @@ const app = {
     setNotes(notes);
     onSuccess();
   }),
+  revisit: thunk(async (actions, payload, { getStoreActions }) => {
+    const { onSuccess, onFailure } = payload;
+    // ユーザが再訪したか(認証情報をもつクッキーが存在しているか)
+    const isAuthed = await agent.CheckAuth();
+    if (!isAuthed) return onFailure();
+    // ユーザを取得
+    const user = await agent.User.get();
+    actions.setUser(user);
+    // ノートを取得
+    const notes = await agent.Note.get(user.account);
+    const setNotes = getStoreActions().notes.set;
+    setNotes(notes);
+    onSuccess();
+  }),
   logout: thunk(async (actions, payload, { getStoreActions }) => {
     const { onSuccess } = payload;
     // クッキーを削除

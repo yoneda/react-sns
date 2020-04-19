@@ -48,7 +48,7 @@ module.exports.put = async (req, res) => {
   // TODO: バリデーション実装が必要か検討
 };
 
-module.exports.emove = async (req, res) => {
+module.exports.remove = async (req, res) => {
   const { account } = req.params;
   const num = await db("users").where({ account: account }).del();
   if (!num) {
@@ -78,7 +78,9 @@ module.exports.login = async (req, res) => {
   const payload = { mail };
   const secret = process.env.SECRET;
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
-  res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+  res
+    .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
+    .sendStatus(200);
 };
 
 module.exports.logout = (req, res) => {

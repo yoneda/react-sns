@@ -20,7 +20,7 @@ server.get("/api/helth", (req, res) => {
 });
 
 server.get(
-  "/check",
+  "/api/checkAuth",
   asyncHandler(auth),
   asyncHandler(async function (req, res, next) {
     res.sendStatus(200);
