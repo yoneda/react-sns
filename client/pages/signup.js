@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import LandingHeader from "../components/LandingHeader";
 
-const Signup = (props) => {
+function Signup(){
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const [account, setAccount] = useState("");
