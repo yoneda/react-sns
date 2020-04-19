@@ -12,9 +12,9 @@ export const ThemeChanger = () => (
 );
 
 export const ProfileChanger = () => {
-  const user = useStoreState((state) => state.user.item);
+  const user = useStoreState((state) => state.app.user);
+  const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
   const [bio, setBio] = useState(isEmpty(user) ? "" : user.bio);
-  const updateUser = useStoreActions((actions) => actions.user.update);
   const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
 
   return (
@@ -29,7 +29,7 @@ export const ProfileChanger = () => {
       <br />
       <button
         onClick={() => {
-          updateUser({ bio, onSuccess });
+          updateProfile({ bio, onSuccess });
         }}
       >
         save
@@ -38,11 +38,12 @@ export const ProfileChanger = () => {
   );
 };
 
+// TODO: メールアドレスの変更機能を実装
 export const MailChanger = () => {
-  const user = useStoreState((state) => state.user.item);
+  const user = useStoreState((state) => state.app.user);
+  const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
   const [mail, setMail] = useState(isEmpty(user) ? "" : user.mail);
   const [error, setError] = useState("");
-  const updateUser = useStoreActions((actions) => actions.user.update);
   const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
@@ -66,7 +67,7 @@ export const MailChanger = () => {
             return errorOccured("メールアドレスを入力してください");
           if (!isEmail(mail))
             return errorOccured("メールアドレスの形式で入力ください");
-          updateUser({ mail, onSuccess });
+          updateProfile({ mail, onSuccess });
         }}
       >
         save
@@ -80,8 +81,8 @@ export const PassChanger = () => {
   const [future, setFuture] = useState("");
   const [futureAgain, setFutureAgain] = useState("");
   const [error, setError] = useState("");
-  const user = useStoreState((state) => state.user.item);
-  const updateUser = useStoreActions((actions) => actions.user.update);
+  const user = useStoreState((state) => state.app.user);
+  const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
   const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
@@ -123,7 +124,7 @@ export const PassChanger = () => {
             return errorOccured("新しいパスワードが一致しません");
           if (!isLength(future, { min: 4, max: 35 }))
             return errorOccured("パスワードは4字以上35字未満で入力ください");
-          updateUser({ pass: future, onSuccess });
+            updateProfile({ pass: future, onSuccess });
         }}
       >
         save
@@ -134,9 +135,9 @@ export const PassChanger = () => {
 
 export const OtherChanger = (props) => {
   const { showCalendar, showDateEditor, calendarStart } = useStoreState(
-    (state) => state.user.item
+    (state) => state.app.user
   );
-  const updateUser = useStoreActions((actions) => actions.user.update);
+  const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
   return (
     <Fragment>
       <div>その他</div>
@@ -144,26 +145,26 @@ export const OtherChanger = (props) => {
       <input
         type="checkbox"
         checked={showCalendar}
-        onChange={() => updateUser({ showCalendar: !showCalendar })}
+        onChange={() => updateProfile({ showCalendar: !showCalendar })}
       />
       <div>日付変更可能か</div>
       <input
         type="checkbox"
         checked={showDateEditor}
-        onChange={() => updateUser({ showDateEditor: !showDateEditor })}
+        onChange={() => updateProfile({ showDateEditor: !showDateEditor })}
       />
       <div>カレンダーのはじまり</div>
       <input
         type="checkbox"
         checked={calendarStart === 0}
-        onChange={() => updateUser({ calendarStart: 0 })}
+        onChange={() => updateProfile({ calendarStart: 0 })}
       />
       <span>日曜</span>
       <br />
       <input
         type="checkbox"
         checked={calendarStart === 1}
-        onChange={() => updateUser({ calendarStart: 1 })}
+        onChange={() => updateProfile({ calendarStart: 1 })}
       />
       <span>月曜</span>
       <br />

@@ -40,10 +40,14 @@ module.exports.put = async (req, res) => {
   const { id } = req.params;
   const payload = pick(req.body, ["body"]);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
+  const user = await db("users")
+    .where({ mail })
+    .then((users) => users[0]);
   await db("notes")
-    .where({ id, mail })
+    .where({ id, user: user.id })
     .update({ ...payload, updatedAt: today });
   const [note] = await db("notes").where({ id });
+  // TODO: ユーザを取得するクエリと、ノートを修正するクエリは1つにできる
   res.send(note);
 };
 

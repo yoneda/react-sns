@@ -5,8 +5,8 @@ import { isEmpty } from "lodash";
 const notes = {
   items: [],
   create: thunk(async (actions, payload, { getState }) => {
-    const { account, body, onSuccess } = payload;
-    const note = await agent.Note.post({ account, body });
+    const { body, onSuccess } = payload;
+    const note = await agent.Note.post({ body });
     const { items } = getState();
     actions.set([...items, note]);
     onSuccess();
@@ -19,7 +19,7 @@ const notes = {
   update: thunk(async (actions, payload) => {
     const { id, body, onSuccess } = payload;
     await agent.Note.put({ id, body });
-    const notes = await agent.Note.get("yoneda");
+    const notes = await agent.Note.get();
     actions.set(notes);
     if (onSuccess !== undefined) onSuccess();
   }),
@@ -28,45 +28,6 @@ const notes = {
   }),
 };
 
-const user = {
-  item: {},
-  get: thunk(async (actions, payload) => {
-    const user = await agent.User.get("yoneda");
-    actions.set(user);
-  }),
-  update: thunk(async (actions, payload) => {
-    const {
-      mail,
-      pass,
-      bio,
-      showCalendar,
-      showDateEditor,
-      calendarStart,
-      onSuccess,
-    } = payload;
-    const user = await agent.User.put({
-      account: "yoneda",
-      mail,
-      pass,
-      bio,
-      showCalendar,
-      showDateEditor,
-      calendarStart,
-    });
-    actions.set(user);
-    if (onSuccess !== undefined) onSuccess();
-  }),
-  login: thunk(async (actions, payload) => {
-    const { mail, pass, onSuccess } = payload;
-    const isSuccess = await agent.User.login({ mail, pass });
-    if (!isSuccess) return;
-    const user = await agent.User.get();
-    actions.set(user);
-  }),
-  set: action((state, payload) => {
-    return { ...state, item: payload };
-  }),
-};
 
 const app = {
   user: {},
@@ -80,7 +41,7 @@ const app = {
     const user = await agent.User.get();
     actions.setUser(user);
     // ノートを取得
-    const notes = await agent.Note.get(user.account);
+    const notes = await agent.Note.get();
     const setNotes = getStoreActions().notes.set;
     setNotes(notes);
     onSuccess();
@@ -94,7 +55,7 @@ const app = {
     const user = await agent.User.get();
     actions.setUser(user);
     // ノートを取得
-    const notes = await agent.Note.get(user.account);
+    const notes = await agent.Note.get();
     const setNotes = getStoreActions().notes.set;
     setNotes(notes);
     onSuccess();
@@ -110,10 +71,29 @@ const app = {
     getStoreActions().notes.set([]);
     onSuccess();
   }),
+  updateProfile: thunk(async (actions, payload) => {
+    const {
+      pass,
+      bio,
+      showCalendar,
+      showDateEditor,
+      calendarStart,
+      onSuccess,
+    } = payload;
+    const user = await agent.User.put({
+      pass,
+      bio,
+      showCalendar,
+      showDateEditor,
+      calendarStart,
+    });
+    actions.set(user);
+    if (onSuccess !== undefined) onSuccess();
+  }),
   setUser: action((state, payload) => {
     state.user = payload;
   }),
 };
-const store = createStore({ user, notes, app });
+const store = createStore({ notes, app });
 
 export default store;
