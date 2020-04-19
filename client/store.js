@@ -1,5 +1,6 @@
 import { createStore, action, thunk, computed } from "easy-peasy";
 import agent from "./agent";
+import { isEmpty } from "lodash";
 
 const notes = {
   items: [],
@@ -68,28 +69,36 @@ const user = {
 };
 
 const app = {
-  isAuth: false,
+  user: {},
+  isLoggedIn: computed((state) => !isEmpty(state.user)),
   login: thunk(async (actions, payload, { getStoreActions }) => {
+    console.log(payload);
     const { mail, pass, onSuccess } = payload;
+    // ログイン情報をもったクッキーを取得
     const isSuccess = await agent.User.login({ mail, pass });
     if (!isSuccess) return;
+    // ユーザを取得
     const user = await agent.User.get();
-    actions.setAuth(user);
-
+    actions.setUser(user);
+    // ノートを取得
     const notes = await agent.Note.get(user.account);
     const setNotes = getStoreActions().notes.set;
     setNotes(notes);
     onSuccess();
   }),
-  logout: thunk(async (actions, payload) => {
+  logout: thunk(async (actions, payload, { getStoreActions }) => {
     const { onSuccess } = payload;
+    // クッキーを削除
     const isSuccess = await agent.User.logout();
     if (!isSuccess) return;
-    actions.setAuth(false);
+    // ユーザを削除
+    actions.setUser({});
+    // ノートを削除
+    getStoreActions().notes.set([]);
     onSuccess();
   }),
-  setAuth: action((state, payload) => {
-    return { ...state, isAuth: payload };
+  setUser: action((state, payload) => {
+    state.user = payload;
   }),
 };
 const store = createStore({ user, notes, app });

@@ -8,7 +8,7 @@ import Menu from "../components/Menu";
 
 function Index() {
   const [user, notes] = useStoreState((state) => [
-    state.app.isAuth,
+    state.app.user,
     state.notes.items,
   ]);
   const [createNote, updateNote] = useStoreActions((actions) => [

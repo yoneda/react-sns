@@ -3,7 +3,7 @@ import { useStoreActions } from "easy-peasy";
 import { navigate } from "@reach/router";
 import LandingHeader from "../components/LandingHeader";
 
-const Login = (props) => {
+function Login() {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
@@ -30,6 +30,6 @@ const Login = (props) => {
       <button onClick={() => doLogin({ mail, pass, onSuccess })}>send</button>
     </div>
   );
-};
+}
 
 export default Login;

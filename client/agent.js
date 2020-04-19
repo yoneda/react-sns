@@ -29,7 +29,10 @@ const Note = {
 };
 
 const User = {
-  get: () => request.get(`${base}/users`).then((res) => res.body[0]),
+  get: () =>
+    request
+      .get(`${base}/users`)
+      .then((res) => res.body[0]),
   put: (params) => {
     const {
       account,
