@@ -13,6 +13,8 @@ module.exports.get = async (req, res) => {
 };
 
 module.exports.post = async (req, res) => {
+  // TODO:  実装
+  /*
   const { mail, account, pass } = req.body;
   const hashed = await bcrypt.hash(pass, 12);
   const [id] = await db("users").insert({
@@ -28,20 +30,22 @@ module.exports.post = async (req, res) => {
   res.status(201).location("location").send(user);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
+  */
+ res.send("hello");
 };
 
 module.exports.put = async (req, res) => {
-  const { account } = req.params;
+  const mail = req.mail;
   const payload = pick(req.body, [
-    "mail",
     "pass",
     "showCalendar",
     "showDateEditor",
     "calendarStart",
     "bio",
+    "account"
   ]);
-  await db("users").where({ account }).update(payload);
-  const user = await db("users").where({ account });
+  await db("users").where({ mail }).update(payload);
+  const user = await db("users").where({ mail });
   res.send(user);
   // TODO: メールアドレスも変更できるように修正
   // TODO: アカウント名も変更できるか検討
@@ -49,12 +53,13 @@ module.exports.put = async (req, res) => {
 };
 
 module.exports.remove = async (req, res) => {
-  const { account } = req.params;
-  const num = await db("users").where({ account: account }).del();
+  const mail = req.mail;
+  const num = await db("users").where({ mail }).del();
   if (!num) {
     throw new Error(`Not found that account is ${account} in this database.`);
   }
   res.status(200).send({ message: "User has been deleted successfully." });
+  // TODO: ユーザに紐付けられたノートもついでに削除
 };
 
 module.exports.login = async (req, res) => {

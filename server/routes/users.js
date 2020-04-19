@@ -6,12 +6,12 @@ const users = require("../handlers/users");
 const router = Router();
 
 router.get("/", asyncHandler(auth), asyncHandler(users.get));
-router.post("/", asyncHandler(users.post));
-router.put("/:account", asyncHandler(users.put));
-router.delete("/:account", asyncHandler(users.remove));
+router.post("/", asyncHandler(auth), asyncHandler(users.post));
+router.put("/", asyncHandler(auth), asyncHandler(users.put));
+router.delete("/", asyncHandler(auth), asyncHandler(users.remove));
 
 router.post("/login", asyncHandler(users.login));
-router.post("/logout", users.logout);
+router.post("/logout", asyncHandler(auth), users.logout);
 
 // TODO: handlersはexpressのミドルウェアの集まりと解釈をしてasyncHandlerはhandlers側に寄せる
 
