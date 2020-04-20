@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from "react";
-import LandingHeader from "../components/LandingHeader";
 import { useStoreActions } from "easy-peasy";
 import { navigate } from "@reach/router";
+import LandingHeader from "../components/LandingHeader";
 
 function Signup() {
+  const createUser = useStoreActions((actions) => actions.app.signup);
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
-  const createUser = useStoreActions((actions) => actions.app.signup);
   const onSuccess = () => navigate("/");
 
   return (

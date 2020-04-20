@@ -1,14 +1,14 @@
 import React from "react";
 
-const TabItem = (props) => {
+export function TabItem(props) {
   const { title, isSelected } = props;
   if (isSelected) {
     return <span style={{ fontWeight: "bold" }}>{title}</span>;
   }
   return <span>{title}</span>;
-};
+}
 
-export const Tabs = (props) => {
+export function Tabs(props) {
   const { titles, tabIndex, tabOnClick } = props;
   return (
     <div
@@ -26,13 +26,15 @@ export const Tabs = (props) => {
       ))}
     </div>
   );
-};
+}
 
-export const TabPanel = (props) => {
+export function TabPanel(props) {
   const { children } = props;
   return (
-    <div style={{ width: "300px", backgroundColor: "white", border: "1px solid" }}>
+    <div
+      style={{ width: "300px", backgroundColor: "white", border: "1px solid" }}
+    >
       {children}
     </div>
   );
-};
+}

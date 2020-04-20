@@ -2,25 +2,20 @@ import React, { useState, useEffect, Fragment } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { navigate } from "@reach/router";
 import { Tabs, TabPanel } from "../components/Tabs";
-import {
-  PassChanger,
-  ProfileChanger,
-  OtherChanger,
-  ThemeChanger,
-} from "../components/Changer";
+import { Profile, Other, Theme } from "../components/Changer";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
 
 function Setting() {
-  const [tabIndex, setTabIndex] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const titles = ["プロフィール変更", "テーマ変更", "その他"];
-
   const user = useStoreState((state) => state.app.user);
   const revisit = useStoreActions((actions) => actions.app.revisit);
   useEffect(() => {
     revisit({ onSuccess: () => {}, onFailure: () => navigate("/login") });
   }, []);
+
+  const [tabIndex, setTabIndex] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const titles = ["プロフィール変更", "テーマ変更", "その他"];
 
   return (
     <Fragment>
@@ -38,17 +33,17 @@ function Setting() {
       <h3>Panel</h3>
       {tabIndex === 0 && (
         <TabPanel>
-          <ProfileChanger />
+          <Profile />
         </TabPanel>
       )}
       {tabIndex === 1 && (
         <TabPanel>
-          <ThemeChanger />
+          <Theme />
         </TabPanel>
       )}
       {tabIndex === 2 && (
         <TabPanel>
-          <OtherChanger />
+          <Other />
         </TabPanel>
       )}
     </Fragment>

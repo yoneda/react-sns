@@ -1,6 +1,6 @@
 import React from "react";
 
-const Note = (props) => {
+function Note(props){
   const { body, createdAt, onEdit } = props;
   return (
     <div

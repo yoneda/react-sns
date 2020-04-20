@@ -1,16 +1,16 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { isLength } from "validator";
-import { navigate } from "@reach/router";
 
-export const ThemeChanger = () => (
-  <Fragment>
-    <div>テーマ変更</div>
-    <div>comming soon!</div>
-  </Fragment>
-);
+export function Theme() {
+  return (
+    <Fragment>
+      <div>テーマ変更</div>
+      <div>comming soon!</div>
+    </Fragment>
+  );
+}
 
-export const ProfileChanger = () => {
+export function Profile() {
   const user = useStoreState((state) => state.app.user);
   const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
   const [bio, setBio] = useState("");
@@ -39,9 +39,9 @@ export const ProfileChanger = () => {
       </button>
     </Fragment>
   );
-};
+}
 
-export const OtherChanger = (props) => {
+export function Other() {
   const { showCalendar, showDateEditor, calendarStart } = useStoreState(
     (state) => state.app.user
   );
@@ -78,4 +78,4 @@ export const OtherChanger = (props) => {
       <br />
     </Fragment>
   );
-};
+}

@@ -7,7 +7,7 @@ import Index from "../pages/index";
 import Setting from "../pages/setting";
 import { Router } from "@reach/router";
 
-function App(props) {
+function App() {
   return (
     <Fragment>
       <StoreProvider store={store}>

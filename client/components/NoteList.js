@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import Note from "./Note";
 
-const NoteList = (props) => {
+function NoteList(props){
   const { notes, operateHandler } = props;
   return (
     <Fragment>

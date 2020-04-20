@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 
 const backStyle = {
   width: "100%",
@@ -19,7 +19,7 @@ const modalStyle = {
   position: "absolute",
 };
 
-const EditorModal = (props) => {
+function EditorModal(props) {
   const { datetime, body, closeHandler, saveHandler } = props;
   const [text, setText] = useState(body);
 
@@ -38,6 +38,6 @@ const EditorModal = (props) => {
       </div>
     </Fragment>
   );
-};
+}
 
 export default EditorModal;
