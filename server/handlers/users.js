@@ -22,7 +22,7 @@ module.exports.post = async (req, res) => {
     showCalendar: true,
     showDateEditor: false,
     calendarStart: 0,
-    bio: "",
+    bio: "hello",
   });
   const user = await db("users").where({ id }).limit(1);
 
