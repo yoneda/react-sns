@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../db");
 const { pick } = require("lodash");
+const dayjs = require("dayjs");
+const db = require("../db");
 
 module.exports.get = async (req, res) => {
   const mail = req.mail;
@@ -13,25 +14,31 @@ module.exports.get = async (req, res) => {
 };
 
 module.exports.post = async (req, res) => {
-  // TODO:  実装
-  /*
-  const { mail, account, pass } = req.body;
+  const { mail, pass } = req.body;
   const hashed = await bcrypt.hash(pass, 12);
   const [id] = await db("users").insert({
     mail,
-    account,
     pass: hashed,
     showCalendar: true,
     showDateEditor: false,
     calendarStart: 0,
-    bio: "hi",
+    bio: "",
   });
   const user = await db("users").where({ id }).limit(1);
+
+  // 新規ユーザ作成時、1つの投稿を作成
+  const today = dayjs().format("YYYY-M-D H:mm:ss");
+  const body = "さぁ、日記をはじめよう。";
+  await db("notes").insert({
+    body,
+    createdAt: today,
+    updatedAt: today,
+    user: id,
+  });
+
   res.status(201).location("location").send(user);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
-  */
- res.send("hello");
 };
 
 module.exports.put = async (req, res) => {

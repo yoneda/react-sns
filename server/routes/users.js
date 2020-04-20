@@ -6,7 +6,7 @@ const users = require("../handlers/users");
 const router = Router();
 
 router.get("/", asyncHandler(auth), asyncHandler(users.get));
-router.post("/", asyncHandler(auth), asyncHandler(users.post));
+router.post("/", asyncHandler(users.post));
 router.put("/", asyncHandler(auth), asyncHandler(users.put));
 router.delete("/", asyncHandler(auth), asyncHandler(users.remove));
 
