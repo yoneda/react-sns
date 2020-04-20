@@ -12,8 +12,7 @@ const notes = {
     onSuccess();
   }),
   get: thunk(async (actions, payload) => {
-    const account = payload;
-    const notes = await agent.Note.get(account);
+    const notes = await agent.Note.get();
     actions.set(notes);
   }),
   update: thunk(async (actions, payload) => {
@@ -27,7 +26,6 @@ const notes = {
     return { ...state, items: payload };
   }),
 };
-
 
 const app = {
   user: {},

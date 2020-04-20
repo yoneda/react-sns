@@ -42,7 +42,6 @@ module.exports.put = async (req, res) => {
     "showDateEditor",
     "calendarStart",
     "bio",
-    "account"
   ]);
   await db("users").where({ mail }).update(payload);
   const user = await db("users").where({ mail });
@@ -56,7 +55,7 @@ module.exports.remove = async (req, res) => {
   const mail = req.mail;
   const num = await db("users").where({ mail }).del();
   if (!num) {
-    throw new Error(`Not found that account is ${account} in this database.`);
+    throw new Error(`Not found that account is ${mail} in this database.`);
   }
   res.status(200).send({ message: "User has been deleted successfully." });
   // TODO: ユーザに紐付けられたノートもついでに削除

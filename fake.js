@@ -11,7 +11,6 @@ const fake = {
       id: 1,
       mail: "yoneda@yoneda.com",
       pass: "yoneda",
-      account: "yoneda",
       showCalendar: true,
       showDateEditor: false,
       calendarStart: 0, // TODO: 0:日曜はじまり、1:月曜はじまりだと定義。あとで詳しく調べて修正する。
@@ -21,7 +20,6 @@ const fake = {
       id: 2,
       mail: "tanaka@tanaka.com",
       pass: "tanaka",
-      account: "tanaka",
       showCalendar: true,
       showDateEditor: false,
       calendarStart: 0,

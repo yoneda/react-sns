@@ -13,7 +13,6 @@ module.exports.get = async (req, res) => {
       "notes.body",
       "notes.createdAt",
       "notes.updatedAt",
-      "users.account"
     );
   res.send(notes);
 };

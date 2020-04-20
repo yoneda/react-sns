@@ -4,7 +4,6 @@ exports.up = function(knex) {
       table.increments("id");
       table.string("mail");
       table.string("pass");
-      table.string("account");
       table.boolean("showCalendar");
       table.boolean("showDateEditor");
       table.integer("calendarStart");
