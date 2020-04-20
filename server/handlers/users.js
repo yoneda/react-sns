@@ -36,7 +36,7 @@ module.exports.post = async (req, res) => {
     user: id,
   });
 
-  res.status(201).location("location").send(user);
+  res.status(201).location("location").send(user[0]);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
   // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };

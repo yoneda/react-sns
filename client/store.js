@@ -30,6 +30,18 @@ const notes = {
 const app = {
   user: {},
   isLoggedIn: computed((state) => !isEmpty(state.user)),
+  signup: thunk(async (actions, payload, { getStoreActions }) => {
+    const { mail, pass, onSuccess } = payload;
+    // ユーザを作成
+    const user = await agent.User.post({ mail, pass });
+    actions.setUser(user);
+    // ログイン情報をもったクッキーを取得
+    const isSuccess = await agent.User.login({ mail, pass });
+    // ノートを取得
+    const notes = await agent.Note.get();
+    getStoreActions().notes.set(notes);
+    onSuccess();
+  }),
   login: thunk(async (actions, payload, { getStoreActions }) => {
     const { mail, pass, onSuccess } = payload;
     // ログイン情報をもったクッキーを取得
@@ -85,7 +97,6 @@ const app = {
       showDateEditor,
       calendarStart,
     });
-    console.log(user);
     actions.setUser(user);
     onSuccess();
   }),

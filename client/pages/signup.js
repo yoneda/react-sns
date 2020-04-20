@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from "react";
 import LandingHeader from "../components/LandingHeader";
+import { useStoreActions } from "easy-peasy";
+import { navigate } from "@reach/router";
 
-function Signup(){
+function Signup() {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
-  const [account, setAccount] = useState("");
+  const createUser = useStoreActions((actions) => actions.app.signup);
+  const onSuccess = () => navigate("/");
 
   return (
     <Fragment>
@@ -24,16 +27,11 @@ function Signup(){
         placeholder="pass"
       />
       <br />
-      <input
-        type="text"
-        onChange={(e) => setAccount(e.target.value)}
-        value={account}
-        placeholder="account"
-      />
-      <br />
-      <button onClick={() => {}}>send</button>
+      <button onClick={() => createUser({ mail, pass, onSuccess })}>
+        send
+      </button>
     </Fragment>
   );
-};
+}
 
 export default Signup;

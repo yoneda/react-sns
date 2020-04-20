@@ -9,10 +9,7 @@ const Helth = {
 };
 
 const Note = {
-  get: () =>
-    request
-      .get(`${base}/notes`)
-      .then((res) => res.body), // TODO: ここで返り値の型を指定したいところ
+  get: () => request.get(`${base}/notes`).then((res) => res.body), // TODO: ここで返り値の型を指定したいところ
   post: (params) =>
     request
       .post(`${base}/notes`)
@@ -29,14 +26,13 @@ const Note = {
 
 const User = {
   get: () => request.get(`${base}/users`).then((res) => res.body[0]),
+  post: ({ mail, pass }) =>
+    request
+      .post(`${base}/users`)
+      .send({ mail, pass })
+      .then((res) => res.body),
   put: (params) => {
-    const {
-      pass,
-      bio,
-      showCalendar,
-      showDateEditor,
-      calendarStart,
-    } = params;
+    const { pass, bio, showCalendar, showDateEditor, calendarStart } = params;
     return request
       .put(`${base}/users`)
       .send({ pass, bio, showCalendar, showDateEditor, calendarStart })
