@@ -31,7 +31,6 @@ const User = {
   get: () => request.get(`${base}/users`).then((res) => res.body[0]),
   put: (params) => {
     const {
-      account,
       pass,
       bio,
       showCalendar,
@@ -40,7 +39,7 @@ const User = {
     } = params;
     return request
       .put(`${base}/users`)
-      .send({ account, pass, bio, showCalendar, showDateEditor, calendarStart })
+      .send({ pass, bio, showCalendar, showDateEditor, calendarStart })
       .then((res) => res.body[0]);
   },
   login: function (params) {

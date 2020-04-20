@@ -87,8 +87,9 @@ const app = {
       showDateEditor,
       calendarStart,
     });
-    actions.set(user);
-    if (onSuccess !== undefined) onSuccess();
+    console.log(user);
+    actions.setUser(user);
+    onSuccess();
   }),
   setUser: action((state, payload) => {
     state.user = payload;

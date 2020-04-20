@@ -1,9 +1,9 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import { useStoreActions } from "easy-peasy";
+import { navigate } from "@reach/router";
 import { Tabs, TabPanel } from "../components/Tabs";
 import {
-  ThemeChanger,
   PassChanger,
-  MailChanger,
   ProfileChanger,
   OtherChanger,
 } from "../components/Changer";
@@ -16,22 +16,18 @@ const Setting = (props) => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const titles = [
-    "メールアドレス",
     "パスワード",
     "プロフィール",
-    "テーマ変更",
     "その他",
+    "テーマ変更",
+    "メールアドレス",
   ];
-  const renderContent = (index) => {
-    const contents = [
-      <MailChanger />,
-      <PassChanger />,
-      <ProfileChanger />,
-      <ThemeChanger />,
-      <OtherChanger />,
-    ];
-    return contents[index];
-  };
+
+  const revisit = useStoreActions((actions) => actions.app.revisit);
+  useEffect(() => {
+    revisit({ onSuccess: () => {}, onFailure: () => navigate("/login") });
+  }, []);
+
   return (
     <Fragment>
       <Header>
@@ -45,7 +41,33 @@ const Setting = (props) => {
         {...{ titles, tabIndex }}
       />
       <h3>Panel</h3>
-      <TabPanel>{renderContent(tabIndex)}</TabPanel>
+      {tabIndex === 0 && (
+        <TabPanel>
+          <PassChanger />
+        </TabPanel>
+      )}
+      {tabIndex === 1 && (
+        <TabPanel>
+          <ProfileChanger />
+        </TabPanel>
+      )}
+      {tabIndex === 2 && (
+        <TabPanel>
+          <OtherChanger />
+        </TabPanel>
+      )}
+      {tabIndex === 3 && (
+        <TabPanel>
+          <div>テーマ変更</div>
+          <div>comming soon!</div>
+        </TabPanel>
+      )}
+      {tabIndex === 4 && (
+        <TabPanel>
+          <div>メールアドレス</div>
+          <div>comming soon!</div>
+        </TabPanel>
+      )}
     </Fragment>
   );
 };

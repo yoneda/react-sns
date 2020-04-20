@@ -1,8 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isLength, isEmail } from "validator";
 import { isEmpty } from "lodash";
-import { redirectTo } from "@reach/router";
+import { navigate } from "@reach/router";
 
 export const ThemeChanger = () => (
   <Fragment>
@@ -14,8 +14,12 @@ export const ThemeChanger = () => (
 export const ProfileChanger = () => {
   const user = useStoreState((state) => state.app.user);
   const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
-  const [bio, setBio] = useState(isEmpty(user) ? "" : user.bio);
-  const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
+  const [bio, setBio] = useState("");
+  const onSuccess = () => navigate("/setting"); // TODO:成功したましたというToastを表示する
+
+  useEffect(() => {
+    if (user.bio) setBio(user.bio);
+  }, [user]);
 
   return (
     <Fragment>
@@ -42,13 +46,17 @@ export const ProfileChanger = () => {
 export const MailChanger = () => {
   const user = useStoreState((state) => state.app.user);
   const updateProfile = useStoreActions((actions) => actions.app.updateProfile);
-  const [mail, setMail] = useState(isEmpty(user) ? "" : user.mail);
+  const [mail, setMail] = useState("");
   const [error, setError] = useState("");
   const onSuccess = () => redirectTo("/"); // TODO:成功したましたというToastを表示する
   const errorOccured = (message) => {
     setError(message);
     setMail(user.mail);
   };
+
+  useEffect(() => {
+    if (user.mail) setMail(user.mail);
+  }, [user]);
 
   return (
     <Fragment>
@@ -124,7 +132,7 @@ export const PassChanger = () => {
             return errorOccured("新しいパスワードが一致しません");
           if (!isLength(future, { min: 4, max: 35 }))
             return errorOccured("パスワードは4字以上35字未満で入力ください");
-            updateProfile({ pass: future, onSuccess });
+          updateProfile({ pass: future, onSuccess });
         }}
       >
         save

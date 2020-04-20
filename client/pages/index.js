@@ -5,7 +5,7 @@ import NoteList from "../components/NoteList";
 import EditorModal from "../components/EditorModal";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
-import { navigate} from "@reach/router";
+import { navigate } from "@reach/router";
 
 function Index() {
   const [user, notes] = useStoreState((state) => [
