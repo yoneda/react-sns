@@ -39,7 +39,10 @@ const User = {
 };
 
 const CheckAuth = () =>
-  request.get(`${base}/checkAuth`).then((res) => res.status === 200);
+  request
+    .get(`${base}/checkAuth`)
+    .then((res) => res.status === 200)
+    .catch(() => false);
 
 const CheckHelth = () => request.get(`${base}/helth`);
 
