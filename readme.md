@@ -5,6 +5,7 @@ This project is work in progress.
 ## Stack
 * React (UI library)
 * Express (REST API)
-* Nextjs (SSR)
+* Parcel (Module bundler)
+* EasyPeasy (Global State Management)
 * Knex (SQL Query builder)
 * PostgreSQL (Database)
