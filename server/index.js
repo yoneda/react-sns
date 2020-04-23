@@ -29,15 +29,15 @@ server.get(
 
 server.use("/api", routes);
 
-
 const options = {
   outDir: "./client/dist",
   cacheDir: "./client/.cache",
-}
+};
 const bundler = new Bundler("./client/index.html", options);
 server.use(bundler.middleware());
 
-server.listen(3000, (err) => {
+const port = process.env.PORT;
+server.listen(port || 3000, (err) => {
   if (err) throw err;
-  console.log("ready on localhost:3000");
+  console.log(`ready on localhost:${port}`);
 });

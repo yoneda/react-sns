@@ -1,6 +1,7 @@
 import request from "superagent";
 
-const base = "http://localhost:3000/api";
+const port = process.env.PORT || 3000;
+const base = `http://localhost:${port}/api`;
 
 // TODO: typescriptで返り値の型を指定したい
 const Note = {
