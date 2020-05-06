@@ -8,12 +8,7 @@ module.exports.get = async (req, res) => {
   const notes = await db("notes")
     .join("users", "users.id", "notes.user")
     .where("users.mail", mail)
-    .select(
-      "notes.id",
-      "notes.body",
-      "notes.createdAt",
-      "notes.updatedAt",
-    );
+    .select("notes.id", "notes.body", "notes.createdAt", "notes.updatedAt");
   res.send(notes);
 };
 
@@ -22,12 +17,14 @@ module.exports.post = async (req, res) => {
   const { body } = req.body;
   const [{ id: userId }] = await db("users").select("id").where({ mail });
   const today = dayjs().format("YYYY-M-D H:mm:ss");
-  const [id] = await db("notes").insert({
-    body,
-    createdAt: today,
-    updatedAt: today,
-    user: userId,
-  });
+  const [id] = await db("notes")
+    .insert({
+      body,
+      createdAt: today,
+      updatedAt: today,
+      user: userId,
+    })
+    .returning("id");
   const [note] = await db("notes").where({ id }).limit(1);
   res.status(201).location("location").send(note);
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
