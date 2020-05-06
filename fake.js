@@ -8,7 +8,6 @@ const randDatetime = () =>
 const fake = {
   users: [
     {
-      id: 1,
       mail: "yoneda@yoneda.com",
       pass: "yoneda",
       showCalendar: true,
@@ -17,7 +16,6 @@ const fake = {
       bio: "hello",
     },
     {
-      id: 2,
       mail: "tanaka@tanaka.com",
       pass: "tanaka",
       showCalendar: true,
@@ -28,21 +26,18 @@ const fake = {
   ],
   notes: [
     {
-      id: 1,
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
       user: 1
     },
     {
-      id: 2,
       body: "text text text 2",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
       user: 1
     },
     {
-      id: 3,
       body: "text text text",
       createdAt: randDatetime(),
       updatedAt: randDatetime(),
