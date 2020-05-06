@@ -14,6 +14,7 @@ module.exports = {
     }
   },
 
+  // TODO: stagning環境をつくるなら適切に設定する
   staging: {
     client: "postgresql",
     connection: {
@@ -33,16 +34,20 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      host: 'localhost',
+      database: "diary",
+      user: "yoneda",
+      password: "qweewqq"
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations"
+      directory: "server/migrations"
+    },
+    seeds:{
+      directory: "server/seeds"
     }
   }
 };
