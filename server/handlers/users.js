@@ -91,7 +91,10 @@ module.exports.login = async (req, res) => {
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
   res
     .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-    .sendStatus(200);
+    .status(200)
+    .send({
+      message: `Successfully logged in simple diary, your account is ${mail}.`,
+    });
 };
 
 module.exports.logout = (req, res) => {
