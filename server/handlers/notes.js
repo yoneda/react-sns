@@ -50,10 +50,18 @@ module.exports.put = async (req, res) => {
 module.exports.remove = async (req, res) => {
   const mail = req.mail;
   const { id } = req.params;
-  const num = await db("notes").where({ id, mail }).del();
+  const user = await db("users")
+    .where({ mail })
+    .then((users) => users[0]);
+  const num = await db("notes").where({ id, user: user.id }).del();
   if (!num) {
     throw new Error("Note is not found");
   }
+  // TODO:
+  // 1つのnoteを削除するとき、
+  // ・特定のメールアドレスをもつユーザが所有するノートである
+  // ・特定のノートidである
+  // 以上の2つの確認をSQLの結合or副問合せでできるはずなのでPostgreをしっかり学習してから書き換える
   // TODO: エラー時の status code が500で間違いないかチェックする
   res.status(200).send({ message: "Note has been deleted successfully." });
 };
