@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "f13beee6-5236-473a-8980-441dda8dd612",
+		"name": "simple-diary-tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "状態確認",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "deb2512b-4cd5-435e-9c04-930b64f3bc81",
+						"exec": [
+							"pm.test(\"ステータスコードが200である\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/helth",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"helth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ログイン",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mail\": \"yoneda@yoneda.com\",\n\t\"pass\": \"yoneda\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/users/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ユーザ取得",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37733445-6e7d-4b6e-b0e1-7a2ee3d9dd62",
+						"exec": [
+							"pm.test(\"ステータスコードが200である\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"pm.test(\"1人のユーザが取得できている\", function () {",
+							"    const users = pm.response.json();",
+							"    pm.expect(users.length).to.equal(1);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ユーザ取得",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "175"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"af-kpXEY79T0cQOFRBfwwTmZq3q6hs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 13 May 2020 08:37:42 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"mail\": \"yoneda@yoneda.com\",\n        \"pass\": \"$2b$12$6FSQwOos162.Hd/xjKo7Pu2qxVWpNoYqDrlsp5BXcSVJJXXdQZkOm\",\n        \"showCalendar\": 1,\n        \"showDateEditor\": 0,\n        \"calendarStart\": 0,\n        \"bio\": \"hello\"\n    }\n]"
+				},
+				{
+					"name": "ユーザ取得",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "175"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"af-kpXEY79T0cQOFRBfwwTmZq3q6hs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 13 May 2020 08:37:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"mail\": \"yoneda@yoneda.com\",\n        \"pass\": \"$2b$12$6FSQwOos162.Hd/xjKo7Pu2qxVWpNoYqDrlsp5BXcSVJJXXdQZkOm\",\n        \"showCalendar\": 1,\n        \"showDateEditor\": 0,\n        \"calendarStart\": 0,\n        \"bio\": \"hello\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "ノート取得",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07a44588-6226-4878-9231-7b6f3104ce24",
+						"exec": [
+							"pm.test(\"ステータスコードが200である\", function () {",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"pm.test(\"ログイン中のユーザはノートを1つ以上持っている\", function () {",
+							"    const notes = pm.response.json();",
+							"    console.log(2);",
+							"    pm.expect(notes.length).to.be.at.least(1);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/notes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
