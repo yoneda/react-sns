@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const asyncHandler = require("express-async-handler");
 const auth = require("./handlers/auth");
 const db = require("./db");
+const { omit } = require("lodash");
 const Bundler = require("parcel-bundler");
 
 // .envファイルを使用
@@ -28,7 +29,7 @@ server.get(
     const user = await db("users")
       .where({ email })
       .then((users) => users[0]);
-    res.status(200).send({ user });
+    res.status(200).send({ user: omit(user, ["password"]) });
   })
 );
 

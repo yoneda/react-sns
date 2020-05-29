@@ -175,7 +175,7 @@ Example request body:
 	"user":{
 		"name": "yoneda",
 		"password": "yoneda",
-		"showCalendar": false,
+		"showCalendar": false
 	}
 }
 ```

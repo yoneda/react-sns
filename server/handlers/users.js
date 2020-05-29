@@ -49,21 +49,18 @@ module.exports.post = async function (req, res) {
   // TODO: Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
-module.exports.put = async (req, res) => {
-  const mail = req.mail;
-  const payload = pick(req.body, [
-    "pass",
-    "showCalendar",
-    "showDateEditor",
-    "calendarStart",
-    "bio",
-  ]);
-  await db("users").where({ mail }).update(payload);
-  const user = await db("users").where({ mail });
-  res.send(user);
+module.exports.put = async function (req, res) {
+  const email = req.email;
+  const payload = pick(req.body.user, ["name", "password", "showCalendar"]);
+  if (payload.password) {
+    payload.password = await bcrypt.hash(payload.password, 12);
+  }
+  await db("users").where({ email }).update(payload);
+  const user = await db("users")
+    .where({ email })
+    .then((users) => users[0]);
+  res.send({ user });
   // TODO: メールアドレスも変更できるように修正
-  // TODO: アカウント名も変更できるか検討
-  // TODO: バリデーション実装が必要か検討
 };
 
 module.exports.remove = async (req, res) => {
