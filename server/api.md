@@ -27,6 +27,21 @@
 	}
 }
 ```
+
+### TrashedNote
+```
+{
+	"note": {
+		"id": 1,
+		"title": "my title",
+		"body": "text text text",
+		"trashed": false,
+		"createdAt": "2020-5-28 10:00:00",
+		"updatedAt": "2020-5-29 10:00:00"
+	}
+}
+```
+
 ## Endpoints:
 
 ### Login
@@ -37,14 +52,14 @@ Example request body:
 ```
 {
 	"user":{
-		"mail": "yoneda@yoneda.com",
-		"pass": "yoneda"
+		"email": "yoneda@yoneda.com",
+		"password": "yoneda"
 	}
 }
 ```
 No authentication required, returns a [User](#User)
 
-Required fields: `mail`, `pass`
+Required fields: `email`, `password`
 
 ### Logout
 
@@ -60,6 +75,115 @@ Check if your client has certificate for Simple Diary API.
 Authentication required, returns a [User](#User) and status code 200, when you didn't login, returnes 401 Unauthorized
 
 ### List Notes
+
 `GET /api/notes`
 
 Authentication required, returnes array of [Note](#Note), possessed by an authenticated user.
+
+Query Parameters:
+
+Get trashed notes (default is false):
+
+`?trashed=true`
+
+Limit number of notes (default is 10):
+
+`?limit=10`
+
+### Create a Note
+
+`POST /api/notes`
+
+Example request body:
+```
+{
+	"note": {
+		"title": "my title",
+		"body": "text text text"
+	}
+}
+```
+
+Authentication required, return a [Note](#Note)
+
+Required field: `body`
+
+Optional field: `title`
+
+### Edit a Note
+
+`PUT /api/notes/:id`
+
+Example request body:
+```
+{
+	"note": {
+		"title": "my title",
+		"body": "text text text"
+	}
+}
+```
+Optional field: `title`, `body`.
+
+### Trash a Note
+
+`PUT /api/notes/:id/trash`
+
+Authentication required, return a [TrashedNote](#TrashedNote)
+
+### Restore a Note
+
+`PUT /api/notes/:id/restore`
+
+Authentication required, return a [TrashedNote](#TrashedNote)
+
+### Delete a Note
+
+`DELETE /api/notes/:id`
+
+Authentication required
+
+### Get a User
+
+`GET /api/users`
+
+Authentication required, return a certificated [User](#User)
+
+### Create a User
+
+`POST /api/users`
+
+Example request body:
+```
+{
+	"user":{
+		"email": "yoneda@yoneda.com",
+		"password": "yoneda"
+	}
+}
+```
+No authentication required, returns a [User](#User)
+
+Required fields: `email`, `password`
+
+### Update a User
+`PUT /api/users`
+
+Example request body:
+```
+{
+	"user":{
+		"name": "yoneda",
+		"password": "yoneda",
+		"showCalendar": false,
+	}
+}
+```
+Authentication required, returns a [User](#User)
+
+Optional fields: `name`, `password`, `showCalendar`
+
+### Delete a User
+`DELETE /api/users`
+
+Authentication required
