@@ -6,13 +6,16 @@ function createWindow(){
     width: 800,
     height: 600,
     webPreferences:{
+      webSecurity: false,
       nodeIntegration: true
     }
   })
 
   // index.htmlをロード
   // win.loadFile("index.html");
-  win.loadURL("http://localhost:3000");
+  // win.loadURL("http://localhost:3000");
+  // またはローカルファイルをロード
+  win.loadURL(`file://${__dirname}/dist/index.html`);
 
   // 開発者ツールを開く
   // win.webContents.openDevTools();

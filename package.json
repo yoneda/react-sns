@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "react-scripts build",
+    "build": "parcel build client/index.html",
     "dev": "nodemon --ignore client server/index.js",
     "test": "newman run tests/simple-diary-tests.postman_collection.json -e tests/development.postman_environment.json",
     "lint": "eslint client"
