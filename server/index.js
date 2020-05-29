@@ -5,6 +5,7 @@ const routes = require("./routes");
 const cookieParser = require("cookie-parser");
 const asyncHandler = require("express-async-handler");
 const auth = require("./handlers/auth");
+const db = require("./db");
 const Bundler = require("parcel-bundler");
 
 // .envファイルを使用
@@ -23,7 +24,11 @@ server.get(
   "/api/checkAuth",
   asyncHandler(auth),
   asyncHandler(async function (req, res, next) {
-    res.sendStatus(200);
+    const email = req.email;
+    const user = await db("users")
+      .where({ email })
+      .then((users) => users[0]);
+    res.status(200).send({ user });
   })
 );
 

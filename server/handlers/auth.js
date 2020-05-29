@@ -7,6 +7,6 @@ module.exports = async function (req, res, next) {
   }
   const secret = process.env.SECRET;
   const decoded = await jwt.verify(token, secret);
-  req.mail = decoded.mail;
+  req.email = decoded.email;
   next();
 }

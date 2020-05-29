@@ -4,6 +4,8 @@ const { pick } = require("lodash");
 const dayjs = require("dayjs");
 const db = require("../db");
 
+// TODO: express-validator でbodyのバリデーション
+
 module.exports.get = async (req, res) => {
   const mail = req.mail;
   const user = await db("users").where({ mail });
@@ -68,32 +70,26 @@ module.exports.remove = async (req, res) => {
   // TODO: ユーザに紐付けられたノートもついでに削除
 };
 
-module.exports.login = async (req, res) => {
-  const { mail, pass } = req.body;
+module.exports.login = async function (req, res) {
+  const { email, password } = req.body.user;
   const user = await db("users")
-    .where({ mail })
-    .then((users) => {
-      if (users.length === 1) {
-        return users[0];
-      } else {
-        throw new Error("any users not found");
-      }
-    })
-    .catch((err) => {
-      return res.status(401).json({ error: "incorrect email or password" });
-    });
-  const isMatch = await bcrypt.compare(pass, user.pass);
+    .where({ email })
+    .then((users) => users[0])
+    .catch((err) =>
+      res.status(401).json({ error: "incorrect email or password" })
+    );
+  const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res.status(401).json({ error: "incorrect email or password" });
   }
-  const payload = { mail };
   const secret = process.env.SECRET;
+  const payload = { email };
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
   res
     .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
     .status(200)
     .send({
-      message: `Successfully logged in simple diary, your account is ${mail}.`,
+      message: `Successfully logged in simple diary, your account is ${email}.`,
     });
 };
 
