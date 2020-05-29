@@ -1,46 +1,52 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { pick } = require("lodash");
+const { pick, omit } = require("lodash");
 const dayjs = require("dayjs");
 const db = require("../db");
 
 // TODO: express-validator でbodyのバリデーション
 
-module.exports.get = async (req, res) => {
-  const mail = req.mail;
-  const user = await db("users").where({ mail });
-  if (user && user.length === 0) {
-    res.status(404).send({ message: "not found" });
-  }
-  res.send(user);
+module.exports.get = async function (req, res) {
+  const email = req.email;
+  const user = await db("users")
+    .where({ email })
+    .then((users) => users[0])
+    .catch((err) => res.status(404).send({ message: "no any users found" }));
+  res.send({ user: omit(user, ["password"]) });
 };
 
-module.exports.post = async (req, res) => {
-  const { mail, pass } = req.body;
-  const hashed = await bcrypt.hash(pass, 12);
+module.exports.post = async function (req, res) {
+  const { email, password } = req.body.user;
+  const hashed = await bcrypt.hash(password, 12);
+  const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("users").insert({
-    mail,
-    pass: hashed,
+    email,
+    password: hashed,
+    name: "",
     showCalendar: true,
-    showDateEditor: false,
-    calendarStart: 0,
-    bio: "hello",
+    createdAt: today,
+    updatedAt: today,
   });
-  const user = await db("users").where({ id }).limit(1);
+  const user = await db("users")
+    .where({ id })
+    .then((users) => users[0]);
 
   // 新規ユーザ作成時、1つの投稿を作成
-  const today = dayjs().format("YYYY-M-D H:mm:ss");
-  const body = "さぁ、日記をはじめよう。";
   await db("notes").insert({
-    body,
+    title: "新しい日記",
+    body: "さぁ、日記をはじめよう。",
+    trashed: false,
     createdAt: today,
     updatedAt: today,
     user: id,
   });
-
-  res.status(201).location("location").send(user[0]);
+  res
+    .status(201)
+    .location("location")
+    .send({ user: omit(user, ["password"]) });
   // TODO: POSTではlocationヘッダに作成後のURLを含めることが推奨されている。
-  // TODO: POSTでは作成された情報を返すことが推奨されている。Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
+  // TODO: POSTでは作成された情報を返すことが推奨されている。
+  // TODO: Postgreでは1回のクエリで作成情報が返るが SQLiteでは2回必要。
 };
 
 module.exports.put = async (req, res) => {
