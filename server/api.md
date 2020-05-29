@@ -7,11 +7,11 @@
 {
 	"user": {
 		"id": 1,
-		"mail": "yoneda@yoneda.com",
-		"bio": "hello",
+		"email": "yoneda@yoneda.com",
+		"name": "yoneda",
 		"showCalendar": true,
-		"showDateEditor": false,
-		"calendarStart": 0
+		"createdAt": "2020-5-1 10:00:00",
+		"updatedAt": "2020-5-29 10:00:00"
 	}
 }
 ```
@@ -20,9 +20,10 @@
 {
 	"note": {
 		"id": 1,
+		"title": "my title",
 		"body": "text text text",
-		"createdAt": "2020-5-5 10:00:00",
-		"updatedAt": "2020-5-10 10:00:00",
+		"createdAt": "2020-5-28 10:00:00",
+		"updatedAt": "2020-5-29 10:00:00"
 	}
 }
 ```
