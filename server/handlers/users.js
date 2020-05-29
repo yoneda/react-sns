@@ -63,24 +63,31 @@ module.exports.put = async function (req, res) {
   // TODO: メールアドレスも変更できるように修正
 };
 
-module.exports.remove = async (req, res) => {
-  const mail = req.mail;
-  const num = await db("users").where({ mail }).del();
-  if (!num) {
-    throw new Error(`Not found that account is ${mail} in this database.`);
+module.exports.remove = async function (req, res) {
+  const email = req.email;
+
+  // ユーザに紐付けられたノートを削除
+  const user = await db("users").where({email}).then(users=>users[0]);
+  await db("notes").where({user:user.id}).del();
+
+  // アカウントを削除
+  const number = await db("users").where({ email }).del();
+  if (!number) {
+    throw new Error(`There are no account named ${email} in this database`);
   }
-  res.status(200).send({ message: "User has been deleted successfully." });
-  // TODO: ユーザに紐付けられたノートもついでに削除
+  res.status(200).send({ message: "User has been deleted successfully" });
 };
 
 module.exports.login = async function (req, res) {
   const { email, password } = req.body.user;
+  console.log(req.body.user);
   const user = await db("users")
     .where({ email })
     .then((users) => users[0])
     .catch((err) =>
       res.status(401).json({ error: "incorrect email or password" })
     );
+  console.log(user);
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res.status(401).json({ error: "incorrect email or password" });
