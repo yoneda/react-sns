@@ -87,7 +87,6 @@ module.exports.login = async function (req, res) {
     .catch((err) =>
       res.status(401).json({ error: "incorrect email or password" })
     );
-  console.log(user);
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res.status(401).json({ error: "incorrect email or password" });

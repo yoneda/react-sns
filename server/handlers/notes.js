@@ -2,6 +2,24 @@ const { pick } = require("lodash");
 const dayjs = require("dayjs");
 const db = require("../db");
 
+module.exports.get = async function (req, res) {
+  const email = req.email;
+  const { trashed, limit } = req.query;
+  const user = await db("users")
+    .where({ email })
+    .then((users) => users[0]);
+  const queryBuilder = db("notes").where({ user: user.id });
+  if (trashed !== undefined) {
+    queryBuilder.where({ trashed });
+  }
+  if (limit !== undefined) {
+    queryBuilder.limit(limit);
+  }
+  const notes = await queryBuilder;
+  res.send({ notes });
+};
+
+/*
 module.exports.get = async (req, res) => {
   const mail = req.mail;
   // MEMO: ここは後で認証済みのuserオブジェクトから取得する予定
@@ -10,7 +28,7 @@ module.exports.get = async (req, res) => {
     .where("users.mail", mail)
     .select("notes.id", "notes.body", "notes.createdAt", "notes.updatedAt");
   res.send(notes);
-};
+};*/
 
 module.exports.post = async (req, res) => {
   const mail = req.mail;
