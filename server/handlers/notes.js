@@ -8,15 +8,10 @@ module.exports.get = async function (req, res) {
   const user = await db("users")
     .where({ email })
     .then((users) => users[0]);
-  const queryBuilder = db("notes")
-    .where({ user: user.id })
-    .where({ trashed: false });
-  console.log(trashed);
-  console.log(limit);
-  // TODO: trashed のフィルタがかからない不具合を修正
-  // TODO: 1個のノートを取得するだけのパターンにも対応
+
+  const queryBuilder = db("notes").where({ user: user.id });
   if (trashed !== undefined) {
-    queryBuilder.where({ trashed: trashed });
+    queryBuilder.where({ trashed });
   }
   if (limit !== undefined) {
     queryBuilder.limit(limit);
