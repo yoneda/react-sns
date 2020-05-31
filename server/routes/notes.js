@@ -10,4 +10,7 @@ router.post("/", asyncHandler(auth), asyncHandler(notes.post));
 router.put("/:id", asyncHandler(auth), asyncHandler(notes.put));
 router.delete("/:id", asyncHandler(auth), asyncHandler(notes.remove));
 
+router.put("/:id/trash", asyncHandler(auth), asyncHandler(notes.trash));
+router.put("/:id/restore", asyncHandler(auth), asyncHandler(notes.restore));
+
 module.exports = router;
