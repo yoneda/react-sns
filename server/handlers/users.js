@@ -80,7 +80,6 @@ module.exports.remove = async function (req, res) {
 
 module.exports.login = async function (req, res) {
   const { email, password } = req.body.user;
-  console.log(req.body.user);
   const user = await db("users")
     .where({ email })
     .then((users) => users[0])
