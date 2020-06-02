@@ -5,9 +5,7 @@ const db = require("../db");
 module.exports.get = async function (req, res) {
   const email = req.email;
   const { trashed, limit } = req.query;
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
 
   const queryBuilder = db("notes").where({ user: user.id });
   if (trashed !== undefined) {
@@ -23,9 +21,7 @@ module.exports.get = async function (req, res) {
 module.exports.post = async function (req, res) {
   const email = req.email;
   const payload = pick(req.body, ["title", "body"]);
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("notes")
     .insert({
@@ -47,15 +43,11 @@ module.exports.put = async function (req, res) {
   const { id } = req.params;
   const payload = pick(req.body, ["title", "body"]);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   await db("notes")
     .where({ id, user: user.id })
     .update({ ...payload, updatedAt: today });
-  const note = await db("notes")
-    .where({ id })
-    .then((notes) => notes[0]);
+  const note = await db("notes").where({ id }).first();
   // TODO: ユーザを取得するクエリと、ノートを修正するクエリは1つにできる
   res.send({ note });
 };
@@ -63,9 +55,7 @@ module.exports.put = async function (req, res) {
 module.exports.remove = async function (req, res) {
   const email = req.email;
   const { id } = req.params;
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   const num = await db("notes").where({ id, user: user.id }).del();
   if (!num) {
     throw new Error("Note is not found");
@@ -82,25 +72,17 @@ module.exports.remove = async function (req, res) {
 module.exports.trash = async function (req, res) {
   const email = req.email;
   const { id } = req.params;
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   await db("notes").where({ id, user: user.id }).update({ trashed: true });
-  const note = await db("notes")
-    .where({ id })
-    .then((notes) => notes[0]);
+  const note = await db("notes").where({ id }).first();
   res.send({ note });
 };
 
 module.exports.restore = async function (req, res) {
   const email = req.email;
   const { id } = req.params;
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   await db("notes").where({ id, user: user.id }).update({ trashed: false });
-  const note = await db("notes")
-    .where({ id })
-    .then((notes) => notes[0]);
+  const note = await db("notes").where({ id }).first();
   res.send({ note });
 };

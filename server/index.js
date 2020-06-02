@@ -26,9 +26,7 @@ server.get(
   asyncHandler(auth),
   asyncHandler(async function (req, res, next) {
     const email = req.email;
-    const user = await db("users")
-      .where({ email })
-      .then((users) => users[0]);
+    const user = await db("users").where({ email }).first();
     res.status(200).send({ user: omit(user, ["password"]) });
   })
 );

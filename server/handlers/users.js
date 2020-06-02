@@ -27,9 +27,7 @@ module.exports.post = async function (req, res) {
     createdAt: today,
     updatedAt: today,
   });
-  const user = await db("users")
-    .where({ id })
-    .then((users) => users[0]);
+  const user = await db("users").where({ id }).first();
 
   // 新規ユーザ作成時、1つの投稿を作成
   await db("notes").insert({
@@ -56,9 +54,7 @@ module.exports.put = async function (req, res) {
     payload.password = await bcrypt.hash(payload.password, 12);
   }
   await db("users").where({ email }).update(payload);
-  const user = await db("users")
-    .where({ email })
-    .then((users) => users[0]);
+  const user = await db("users").where({ email }).first();
   res.send({ user });
   // TODO: メールアドレスも変更できるように修正
 };
@@ -67,8 +63,8 @@ module.exports.remove = async function (req, res) {
   const email = req.email;
 
   // ユーザに紐付けられたノートを削除
-  const user = await db("users").where({email}).then(users=>users[0]);
-  await db("notes").where({user:user.id}).del();
+  const user = await db("users").where({ email }).first();
+  await db("notes").where({ user: user.id }).del();
 
   // アカウントを削除
   const number = await db("users").where({ email }).del();
@@ -82,7 +78,7 @@ module.exports.login = async function (req, res) {
   const { email, password } = req.body.user;
   const user = await db("users")
     .where({ email })
-    .then((users) => users[0])
+    .first()
     .catch((err) =>
       res.status(401).json({ error: "incorrect email or password" })
     );
