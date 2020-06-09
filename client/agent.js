@@ -20,20 +20,22 @@ const Note = {
 
 const User = {
   get: () => request.get(`${base}/users`).then((res) => res.body[0]),
-  post: ({ mail, pass }) =>
-    request
+  post: function ({ email, password }) {
+    console.log("aaaa");
+    return request
       .post(`${base}/users`)
-      .send({ mail, pass })
-      .then((res) => res.body),
-  put: ({ pass, bio, showCalendar, showDateEditor, calendarStart }) =>
+      .send({ user: { email, password } })
+      .then((res) => res.bpdy);
+  },
+  put: ({ password, bio, showCalendar, showDateEditor, calendarStart }) =>
     request
       .put(`${base}/users`)
-      .send({ pass, bio, showCalendar, showDateEditor, calendarStart })
+      .send({ password, bio, showCalendar, showDateEditor, calendarStart })
       .then((res) => res.body[0]),
-  login: ({ mail, pass }) =>
+  login: ({ email, password }) =>
     request
       .post(`${base}/users/login`)
-      .send({ mail, pass })
+      .send({ user: { email, password } })
       .then((res) => res.status === 200),
   logout: () =>
     request.post(`${base}/users/logout`).then((res) => res.status === 200),

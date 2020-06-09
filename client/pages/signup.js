@@ -5,8 +5,8 @@ import LandingHeader from "../components/LandingHeader";
 
 function Signup() {
   const createUser = useStoreActions((actions) => actions.app.signup);
-  const [mail, setMail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const onSuccess = () => navigate("/");
 
   return (
@@ -15,19 +15,19 @@ function Signup() {
       <h3>signup:</h3>
       <input
         type="text"
-        onChange={(e) => setMail(e.target.value)}
-        value={mail}
-        placeholder="mail"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        placeholder="email"
       />
       <br />
       <input
         type="text"
-        onChange={(e) => setPass(e.target.value)}
-        value={pass}
-        placeholder="pass"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        placeholder="password"
       />
       <br />
-      <button onClick={() => createUser({ mail, pass, onSuccess })}>
+      <button onClick={() => createUser({ email, password, onSuccess })}>
         send
       </button>
     </Fragment>

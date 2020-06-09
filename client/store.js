@@ -31,21 +31,21 @@ const app = {
   user: {},
   isLoggedIn: computed((state) => !isEmpty(state.user)),
   signup: thunk(async (actions, payload, { getStoreActions }) => {
-    const { mail, pass, onSuccess } = payload;
+    const { email, password, onSuccess } = payload;
     // ユーザを作成
-    const user = await agent.User.post({ mail, pass });
+    const user = await agent.User.post({ email, password });
     actions.setUser(user);
     // ログイン情報をもったクッキーを取得
-    const isSuccess = await agent.User.login({ mail, pass });
+    const isSuccess = await agent.User.login({ email, password });
     // ノートを取得
     const notes = await agent.Note.get();
     getStoreActions().notes.set(notes);
     onSuccess();
   }),
   login: thunk(async (actions, payload, { getStoreActions }) => {
-    const { mail, pass, onSuccess } = payload;
+    const { email, password, onSuccess } = payload;
     // ログイン情報をもったクッキーを取得
-    const isSuccess = await agent.User.login({ mail, pass });
+    const isSuccess = await agent.User.login({ email, password });
     if (!isSuccess) return;
     // ユーザを取得
     const user = await agent.User.get();
