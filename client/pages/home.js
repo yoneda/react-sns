@@ -9,8 +9,7 @@ const Button = styled.button`
 
 function Home() {
   return (
-    <div>
-      hello, home!
+    <div style={{ height: "100%" }}>
       <Sidebar />
     </div>
   );

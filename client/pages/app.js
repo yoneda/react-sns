@@ -7,10 +7,12 @@ import Index from "../pages/index";
 import Setting from "../pages/setting";
 import Home from "../pages/home";
 import { Router } from "@reach/router";
+import { Reset } from "styled-reset";
 
 function App() {
   return (
     <Fragment>
+      <Reset />
       <StoreProvider store={store}>
         <Router>
           <Index path="/" />
