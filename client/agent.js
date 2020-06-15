@@ -1,8 +1,9 @@
-import request from "superagent";
+const request = require("superagent");
 
 const port = process.env.PORT || 3000;
 const base = `http://localhost:${port}/api`;
 
+/*
 // TODO: typescriptで返り値の型を指定したい
 const Note = {
   get: () => request.get(`${base}/notes`).then((res) => res.body),
@@ -21,7 +22,6 @@ const Note = {
 const User = {
   get: () => request.get(`${base}/users`).then((res) => res.body[0]),
   post: function ({ email, password }) {
-    console.log("aaaa");
     return request
       .post(`${base}/users`)
       .send({ user: { email, password } })
@@ -54,4 +54,26 @@ export default {
   User,
   CheckAuth,
   CheckHelth,
+};
+*/
+
+const User = {
+  get: function () {
+    return request.get(`${base}/users`).then((res) => res.body[0]);
+  },
+  login: function (reqBody) {
+    return request
+      .post(`${base}/users/login`)
+      .send(reqBody)
+      .then((res) => res.status === 200);
+  },
+};
+
+const CheckHelth = function () {
+  return request.get(`${base}/helth`);
+};
+
+module.exports = {
+  CheckHelth,
+  User,
 };

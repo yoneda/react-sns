@@ -4,8 +4,8 @@ import { navigate } from "@reach/router";
 import LandingHeader from "../components/LandingHeader";
 
 function Login() {
-  const [mail, setMail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
   const onSuccess = () => navigate("/");
 
@@ -15,19 +15,19 @@ function Login() {
       <h3>login:</h3>
       <input
         type="text"
-        onChange={(e) => setMail(e.target.value)}
-        value={mail}
-        placeholder="mail"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        placeholder="email"
       />
       <br />
       <input
         type="text"
-        onChange={(e) => setPass(e.target.value)}
-        value={pass}
-        placeholder="pass"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        placeholder="password"
       />
       <br />
-      <button onClick={() => doLogin({ mail, pass, onSuccess })}>send</button>
+      <button onClick={() => doLogin({ email, password, onSuccess })}>send</button>
     </div>
   );
 }
