@@ -7,6 +7,7 @@ import Signup from "../pages/signup";
 import Index from "../pages/index";
 import Setting from "../pages/setting";
 import Home from "../pages/home";
+import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
 import { Reset } from "styled-reset";
 import styled from "styled-components";
@@ -33,6 +34,7 @@ function App() {
             <Signup path="/signup" />
             <Setting path="/setting" />
             <Home path="/home" />
+            <Trash path="/trash" />
           </Router>
         </Layout>
       </StoreProvider>
