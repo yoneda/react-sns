@@ -1,17 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Sidebar from "../components/Sidebar";
 
-const Button = styled.button`
-  background; ${(props) => (props.primary ? "black" : "white")};
-  color: ${(props) => (props.primary ? "white" : "black")};
+const Box = styled.div`
+  height: 100%;
 `;
 
 function Home() {
   return (
-    <div style={{ height: "100%" }}>
-      <Sidebar />
-    </div>
+    <Box>
+      home page
+    </Box>
   );
 }
 

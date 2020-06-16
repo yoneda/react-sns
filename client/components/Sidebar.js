@@ -1,32 +1,65 @@
 import React, { useState } from "react";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import { Link } from "@reach/router";
 import styled from "styled-components";
 
 const Box = styled.div`
-  width: 240px;
+  width: 200px;
   height: 100%;
-  background-color: red;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
 `;
 
-const BoxItem = styled.div`
+const Item = styled.div`
+  width: 200px;
+  height: 60px;
+  display: flex;
+  flex-grow: 0;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Blank = styled.div`
+  width: 200px;
+  height: auto;
+  flex-grow: 1;
+`;
+
+const PopupBox = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
 `;
 
 function Popup() {
-  return <button>logout</button>;
+  return (
+    <PopupBox>
+      <button>logout</button>
+    </PopupBox>
+  );
 }
 
 function Sidebar() {
   const [isPopuped, updateIsPopuped] = useState(false);
-  const index = useStoreState((state) => state.app.indexSidebar);
-  const updateIndex = useStoreActions((actions) => actions.app.updateIndex);
   return (
     <Box>
-      <button onClick={() => updateIsPopuped(!isPopuped)}>kohei</button>
-      <button onClick={() => updateIndex(0)}>home</button>
-      <button onClick={() => updateIndex(1)}>setting</button>
-      <button onClick={() => updateIndex(2)}>trash</button>
-      <br />
-      {isPopuped && <Popup />}
+      <Item>
+        <button onClick={() => updateIsPopuped(!isPopuped)}>Kohei</button>
+        {isPopuped && <Popup />}
+      </Item>
+      <Item>
+        <Link to="/home">Home</Link>
+      </Item>
+      <Item>
+        <Link to="/setting">Setting</Link>
+      </Item>
+      <Item>
+        <Link to="/trash">Trash</Link>
+      </Item>
+      <Blank />
+      <Item>
+        <button onClick={() => {}}>add</button>
+      </Item>
     </Box>
   );
 }

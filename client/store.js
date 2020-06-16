@@ -29,10 +29,6 @@ const notes = {
 
 const app = {
   user: {},
-  indexSidebar: 0,
-  updateIndex: action((state, payload)=>{
-    state.indexSidebar = payload;
-  }),
   isLoggedIn: computed((state) => !isEmpty(state.user)),
   signup: thunk(async (actions, payload, { getStoreActions }) => {
     const { email, password, onSuccess } = payload;

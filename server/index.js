@@ -1,6 +1,5 @@
 const express = require("express");
 const env = require("dotenv");
-const dev = process.env.NODE_ENV !== "production";
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
 const asyncHandler = require("express-async-handler");
