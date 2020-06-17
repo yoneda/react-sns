@@ -17,8 +17,7 @@ const Box = styled.div`
 `;
 
 const Layout = styled.div`
-  display: flex;
-  height: 100%;
+  margin-left: 240px;
 `;
 
 function App() {
@@ -26,8 +25,8 @@ function App() {
     <Box>
       <Reset />
       <StoreProvider store={store}>
+        <Sidebar />
         <Layout>
-          <Sidebar />
           <Router>
             <Index path="/" />
             <Login path="/login" />

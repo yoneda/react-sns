@@ -3,15 +3,16 @@ import { Link } from "@reach/router";
 import styled from "styled-components";
 
 const Box = styled.div`
-  width: 200px;
+  width: 240px;
   height: 100%;
   background-color: lightgray;
   display: flex;
   flex-direction: column;
+  position: fixed;
 `;
 
 const Item = styled.div`
-  width: 200px;
+  width: 240px;
   height: 60px;
   display: flex;
   flex-grow: 0;
@@ -20,7 +21,7 @@ const Item = styled.div`
 `;
 
 const Blank = styled.div`
-  width: 200px;
+  width: 240px;
   height: auto;
   flex-grow: 1;
 `;
