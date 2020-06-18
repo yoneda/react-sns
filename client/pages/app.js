@@ -2,14 +2,15 @@ import React from "react";
 import { Router } from "@reach/router";
 import { StoreProvider } from "easy-peasy";
 import store from "../store";
-import Login from "../pages/login";
-import Signup from "../pages/signup";
+import Login2 from "../pages/login2";
+import Signup2 from "../pages/signup2";
 import Index from "../pages/index";
 import Setting from "../pages/setting";
 import Home from "../pages/home";
 import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
 import { Reset } from "styled-reset";
+import Creator from "../components/Creator";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -23,14 +24,13 @@ const Layout = styled.div`
 function App() {
   return (
     <Box>
+      <Creator />
       <Reset />
       <StoreProvider store={store}>
         <Sidebar />
         <Layout>
           <Router>
             <Index path="/" />
-            <Login path="/login" />
-            <Signup path="/signup" />
             <Setting path="/setting" />
             <Home path="/home" />
             <Trash path="/trash" />
@@ -41,4 +41,18 @@ function App() {
   );
 }
 
-export default App;
+function App2() {
+  return (
+    <Box>
+      <Reset />
+      <StoreProvider store={store}>
+        <Router>
+          <Login2 path="/login" />
+          <Signup2 path="/signup" />
+        </Router>
+      </StoreProvider>
+    </Box>
+  );
+}
+
+export default App2;
