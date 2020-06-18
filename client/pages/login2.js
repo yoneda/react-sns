@@ -43,9 +43,9 @@ function Login2() {
         <div>または</div>
         <Button>Googleで続ける</Button>
         <div>
-          すでにアカウントをお持ちですか？
+          アカウントをお持ちでないですか？
           <br />
-          お持ちの場合は<Link to="../signup">こちら</Link>から登録できます。
+          <Link to="../signup">こちら</Link>から新規登録できます。
         </div>
       </Item>
     </Box>
