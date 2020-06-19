@@ -6,6 +6,7 @@ import Login2 from "../pages/login2";
 import Signup2 from "../pages/signup2";
 import Index from "../pages/index";
 import Setting from "../pages/setting";
+import Setting2 from "../pages/setting2";
 import Home from "../pages/home";
 import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
@@ -24,14 +25,14 @@ const Layout = styled.div`
 function App() {
   return (
     <Box>
-      <Creator />
+      {/* <Creator /> */}
       <Reset />
       <StoreProvider store={store}>
         <Sidebar />
         <Layout>
           <Router>
             <Index path="/" />
-            <Setting path="/setting" />
+            <Setting2 path="/setting" />
             <Home path="/home" />
             <Trash path="/trash" />
           </Router>
@@ -55,4 +56,4 @@ function App2() {
   );
 }
 
-export default App2;
+export default App;
