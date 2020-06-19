@@ -1,6 +1,7 @@
 import faker from "faker";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
+import { sortedIndexOf } from "lodash";
 
 const NUM_USERS = 10;
 const NUM_NOTES = 365;
@@ -39,6 +40,26 @@ const seed = async function (knex) {
         user: userId,
       });
     }
+  }
+  const hashed = await bcrypt.hash("yoneda", 12);
+  // テストユーザを1名追加
+  const [userId] = await knex("users").insert({
+    email: "yoneda@yoneda.com",
+    password: hashed,
+    name: "yoneyone",
+    showCalendar: true,
+    createdAt: randDatetime(),
+    updatedAt: randDatetime(),
+  });
+  for (let index = 0; index < 3; index++) {
+    await knex("notes").insert({
+      title: `タイトル${index}`,
+      body: `内容内容内容${index}`,
+      trashed: false,
+      createdAt: randDatetime(),
+      updatedAt: randDatetime(),
+      user: userId,
+    });
   }
 };
 

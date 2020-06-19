@@ -145,7 +145,7 @@ const app = {
   login: thunk(async (actions, payload, { getStoreActions }) => {
     const { email, password, onSuccess } = payload;
     // ログイン情報をもったクッキーを取得
-    const isSuccess = await agent.User.login({ email, password });
+    const isSuccess = await agent.User.login({ user: { email, password } });
     if (!isSuccess) return;
     // ユーザを取得
     const user = await agent.User.get();

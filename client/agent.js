@@ -57,9 +57,15 @@ export default {
 };
 */
 
+const Note = {
+  get: function(){
+    return request.get(`${base}/notes`).then(res=>res.body.notes);
+  }
+}
+
 const User = {
   get: function () {
-    return request.get(`${base}/users`).then((res) => res.body[0]);
+    return request.get(`${base}/users`).then((res) => res.body.user);
   },
   login: function (reqBody) {
     return request
@@ -76,4 +82,5 @@ const CheckHelth = function () {
 module.exports = {
   CheckHelth,
   User,
+  Note,
 };

@@ -25,7 +25,6 @@ const Layout = styled.div`
 function App() {
   return (
     <Box>
-      <Creator />
       <Reset />
       <StoreProvider store={store}>
         <Sidebar />
@@ -56,4 +55,4 @@ function App2() {
   );
 }
 
-export default App;
+export default App2;

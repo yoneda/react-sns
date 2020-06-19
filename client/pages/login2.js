@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useStoreActions } from "easy-peasy";
+import { navigate } from "@reach/router";
 import { Link } from "@reach/router";
 
 const Box = styled.div`
@@ -31,15 +33,31 @@ const Header = styled.div`
 `;
 
 function Login2() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const doLogin = useStoreActions((actions) => actions.app.login);
+  const onSuccess = () => navigate("/");
   return (
     <Box>
       <Item>
         <Header>
           <h3>Sign in</h3>
         </Header>
-        <Input type="text" placeholder="メールアドレス" />
-        <Input type="text" placeholder="パスワード" />
-        <Button>ログインする</Button>
+        <Input
+          type="text"
+          placeholder="メールアドレス"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="パスワード"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button onClick={() => doLogin({ email, password, onSuccess })}>
+          ログインする
+        </Button>
         <div>または</div>
         <Button>Googleで続ける</Button>
         <div>
