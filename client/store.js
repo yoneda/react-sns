@@ -17,8 +17,9 @@ const notes = {
     actions.set(notes);
   }),
   update: thunk(async (actions, payload) => {
-    const { id, body, onSuccess } = payload;
-    await agent.Note.put({ id, body });
+    const { id, title, body, onSuccess } = payload;
+    const reqBody = { note: { title, body } };
+    await agent.Note.put({ id, reqBody });
     const notes = await agent.Note.get();
     actions.set(notes);
     if (onSuccess !== undefined) onSuccess();

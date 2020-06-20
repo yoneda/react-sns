@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useStoreActions } from "easy-peasy";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import styled from "styled-components";
 
 const BackBox = styled.div`
@@ -41,9 +41,10 @@ const Footer = styled.div`
 `;
 
 function Editor(props) {
-  const { onClose } = props;
-  const [title, setTitle] = useState(props.title);
-  const [body, setBody] = useState(props.body);
+  const { note, onClose, onTrash } = props;
+  const updateNotes = useStoreActions((actions) => actions.notes.update);
+  const [title, setTitle] = useState(note.title);
+  const [body, setBody] = useState(note.body);
   return (
     <BackBox>
       <Box>
@@ -56,11 +57,23 @@ function Editor(props) {
         <TextArea
           placeholder="内容"
           value={body}
-          onChange={(e) => setBody(e.target.nodeValue)}
+          onChange={(e) => setBody(e.target.value)}
         />
         <Footer>
-          <button onClick={() => onClose()}>閉じる</button>
-          <button>ゴミ箱に入れる</button>
+          <button
+            onClick={() => {
+              onClose();
+              updateNotes({
+                id: note.id,
+                title,
+                body,
+                onSuccess: onClose,
+              });
+            }}
+          >
+            閉じる
+          </button>
+          <button onClick={() => onTrash()}>ゴミ箱に入れる</button>
         </Footer>
       </Box>
     </BackBox>

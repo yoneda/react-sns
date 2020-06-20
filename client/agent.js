@@ -58,10 +58,15 @@ export default {
 */
 
 const Note = {
-  get: function(){
-    return request.get(`${base}/notes`).then(res=>res.body.notes);
-  }
-}
+  get: function () {
+    return request.get(`${base}/notes`).then((res) => res.body.notes);
+  },
+  put: ({id, reqBody}) =>
+    request
+      .put(`${base}/notes/${id}`)
+      .send(reqBody)
+      .then((res) => res.body),
+};
 
 const User = {
   get: function () {

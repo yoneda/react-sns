@@ -13,6 +13,10 @@ function NoteList2() {
   const notes = useStoreState((state) => state.notes.items);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const onClose = () => {
+    setOpen(false);
+    setIndex(0);
+  };
   return (
     <Box>
       {notes.map((note, noteIndex) => (
@@ -28,12 +32,8 @@ function NoteList2() {
       ))}
       {open && (
         <Editor
-          title={notes[index].title}
-          body={notes[index].body}
-          onClose={() => {
-            setOpen(false);
-            setIndex(0);
-          }}
+          note={notes[index]}
+          onClose={onClose}
         />
       )}
     </Box>
