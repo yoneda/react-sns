@@ -20,7 +20,7 @@ module.exports.get = async function (req, res) {
 
 module.exports.post = async function (req, res) {
   const email = req.email;
-  const payload = pick(req.body, ["title", "body"]);
+  const payload = pick(req.body.note, ["title", "body"]);
   const user = await db("users").where({ email }).first();
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("notes")
@@ -41,7 +41,7 @@ module.exports.post = async function (req, res) {
 module.exports.put = async function (req, res) {
   const email = req.email;
   const { id } = req.params;
-  const payload = pick(req.body, ["title", "body"]);
+  const payload = pick(req.body.note, ["title", "body"]);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const user = await db("users").where({ email }).first();
   await db("notes")
