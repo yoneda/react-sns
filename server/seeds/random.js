@@ -1,7 +1,6 @@
 import faker from "faker";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
-import { sortedIndexOf } from "lodash";
 
 const NUM_USERS = 10;
 const NUM_NOTES = 365;

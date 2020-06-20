@@ -1,5 +1,6 @@
 import React from "react";
 import NoteList2 from "../components/NoteList2";
+import Editor from "../components/Editor";
 import styled from "styled-components";
 
 const Box = styled.div`

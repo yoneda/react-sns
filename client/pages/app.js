@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { Router } from "@reach/router";
-import { StoreProvider } from "easy-peasy";
+import { StoreProvider, useStoreState } from "easy-peasy";
 import store from "../store";
 import Login2 from "../pages/login2";
 import Signup2 from "../pages/signup2";
@@ -22,37 +22,49 @@ const Layout = styled.div`
   margin-left: 240px;
 `;
 
+function Authed() {
+  return (
+    <Fragment>
+      <Sidebar />
+      <Layout>
+        <Router>
+          <Index path="/" />
+          <Setting2 path="/setting" />
+          <Home path="/home" />
+          <Trash path="/trash" />
+        </Router>
+      </Layout>
+    </Fragment>
+  );
+}
+
+function NotAuthed() {
+  return (
+    <Router>
+      <Login2 path="/login" />
+      <Signup2 path="/signup" />
+    </Router>
+  );
+}
+
+function Render() {
+  const isLoggedIn = useStoreState((state) => state.app.isLoggedIn);
+  if (isLoggedIn === true) {
+    return <Authed />;
+  } else {
+    return <NotAuthed />;
+  }
+}
+
 function App() {
   return (
     <Box>
       <Reset />
       <StoreProvider store={store}>
-        <Sidebar />
-        <Layout>
-          <Router>
-            <Index path="/" />
-            <Setting2 path="/setting" />
-            <Home path="/home" />
-            <Trash path="/trash" />
-          </Router>
-        </Layout>
+        <Render />
       </StoreProvider>
     </Box>
   );
 }
 
-function App2() {
-  return (
-    <Box>
-      <Reset />
-      <StoreProvider store={store}>
-        <Router>
-          <Login2 path="/login" />
-          <Signup2 path="/signup" />
-        </Router>
-      </StoreProvider>
-    </Box>
-  );
-}
-
-export default App2;
+export default App;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -9,6 +9,7 @@ const Box = styled.div`
   margin: 0px 20px 20px 0px;
   padding: 20px;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const Title = styled.div`
@@ -16,9 +17,9 @@ const Title = styled.div`
 `;
 
 function Note2(props) {
-  const { title, body } = props;
+  const { title, body, onEdit} = props;
   return (
-    <Box>
+    <Box onClick={() => onEdit()}>
       <Title>{title}</Title>
       <div>{body}</div>
     </Box>
