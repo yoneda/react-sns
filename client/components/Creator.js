@@ -63,11 +63,15 @@ function Creator(props) {
         <Footer>
           <button
             onClick={() => {
-              createNote({
-                title,
-                body,
-                onSuccess: onClose,
-              });
+              if (title !== "" && body !== "") {
+                createNote({
+                  title,
+                  body,
+                  onSuccess: onClose,
+                });
+              } else {
+                onClose();
+              }
             }}
           >
             閉じる
