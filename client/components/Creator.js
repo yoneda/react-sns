@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useStoreActions } from "easy-peasy";
 import styled from "styled-components";
 
 const BackBox = styled.div`
@@ -39,7 +40,10 @@ const Footer = styled.div`
   flex-direction: row-reverse;
 `;
 
-function Creater() {
+// TODO: CreatorとEditorは共通化できそう
+function Creator(props) {
+  const { onClose, onTrash } = props;
+  const createNote = useStoreActions((actions) => actions.notes.create);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   return (
@@ -54,15 +58,25 @@ function Creater() {
         <TextArea
           placeholder="内容"
           value={body}
-          onChange={(e) => setBody(e.target.nodeValue)}
+          onChange={(e) => setBody(e.target.value)}
         />
         <Footer>
-          <button>閉じる</button>
-          <button>ゴミ箱に入れる</button>
+          <button
+            onClick={() => {
+              createNote({
+                title,
+                body,
+                onSuccess: onClose,
+              });
+            }}
+          >
+            閉じる
+          </button>
+          <button onClick={() => onTrash()}>ゴミ箱に入れる</button>
         </Footer>
       </Box>
     </BackBox>
   );
 }
 
-export default Creater;
+export default Creator;

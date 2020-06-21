@@ -61,9 +61,14 @@ const Note = {
   get: function () {
     return request.get(`${base}/notes`).then((res) => res.body.notes);
   },
-  put: ({id, reqBody}) =>
+  put: ({ id, reqBody }) =>
     request
       .put(`${base}/notes/${id}`)
+      .send(reqBody)
+      .then((res) => res.body),
+  post: ({ reqBody }) =>
+    request
+      .post(`${base}/notes`)
       .send(reqBody)
       .then((res) => res.body),
 };

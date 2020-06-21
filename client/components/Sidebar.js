@@ -40,7 +40,8 @@ function Popup() {
   );
 }
 
-function Sidebar() {
+function Sidebar(props) {
+  const { onClickAdd } = props;
   const [isPopuped, updateIsPopuped] = useState(false);
   return (
     <Box>
@@ -59,7 +60,7 @@ function Sidebar() {
       </Item>
       <Blank />
       <Item>
-        <button onClick={() => {}}>add</button>
+        <button onClick={() => onClickAdd()}>add</button>
       </Item>
     </Box>
   );

@@ -4,12 +4,12 @@ import { isEmpty } from "lodash";
 
 const notes = {
   items: [],
-  trashed: [],
   create: thunk(async (actions, payload, { getState }) => {
-    const { body, onSuccess } = payload;
-    const note = await agent.Note.post({ body });
-    const { items } = getState();
-    actions.set([...items, note]);
+    const { title, body, onSuccess } = payload;
+    const reqBody = { note: { title, body } };
+    await agent.Note.post({reqBody});
+    const notes = await agent.Note.get();
+    actions.set(notes);
     onSuccess();
   }),
   get: thunk(async (actions, payload) => {
