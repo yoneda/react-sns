@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Box = styled.div`
   padding: 60px;
@@ -17,12 +18,20 @@ const Input = styled.input`
 const InputCheck = styled.input``;
 
 function Setting2() {
+  const user = useStoreState((state) => state.app.user);
+  const updateUser = useStoreActions((state) => state.app.updateUser);
+  const [name, setName] = useState(user.name);
   return (
     <Box>
       <div>名前</div>
-      <Input type="text" placeholder="名前" />
+      <Input
+        type="text"
+        placeholder="名前"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <br />
-      <Button>変更する</Button>
+      <Button onClick={() => updateUser({ name })}>変更する</Button>
       <br />
       <br />
       <div>パスワード</div>

@@ -7,7 +7,7 @@ const notes = {
   create: thunk(async (actions, payload, { getState }) => {
     const { title, body, onSuccess } = payload;
     const reqBody = { note: { title, body } };
-    await agent.Note.post({reqBody});
+    await agent.Note.post({ reqBody });
     const notes = await agent.Note.get();
     actions.set(notes);
     onSuccess();
@@ -84,24 +84,13 @@ const app = {
     getStoreActions().notes.set([]);
     onSuccess();
   }),
-  updateProfile: thunk(async (actions, payload) => {
-    const {
-      pass,
-      bio,
-      showCalendar,
-      showDateEditor,
-      calendarStart,
-      onSuccess,
-    } = payload;
-    const user = await agent.User.put({
-      pass,
-      bio,
-      showCalendar,
-      showDateEditor,
-      calendarStart,
-    });
+  updateUser: thunk(async (actions, payload) => {
+    const { name, password, showCalendar } = payload;
+    const reqBody = { user: { name, password, showCalendar } };
+    const user = await agent.User.put(reqBody);
+    console.log(user);
     actions.setUser(user);
-    onSuccess();
+    // onSuccess();
   }),
   setUser: action((state, payload) => {
     state.user = payload;

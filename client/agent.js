@@ -83,6 +83,12 @@ const User = {
       .send(reqBody)
       .then((res) => res.status === 200);
   },
+  put: function (reqBody) {
+    return request
+      .put(`${base}/users`)
+      .send(reqBody)
+      .then((res) => res.body.user);
+  },
 };
 
 const CheckHelth = function () {
