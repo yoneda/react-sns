@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useStoreState } from "easy-peasy";
 import { Link } from "@reach/router";
 import styled from "styled-components";
 
@@ -42,11 +43,12 @@ function Popup() {
 
 function Sidebar(props) {
   const { onClickAdd } = props;
+  const { name } = useStoreState((state) => state.app.user);
   const [isPopuped, updateIsPopuped] = useState(false);
   return (
     <Box>
       <Item>
-        <button onClick={() => updateIsPopuped(!isPopuped)}>Kohei</button>
+        <button onClick={() => updateIsPopuped(!isPopuped)}>{name}</button>
         {isPopuped && <Popup />}
       </Item>
       <Item>
