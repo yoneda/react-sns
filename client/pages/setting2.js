@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Modal from "../components/Modal";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
@@ -21,6 +22,7 @@ function Setting2() {
   const user = useStoreState((state) => state.app.user);
   const updateUser = useStoreActions((state) => state.app.updateUser);
   const [name, setName] = useState(user.name);
+  const [open, setOpen] = useState(true);
   return (
     <Box>
       <div>名前</div>
@@ -53,6 +55,13 @@ function Setting2() {
         表示する
         <InputCheck type="radio" />
       </div>
+      {open && (
+        <Modal onClose={() => setOpen(false)}>
+          <div>aaaa</div>
+          <div>bbbb</div>
+          <div>cccc</div>
+        </Modal>
+      )}
     </Box>
   );
 }
