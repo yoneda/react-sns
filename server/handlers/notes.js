@@ -6,20 +6,9 @@ module.exports.get = async function (req, res) {
   const email = req.email;
   const { trashed, limit } = req.query;
   const user = await db("users").where({ email }).first();
-  const queryBuilder = db("notes").where({ user: user.id });
-  // trashed の初期値はfalse
-  if (trashed === undefined) {
-    queryBuilder.where({ trashed: false });
-  } else {
-  // trashed が設定されていた場合は反映させる
-    queryBuilder.where({ trashed });
-  }
-  if (limit !== undefined) {
-    queryBuilder.limit(limit);
-  }
-  console.log(trashed);
-  console.log(limit);
-  const notes = await queryBuilder;
+  const notes = await db("notes")
+    .where({ user: user.id, trashed: trashed || false })
+    .limit(limit || 10);
   res.send({ notes });
 };
 
