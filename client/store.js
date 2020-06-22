@@ -20,6 +20,15 @@ const trashed = {
     const notes = await agent.Note.get();
     getStoreActions().notes.set(notes);
   }),
+  remove: thunk(async (actions, payload, { getStoreActions }) => {
+    const { id } = payload;
+    await agent.Note.remove({ id });
+    const trashedNotes = await agent.Note.get({ trashed: true });
+    actions.set(trashedNotes);
+    // ノートを取得
+    const notes = await agent.Note.get();
+    getStoreActions().notes.set(notes);
+  }),
 };
 
 const notes = {

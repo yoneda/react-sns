@@ -76,6 +76,8 @@ const Note = {
       .post(`${base}/notes`)
       .send(reqBody)
       .then((res) => res.body),
+  remove: ({ id }) =>
+    request.delete(`${base}/notes/${id}`).then((res) => res.body),
   trash: ({ id }) =>
     request.put(`${base}/notes/${id}/trash`).then((res) => res.body),
   restore: ({ id }) =>

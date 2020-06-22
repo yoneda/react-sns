@@ -11,6 +11,7 @@ const Box = styled.div`
 function TrashedList2() {
   const notes = useStoreState((state) => state.trashed.items);
   const restore = useStoreActions((actions) => actions.trashed.restore);
+  const remove = useStoreActions((actions) => actions.trashed.remove);
   const [index, setIndex] = useState(0);
   return (
     <Box>
@@ -20,6 +21,7 @@ function TrashedList2() {
           title={note.title}
           body={note.body}
           onRestore={() => restore({ id: note.id })}
+          onDelete={() => remove({ id: note.id })}
         />
       ))}
     </Box>
