@@ -1,4 +1,5 @@
-const request = require("superagent");
+import request from "superagent";
+import { pick } from "lodash";
 
 const port = process.env.PORT || 3000;
 const base = `http://localhost:${port}/api`;
@@ -58,8 +59,13 @@ export default {
 */
 
 const Note = {
-  get: function () {
-    return request.get(`${base}/notes`).then((res) => res.body.notes);
+  get: (reqQuery) => {
+    const query = pick(reqQuery, ["trashed", "limit"]);
+    console.log(query);
+    return request
+      .get(`${base}/notes`)
+      .query({ query })
+      .then((res) => res.body.notes);
   },
   put: ({ id, reqBody }) =>
     request
