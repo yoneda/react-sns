@@ -10,7 +10,16 @@ const trashed = {
   }),
   set: action((state, payload) => {
     return { ...state, items: payload };
-  })
+  }),
+  restore: thunk(async (actions, payload, { getStoreActions }) => {
+    const { id } = payload;
+    await agent.Note.restore({ id });
+    const trashedNotes = await agent.Note.get({ trashed: true });
+    actions.set(trashedNotes);
+    // ノートを取得
+    const notes = await agent.Note.get();
+    getStoreActions().notes.set(notes);
+  }),
 };
 
 const notes = {
@@ -101,7 +110,6 @@ const app = {
     const { name, password, showCalendar } = payload;
     const reqBody = { user: { name, password, showCalendar } };
     const user = await agent.User.put(reqBody);
-    console.log(user);
     actions.setUser(user);
     // onSuccess();
   }),
