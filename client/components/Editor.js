@@ -62,13 +62,16 @@ function Editor(props) {
         <Footer>
           <button
             onClick={() => {
-              onClose();
-              updateNotes({
-                id: note.id,
-                title,
-                body,
-                onSuccess: onClose,
-              });
+              if (title === note.title && body === note.body) {
+                onClose();
+              } else {
+                updateNotes({
+                  id: note.id,
+                  title,
+                  body,
+                  onSuccess: onClose,
+                });
+              }
             }}
           >
             閉じる
