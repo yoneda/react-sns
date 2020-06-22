@@ -61,7 +61,6 @@ export default {
 const Note = {
   get: (reqQuery) => {
     const query = pick(reqQuery, ["trashed", "limit"]);
-    console.log(query);
     return request
       .get(`${base}/notes`)
       .query({ query })
@@ -77,6 +76,10 @@ const Note = {
       .post(`${base}/notes`)
       .send(reqBody)
       .then((res) => res.body),
+  trash: ({ id }) =>
+    request.put(`${base}/notes/${id}/trash`).then((res) => res.body),
+  restore: ({ id }) =>
+    request.put(`${base}/notes/${id}/restore`).then((res) => res.body),
 };
 
 const User = {
