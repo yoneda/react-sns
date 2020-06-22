@@ -63,7 +63,7 @@ const Note = {
     const query = pick(reqQuery, ["trashed", "limit"]);
     return request
       .get(`${base}/notes`)
-      .query({ query })
+      .query(query)
       .then((res) => res.body.notes);
   },
   put: ({ id, reqBody }) =>

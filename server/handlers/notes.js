@@ -5,6 +5,7 @@ const db = require("../db");
 module.exports.get = async function (req, res) {
   const email = req.email;
   const { trashed, limit } = req.query;
+  console.log(req.query);
   const user = await db("users").where({ email }).first();
   const notes = await db("notes")
     .where({ user: user.id, trashed: trashed || false })

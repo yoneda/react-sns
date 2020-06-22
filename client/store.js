@@ -2,6 +2,17 @@ import { createStore, action, thunk, computed } from "easy-peasy";
 import agent from "./agent";
 import { isEmpty } from "lodash";
 
+const trashed = {
+  items: [],
+  get: thunk(async (actions, payload) => {
+    const notes = await agent.Note.get({ trashed: true });
+    actions.set(notes);
+  }),
+  set: action((state, payload) => {
+    return { ...state, items: payload };
+  })
+};
+
 const notes = {
   items: [],
   create: thunk(async (actions, payload, { getState }) => {
@@ -55,8 +66,10 @@ const app = {
     actions.setUser(user);
     // ノートを取得
     const notes = await agent.Note.get();
-    const setNotes = getStoreActions().notes.set;
-    setNotes(notes);
+    getStoreActions().notes.set(notes);
+    // ゴミ箱にあるノートを取得
+    const trashedNotes = await agent.Note.get({ trashed: 1 });
+    getStoreActions().trashed.set(trashedNotes);
     onSuccess();
   }),
   revisit: thunk(async (actions, payload, { getStoreActions }) => {
@@ -99,6 +112,6 @@ const app = {
     state.editor = payload;
   }),
 };
-const store = createStore({ notes, app });
+const store = createStore({ trashed, notes, app });
 
 export default store;

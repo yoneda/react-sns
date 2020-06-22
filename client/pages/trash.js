@@ -1,5 +1,5 @@
 import React from "react";
-import NoteList2 from "../components/NoteList2";
+import TrashedList2 from "../components/TrashedList2";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -32,7 +32,7 @@ function Trash() {
           <button>ゴミ箱を空にする</button>
         </Item>
       </Header>
-      <NoteList2 />
+      <TrashedList2 />
     </Box>
   );
 }
