@@ -5,7 +5,8 @@ import { isEmpty } from "lodash";
 const trashed = {
   items: [],
   get: thunk(async (actions, payload) => {
-    const notes = await agent.Note.get({ trashed: true });
+    const notes = await agent.Note.get({ trashed: 1 });
+    console.log(notes);
     actions.set(notes);
   }),
   set: action((state, payload) => {
@@ -14,20 +15,14 @@ const trashed = {
   restore: thunk(async (actions, payload, { getStoreActions }) => {
     const { id } = payload;
     await agent.Note.restore({ id });
-    const trashedNotes = await agent.Note.get({ trashed: true });
+    const trashedNotes = await agent.Note.get({ trashed: 1 });
     actions.set(trashedNotes);
-    // ノートを取得
-    const notes = await agent.Note.get();
-    getStoreActions().notes.set(notes);
   }),
   remove: thunk(async (actions, payload, { getStoreActions }) => {
     const { id } = payload;
     await agent.Note.remove({ id });
-    const trashedNotes = await agent.Note.get({ trashed: true });
+    const trashedNotes = await agent.Note.get({ trashed: 1 });
     actions.set(trashedNotes);
-    // ノートを取得
-    const notes = await agent.Note.get();
-    getStoreActions().notes.set(notes);
   }),
 };
 
@@ -55,6 +50,14 @@ const notes = {
   }),
   set: action((state, payload) => {
     return { ...state, items: payload };
+  }),
+  trash: thunk(async (actions, payload, { getStoreActions }) => {
+    const { id, onSuccess } = payload;
+    const note = await agent.Note.trash({ id });
+    console.log(note);
+    const notes = await agent.Note.get();
+    actions.set(notes);
+    if (onSuccess !== undefined) onSuccess();
   }),
 };
 

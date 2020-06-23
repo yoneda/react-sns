@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import Note2 from "../components/Note2";
 import Editor from "../components/Editor";
@@ -11,8 +11,12 @@ const Box = styled.div`
 
 function NoteList2() {
   const notes = useStoreState((state) => state.notes.items);
+  const getNotes = useStoreActions((actions) => actions.notes.get);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    getNotes();
+  }, []);
   return (
     <Box>
       {notes.map((note, noteIndex) => (

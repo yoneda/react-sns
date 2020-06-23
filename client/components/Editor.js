@@ -41,8 +41,12 @@ const Footer = styled.div`
 `;
 
 function Editor(props) {
-  const { note, onClose, onTrash } = props;
+  const { note, onClose } = props;
+  if (note === undefined) {
+    return <div>a</div>;
+  }
   const updateNotes = useStoreActions((actions) => actions.notes.update);
+  const trash = useStoreActions((actions) => actions.notes.trash);
   const [title, setTitle] = useState(note.title);
   const [body, setBody] = useState(note.body);
   return (
@@ -76,7 +80,9 @@ function Editor(props) {
           >
             閉じる
           </button>
-          <button onClick={() => onTrash()}>ゴミ箱に入れる</button>
+          <button onClick={() => trash({ id: note.id, onSuccess: onClose })}>
+            ゴミ箱に入れる
+          </button>
         </Footer>
       </Box>
     </BackBox>

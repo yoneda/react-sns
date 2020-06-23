@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import TrashedNote from "../components/TrashedNote";
 import styled from "styled-components";
@@ -12,7 +12,12 @@ function TrashedList2() {
   const notes = useStoreState((state) => state.trashed.items);
   const restore = useStoreActions((actions) => actions.trashed.restore);
   const remove = useStoreActions((actions) => actions.trashed.remove);
+  const getTrashed = useStoreActions((actions) => actions.trashed.get);
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    console.log("component did mount!");
+    getTrashed();
+  }, []);
   return (
     <Box>
       {notes.map((note, noteIndex) => (
