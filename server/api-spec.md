@@ -99,7 +99,8 @@ Example request body:
 {
 	"note": {
 		"title": "my title",
-		"body": "text text text"
+		"body": "text text text",
+		"trashed": false
 	}
 }
 ```
@@ -108,7 +109,7 @@ Authentication required, return a [Note](#Note)
 
 Required field: `body`
 
-Optional field: `title`
+Optional field: `title`, `trashed`
 
 ### Edit a Note
 
