@@ -16,8 +16,6 @@ const Input = styled.input`
   margin-top: 10px;
 `;
 
-const InputCheck = styled.input``;
-
 function PasswordForm() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
