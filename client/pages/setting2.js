@@ -16,10 +16,11 @@ const Input = styled.input`
   margin-top: 10px;
 `;
 
-function PasswordForm() {
+function PasswordForm(props) {
+  const { onClose } = props;
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const updateUser = useStoreActions((state) => state.app.updateUser);
+  const updateUser = useStoreActions((actions) => actions.app.updateUser);
   return (
     <div>
       <Input
@@ -40,7 +41,7 @@ function PasswordForm() {
         onClick={() => {
           // TODO: バリデーション
           if (password.length >= 8 && password === newPassword) {
-            return updateUser({ password });
+            return updateUser({ password, onSuccess: onClose });
           }
         }}
       >
@@ -89,7 +90,7 @@ function Setting2() {
       </div>
       {isPassword && (
         <Modal onClose={() => setIsPassword(false)}>
-          <PasswordForm />
+          <PasswordForm onClose={() => setIsPassword(false)} />
         </Modal>
       )}
       {isDelete && (

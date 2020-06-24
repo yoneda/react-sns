@@ -122,11 +122,11 @@ const app = {
     onSuccess();
   }),
   updateUser: thunk(async (actions, payload) => {
-    const { name, password, showCalendar } = payload;
+    const { name, password, showCalendar, onSuccess } = payload;
     const reqBody = { user: { name, password, showCalendar } };
     const user = await agent.User.put(reqBody);
     actions.setUser(user);
-    // onSuccess();
+    if (onSuccess !== undefined) onSuccess();
   }),
   deleteUser: thunk(async(actions, payload) => {
     const { onSuccess } = payload;
