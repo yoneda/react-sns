@@ -29,13 +29,15 @@ function PasswordForm() {
         placeholder="新パスワード"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-      /><br />
+      />
+      <br />
       <Input
         type="text"
         placeholder="新パスワード再入力"
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
-      /><br />
+      />
+      <br />
       <Button
         onClick={() => {
           // TODO: バリデーション
@@ -80,7 +82,11 @@ function Setting2() {
       <div>カレンダー</div>
       <div>
         表示する
-        <InputCheck type="radio" />
+        <Input
+          type="checkbox"
+          checked={user.showCalendar}
+          onChange={() => updateUser({ showCalendar: !user.showCalendar })}
+        />
       </div>
       {isPassword && (
         <Modal onClose={() => setIsPassword(false)}>

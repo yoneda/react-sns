@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import NoteList2 from "../components/NoteList2";
 import { useStoreState } from "easy-peasy";
 import styled from "styled-components";
@@ -21,9 +21,10 @@ const Calendar = styled.div`
 
 function Home() {
   const user = useStoreState((state) => state.app.user);
+  console.log(user.showCalendar)
   return (
     <Box>
-      {user.showCalendar === true && (
+      {user.showCalendar === 1 && (
         <Fragment>
           <Header>
             <h3>Calendar</h3>
