@@ -82,6 +82,7 @@ const Note = {
     request.put(`${base}/notes/${id}/trash`).then((res) => res.body),
   restore: ({ id }) =>
     request.put(`${base}/notes/${id}/restore`).then((res) => res.body),
+  tidyGarbage: () => request.delete(`${base}/notes/garbage`),
 };
 
 const User = {

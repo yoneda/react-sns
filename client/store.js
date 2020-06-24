@@ -6,7 +6,6 @@ const trashed = {
   items: [],
   get: thunk(async (actions, payload) => {
     const notes = await agent.Note.get({ trashed: 1 });
-    console.log(notes);
     actions.set(notes);
   }),
   set: action((state, payload) => {
@@ -21,6 +20,11 @@ const trashed = {
   remove: thunk(async (actions, payload, { getStoreActions }) => {
     const { id } = payload;
     await agent.Note.remove({ id });
+    const trashedNotes = await agent.Note.get({ trashed: 1 });
+    actions.set(trashedNotes);
+  }),
+  tidyGarbage: thunk(async (actions, payload) => {
+    await agent.Note.tidyGarbage();
     const trashedNotes = await agent.Note.get({ trashed: 1 });
     actions.set(trashedNotes);
   }),
@@ -54,7 +58,6 @@ const notes = {
   trash: thunk(async (actions, payload, { getStoreActions }) => {
     const { id, onSuccess } = payload;
     const note = await agent.Note.trash({ id });
-    console.log(note);
     const notes = await agent.Note.get();
     actions.set(notes);
     if (onSuccess !== undefined) onSuccess();

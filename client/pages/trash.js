@@ -1,5 +1,6 @@
 import React from "react";
 import TrashedList2 from "../components/TrashedList2";
+import { useStoreActions } from "easy-peasy";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -21,6 +22,7 @@ const Blank = styled.div`
 `;
 
 function Trash() {
+  const tidyGarbage = useStoreActions((actions) => actions.trashed.tidyGarbage);
   return (
     <Box>
       <Header>
@@ -29,7 +31,7 @@ function Trash() {
         </Item>
         <Blank />
         <Item>
-          <button>ゴミ箱を空にする</button>
+          <button onClick={() => tidyGarbage()}>ゴミ箱を空にする</button>
         </Item>
       </Header>
       <TrashedList2 />
