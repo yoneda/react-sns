@@ -14,13 +14,13 @@ module.exports.get = async function (req, res) {
 
 module.exports.post = async function (req, res) {
   const email = req.email;
-  const payload = pick(req.body.note, ["title", "body"]);
+  const payload = pick(req.body.note, ["title", "body", "trashed"]);
   const user = await db("users").where({ email }).first();
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("notes")
     .insert({
-      ...payload,
       trashed: false,
+      ...payload,
       createdAt: today,
       updatedAt: today,
       user: user.id,
