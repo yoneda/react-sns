@@ -63,6 +63,18 @@ module.exports.remove = async function (req, res) {
   res.status(200).send({ message: "Note has been deleted successfully." });
 };
 
+module.exports.tidyGarbage = async function (req, res) {
+  const email = req.email;
+  const user = await db("users").where({ email }).first();
+  const num = await db("notes").where({ user: user.id, trashed: true }).del();
+  if (!num) {
+    throw new Error("Note is not found");
+  }
+  res
+    .status(200)
+    .send({ message: `${num} Notes has been deleted successfully.` });
+};
+
 module.exports.trash = async function (req, res) {
   const email = req.email;
   const { id } = req.params;

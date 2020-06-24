@@ -143,6 +143,12 @@ Authentication required, return a [TrashedNote](#TrashedNote)
 
 Authentication required
 
+### Delete all trashed Notes
+
+`DELETE /api/notes/garbage`
+
+Authentication required
+
 ### Get a User
 
 `GET /api/users`
