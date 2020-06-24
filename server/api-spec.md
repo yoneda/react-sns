@@ -35,7 +35,7 @@
 		"id": 1,
 		"title": "my title",
 		"body": "text text text",
-		"trashed": false,
+		"trashed": true,
 		"createdAt": "2020-5-28 10:00:00",
 		"updatedAt": "2020-5-29 10:00:00"
 	}
