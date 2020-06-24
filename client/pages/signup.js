@@ -7,8 +7,6 @@ function Signup() {
   const createUser = useStoreActions((actions) => actions.app.signup);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onSuccess = () => navigate("/");
-
   return (
     <Fragment>
       <LandingHeader />
@@ -27,7 +25,11 @@ function Signup() {
         placeholder="password"
       />
       <br />
-      <button onClick={() => createUser({ email, password, onSuccess })}>
+      <button
+        onClick={() =>
+          createUser({ email, password, onSuccess: () => navigate("/") })
+        }
+      >
         send
       </button>
     </Fragment>

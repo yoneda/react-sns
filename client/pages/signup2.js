@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
+import { useStoreActions } from "easy-peasy";
 
 const Box = styled.div`
   display: flex;
@@ -31,16 +32,35 @@ const Header = styled.div`
 `;
 
 function Signup2() {
+  const createUser = useStoreActions((actions) => actions.app.signup);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <Box>
       <Item>
         <Header>
           <h3>Sign up</h3>
         </Header>
-        <Input type="text" placeholder="メールアドレス" />
-        <Input type="text" placeholder="パスワード" />
+        <Input
+          type="text"
+          placeholder="メールアドレス"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="パスワード"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <Input type="text" placeholder="パスワード再入力" />
-        <Button>登録する</Button>
+        <Button
+          onClick={() =>
+            createUser({ email, password, onSuccess: () => navigate("/") })
+          }
+        >
+          登録する
+        </Button>
         <div>または</div>
         <Button>Googleで続ける</Button>
         <div>

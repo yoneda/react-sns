@@ -71,10 +71,10 @@ const app = {
   signup: thunk(async (actions, payload, { getStoreActions }) => {
     const { email, password, onSuccess } = payload;
     // ユーザを作成
-    const user = await agent.User.post({ email, password });
+    const user = await agent.User.post({ user: { email, password } });
     actions.setUser(user);
     // ログイン情報をもったクッキーを取得
-    const isSuccess = await agent.User.login({ email, password });
+    const isSuccess = await agent.User.login({ user: { email, password } });
     // ノートを取得
     const notes = await agent.Note.get();
     getStoreActions().notes.set(notes);
@@ -113,7 +113,7 @@ const app = {
     // if (onSuccess !== undefined) onSuccess();
   }),
   logout: thunk(async (actions, payload, { getStoreActions }) => {
-    const { onSuccess } = payload
+    const { onSuccess } = payload;
     // クッキーを削除
     const isSuccess = await agent.User.logout();
     if (!isSuccess) return;
@@ -130,7 +130,7 @@ const app = {
     actions.setUser(user);
     if (onSuccess !== undefined) onSuccess();
   }),
-  deleteUser: thunk(async(actions, payload) => {
+  deleteUser: thunk(async (actions, payload) => {
     const { onSuccess } = payload;
     await agent.User.delete();
     if (onSuccess !== undefined) onSuccess();

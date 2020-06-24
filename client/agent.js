@@ -95,6 +95,12 @@ const User = {
   get: function () {
     return request.get(`${base}/users`).then((res) => res.body.user);
   },
+  post: function (reqBody) {
+    return request
+      .post(`${base}/users`)
+      .send(reqBody)
+      .then((res) => res.body.user);
+  },
   login: function (reqBody) {
     return request
       .post(`${base}/users/login`)

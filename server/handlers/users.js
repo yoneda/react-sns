@@ -22,7 +22,7 @@ module.exports.post = async function (req, res) {
   const [id] = await db("users").insert({
     email,
     password: hashed,
-    name: "",
+    name: "日記",
     showCalendar: true,
     createdAt: today,
     updatedAt: today,
