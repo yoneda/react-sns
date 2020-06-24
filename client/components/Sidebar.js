@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useStoreState } from "easy-peasy";
-import { Link } from "@reach/router";
+import { useStoreState, useStoreActions } from "easy-peasy";
+import { Link, navigate } from "@reach/router";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -34,9 +34,12 @@ const PopupBox = styled.div`
 `;
 
 function Popup() {
+  const logout = useStoreActions((actions) => actions.app.logout);
   return (
     <PopupBox>
-      <button>logout</button>
+      <button onClick={() => logout({ onSuccess: () => navigate("/login") })}>
+        logout
+      </button>
     </PopupBox>
   );
 }

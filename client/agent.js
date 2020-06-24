@@ -101,15 +101,20 @@ const User = {
       .send(reqBody)
       .then((res) => res.status === 200);
   },
+  logout: function () {
+    return request
+      .post(`${base}/users/logout`)
+      .then((res) => res.status === 200);
+  },
   put: function (reqBody) {
     return request
       .put(`${base}/users`)
       .send(reqBody)
       .then((res) => res.body.user);
   },
-  delete: function(){
-    return request.delete(`${base}/users`).then(res=>res.body);
-  }
+  delete: function () {
+    return request.delete(`${base}/users`).then((res) => res.body);
+  },
 };
 
 const CheckHelth = function () {
