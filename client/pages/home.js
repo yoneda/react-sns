@@ -1,5 +1,6 @@
 import React from "react";
 import NoteList2 from "../components/NoteList2";
+import { useStoreState } from "easy-peasy";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -19,12 +20,17 @@ const Calendar = styled.div`
 `;
 
 function Home() {
+  const user = useStoreState((state) => state.app.user);
   return (
     <Box>
-      <Header>
-        <h3>Calendar</h3>
-      </Header>
-      <Calendar />
+      {user.showCalendar === true && (
+        <Fragment>
+          <Header>
+            <h3>Calendar</h3>
+          </Header>
+          <Calendar />
+        </Fragment>
+      )}
       <Header>
         <h3>Timeline</h3>
       </Header>
