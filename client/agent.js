@@ -58,6 +58,12 @@ export default {
 };
 */
 
+const CheckAuth = () =>
+  request
+    .get(`${base}/checkAuth`)
+    .then((res) => res.status === 200)
+    .catch(() => false);
+
 const Note = {
   get: (reqQuery) => {
     const query = pick(reqQuery, ["trashed", "limit"]);
@@ -111,6 +117,7 @@ const CheckHelth = function () {
 };
 
 module.exports = {
+  CheckAuth,
   CheckHelth,
   User,
   Note,

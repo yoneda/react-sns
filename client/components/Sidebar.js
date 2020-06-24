@@ -52,7 +52,7 @@ function Sidebar(props) {
         {isPopuped && <Popup />}
       </Item>
       <Item>
-        <Link to="/home">Home</Link>
+        <Link to="/">Home</Link>
       </Item>
       <Item>
         <Link to="/trash">Trash</Link>

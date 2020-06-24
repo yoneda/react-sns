@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Router } from "@reach/router";
-import { StoreProvider, useStoreState } from "easy-peasy";
+import { StoreProvider, useStoreState, useStoreActions } from "easy-peasy";
 import store from "../store";
 import Login2 from "../pages/login2";
 import Signup2 from "../pages/signup2";
@@ -30,9 +30,8 @@ function Authed() {
       <Sidebar onClickAdd={() => setOpen(true)} />
       <Layout>
         <Router>
-          <Index path="/" />
           <Setting2 path="/setting" />
-          <Home path="/home" />
+          <Home path="/" />
           <Trash path="/trash" />
         </Router>
       </Layout>
@@ -50,7 +49,11 @@ function NotAuthed() {
 }
 
 function Render() {
+  const revisit = useStoreActions((actions) => actions.app.revisit);
   const isLoggedIn = useStoreState((state) => state.app.isLoggedIn);
+  useEffect(() => {
+    revisit();
+  }, []);
   if (isLoggedIn === true) {
     return <Authed />;
   } else {

@@ -97,21 +97,23 @@ const app = {
     onSuccess();
   }),
   revisit: thunk(async (actions, payload, { getStoreActions }) => {
-    const { onSuccess, onFailure } = payload;
+    // const { onSuccess, onFailure } = payload;
     // ユーザが再訪したか(認証情報をもつクッキーが存在しているか)
     const isAuthed = await agent.CheckAuth();
-    if (!isAuthed) return onFailure();
+    // if (!isAuthed) return onFailure();
     // ユーザを取得
     const user = await agent.User.get();
     actions.setUser(user);
     // ノートを取得
     const notes = await agent.Note.get();
-    const setNotes = getStoreActions().notes.set;
-    setNotes(notes);
-    onSuccess();
+    getStoreActions().notes.set(notes);
+    // ゴミ箱にあるノートを取得
+    const trashedNotes = await agent.Note.get({ trashed: 1 });
+    getStoreActions().trashed.set(trashedNotes);
+    // if (onSuccess !== undefined) onSuccess();
   }),
   logout: thunk(async (actions, payload, { getStoreActions }) => {
-    const { onSuccess } = payload;
+    const { onSuccess } = payload
     // クッキーを削除
     const isSuccess = await agent.User.logout();
     if (!isSuccess) return;
