@@ -21,7 +21,6 @@ const Calendar = styled.div`
 
 function Home() {
   const user = useStoreState((state) => state.app.user);
-  console.log(user.showCalendar)
   return (
     <Box>
       {user.showCalendar === 1 && (

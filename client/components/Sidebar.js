@@ -55,10 +55,10 @@ function Sidebar(props) {
         <Link to="/home">Home</Link>
       </Item>
       <Item>
-        <Link to="/setting">Setting</Link>
+        <Link to="/trash">Trash</Link>
       </Item>
       <Item>
-        <Link to="/trash">Trash</Link>
+        <Link to="/setting">Setting</Link>
       </Item>
       <Blank />
       <Item>
