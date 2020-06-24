@@ -54,7 +54,8 @@ function PasswordForm() {
 
 function Setting2() {
   const user = useStoreState((state) => state.app.user);
-  const updateUser = useStoreActions((state) => state.app.updateUser);
+  const updateUser = useStoreActions((actions) => actions.app.updateUser);
+  const deleteUser = useStoreActions((actions) => actions.app.deleteUser);
   const [name, setName] = useState(user.name);
   const [isPassword, setIsPassword] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -98,7 +99,10 @@ function Setting2() {
           <div>
             アカウントを削除します。この操作によりあなたのアカウントは今後利用できなくなります。確認のためメールアドレスを入力してください。
           </div>
-          <Button>削除を実行</Button>
+          {/* TODO: 削除後にログアウトする */}
+          <Button onClick={() => deleteUser({ onSuccess: setIsDelete(false) })}>
+            削除を実行
+          </Button>
         </Modal>
       )}
     </Box>

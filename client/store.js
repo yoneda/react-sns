@@ -128,6 +128,11 @@ const app = {
     actions.setUser(user);
     // onSuccess();
   }),
+  deleteUser: thunk(async(actions, payload) => {
+    const { onSuccess } = payload;
+    await agent.User.delete();
+    if (onSuccess !== undefined) onSuccess();
+  }),
   setUser: action((state, payload) => {
     state.user = payload;
   }),

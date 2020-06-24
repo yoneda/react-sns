@@ -101,6 +101,9 @@ const User = {
       .send(reqBody)
       .then((res) => res.body.user);
   },
+  delete: function(){
+    return request.delete(`${base}/users`).then(res=>res.body);
+  }
 };
 
 const CheckHelth = function () {
