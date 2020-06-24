@@ -33,8 +33,8 @@ const trashed = {
 const notes = {
   items: [],
   create: thunk(async (actions, payload, { getState }) => {
-    const { title, body, onSuccess } = payload;
-    const reqBody = { note: { title, body } };
+    const { title, body, trashed, onSuccess } = payload;
+    const reqBody = { note: { title, body, trashed } };
     await agent.Note.post({ reqBody });
     const notes = await agent.Note.get();
     actions.set(notes);

@@ -42,7 +42,7 @@ const Footer = styled.div`
 
 // TODO: CreatorとEditorは共通化できそう
 function Creator(props) {
-  const { onClose, onTrash } = props;
+  const { onClose } = props;
   const createNote = useStoreActions((actions) => actions.notes.create);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -76,7 +76,22 @@ function Creator(props) {
           >
             閉じる
           </button>
-          <button onClick={() => onTrash()}>ゴミ箱に入れる</button>
+          <button
+            onClick={() => {
+              if (title !== "" && body !== "") {
+                createNote({
+                  title,
+                  body,
+                  trashed: true,
+                  onSuccess: onClose,
+                });
+              } else {
+                onClose();
+              }
+            }}
+          >
+            ゴミ箱に入れる
+          </button>
         </Footer>
       </Box>
     </BackBox>
