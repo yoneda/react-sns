@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import NoteList2 from "../components/NoteList2";
+import NoteList from "../components/NoteList";
 import { useStoreState } from "easy-peasy";
 import styled from "styled-components";
 
@@ -34,7 +34,7 @@ function Home() {
       <Header>
         <h3>Timeline</h3>
       </Header>
-      <NoteList2 />
+      <NoteList />
     </Box>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import TrashedNote from "../components/TrashedNote";
+import TrashedNote from "./TrashedNote";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -8,7 +8,7 @@ const Box = styled.div`
   flex-flow: row wrap;
 `;
 
-function TrashedList2() {
+function TrashedList() {
   const notes = useStoreState((state) => state.trashed.items);
   const restore = useStoreActions((actions) => actions.trashed.restore);
   const remove = useStoreActions((actions) => actions.trashed.remove);
@@ -33,4 +33,4 @@ function TrashedList2() {
   );
 }
 
-export default TrashedList2;
+export default TrashedList;

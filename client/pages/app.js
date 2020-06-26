@@ -2,12 +2,10 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import { StoreProvider, useStoreState, useStoreActions } from "easy-peasy";
 import store from "../store";
-import Login2 from "../pages/login2";
-import Signup2 from "../pages/signup2";
-import Index from "../pages/index";
+import Login from "../pages/login";
+import Signup from "../pages/signup";
 import Setting from "../pages/setting";
 import Creator from "../components/Creator";
-import Setting2 from "../pages/setting2";
 import Home from "../pages/home";
 import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
@@ -30,7 +28,7 @@ function Authed() {
       <Sidebar onClickAdd={() => setOpen(true)} />
       <Layout>
         <Router>
-          <Setting2 path="/setting" />
+          <Setting path="/setting" />
           <Home path="/" />
           <Trash path="/trash" />
         </Router>
@@ -42,8 +40,8 @@ function Authed() {
 function NotAuthed() {
   return (
     <Router>
-      <Login2 path="/login" />
-      <Signup2 path="/signup" />
+      <Login path="/login" />
+      <Signup path="/signup" />
     </Router>
   );
 }

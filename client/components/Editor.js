@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import styled from "styled-components";
 
@@ -13,7 +13,11 @@ const BackBox = styled.div`
 `;
 
 const Box = styled.div`
-  margin: 100px 100px 100px 100px;
+  position: absolute;
+  left: 100;
+  top: 100;
+  right: 100;
+  bottom: 100;
   border: solid 1px lightgray;
   border-radius: 10px;
   padding: 20px;
@@ -21,6 +25,7 @@ const Box = styled.div`
   background-color: white;
   display: flex;
   flex-flow: column;
+  z-index: 2;
 `;
 
 const Input = styled.input`
@@ -50,7 +55,8 @@ function Editor(props) {
   const [title, setTitle] = useState(note.title);
   const [body, setBody] = useState(note.body);
   return (
-    <BackBox>
+    <Fragment>
+      <BackBox onClick={() => onClose()} />
       <Box>
         <Input
           placeholder="タイトル"
@@ -85,7 +91,7 @@ function Editor(props) {
           </button>
         </Footer>
       </Box>
-    </BackBox>
+    </Fragment>
   );
 }
 
