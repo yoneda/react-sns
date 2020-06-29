@@ -9,7 +9,8 @@
     "test": "newman run tests/simple-diary-tests.postman_collection.json -e tests/development.postman_environment.json",
     "lint": "eslint client",
     "db:seed": "knex seed:run --specific=random.js --esm",
-    "db:migrate": "knex migrate:up 20200529182103_init.js"
+    "db:migrate": "knex migrate:up 20200529182103_init.js",
+    "storybook": "start-storybook"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,8 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
+    "@storybook/react": "^5.3.19",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.19.0",
     "faker": "^4.1.0",
