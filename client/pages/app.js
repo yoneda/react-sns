@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Router } from "@reach/router";
 import { StoreProvider, useStoreState, useStoreActions } from "easy-peasy";
+import { Router } from "@reach/router";
+import { Reset } from "styled-reset";
+import styled from "styled-components";
 import store from "../store";
 import Login from "../pages/login";
 import Signup from "../pages/signup";
@@ -9,8 +11,6 @@ import Creator from "../components/Creator";
 import Home from "../pages/home";
 import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
-import { Reset } from "styled-reset";
-import styled from "styled-components";
 
 const Box = styled.div`
   height: 100%;

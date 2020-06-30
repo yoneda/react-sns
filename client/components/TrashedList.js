@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import TrashedNote from "./TrashedNote";
 import styled from "styled-components";
+import TrashedNote from "./TrashedNote";
 
 const Box = styled.div`
   display: flex;
@@ -13,9 +13,7 @@ function TrashedList() {
   const restore = useStoreActions((actions) => actions.trashed.restore);
   const remove = useStoreActions((actions) => actions.trashed.remove);
   const getTrashed = useStoreActions((actions) => actions.trashed.get);
-  const [index, setIndex] = useState(0);
   useEffect(() => {
-    console.log("component did mount!");
     getTrashed();
   }, []);
   return (

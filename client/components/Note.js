@@ -17,7 +17,7 @@ const Title = styled.div`
 `;
 
 function Note(props) {
-  const { title, body, onEdit} = props;
+  const { title, body, onEdit } = props;
   return (
     <Box onClick={() => onEdit()}>
       <Title>{title}</Title>

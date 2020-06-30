@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import NoteList from "../components/NoteList";
 import { useStoreState } from "easy-peasy";
 import styled from "styled-components";
+import NoteList from "../components/NoteList";
 
 const Box = styled.div`
   padding: 60px;

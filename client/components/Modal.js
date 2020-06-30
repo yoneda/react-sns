@@ -25,18 +25,6 @@ const Box = styled.div`
   flex-flow: column wrap;
 `;
 
-const Input = styled.input`
-  border-style: none;
-  outline: none;
-  margin-bottom: 10px;
-`;
-
-const TextArea = styled.textarea`
-  border-style: none;
-  outline: none;
-  margin-bottom: 10px;
-`;
-
 const Footer = styled.div`
   display: flex;
   flex-direction: row-reverse;
