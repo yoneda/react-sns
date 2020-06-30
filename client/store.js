@@ -7,7 +7,7 @@ const notes = {
   set: action((state, payload) => {
     return { ...state, items: payload };
   }),
-  create: thunk(async (actions, payload, { getState }) => {
+  create: thunk(async (actions, payload) => {
     const { title, body, trashed, onSuccess } = payload;
     const reqBody = { note: { title, body, trashed } };
     await agent.Note.post({ reqBody });
