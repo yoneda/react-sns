@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useStoreState } from "easy-peasy";
 import styled from "styled-components";
 import NoteList from "../components/NoteList";
+import Heatmap from "../components/Heatmap";
 
 const Box = styled.div`
   padding: 60px;
@@ -28,7 +29,7 @@ function Home() {
           <Header>
             <h3>Calendar</h3>
           </Header>
-          <Calendar />
+          <Heatmap />
         </Fragment>
       )}
       <Header>
