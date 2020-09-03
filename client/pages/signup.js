@@ -56,7 +56,7 @@ function Signup() {
         <Input type="text" placeholder="パスワード再入力" />
         <Button
           onClick={() =>
-            createUser({ email, password, onSuccess: () => navigate("/") })
+            createUser({ email, password, onSuccess: () => navigate("/v0") })
           }
         >
           登録する

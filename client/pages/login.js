@@ -36,7 +36,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
-  const onSuccess = () => navigate("/");
+  const onSuccess = () => navigate("/v0");
   return (
     <Box>
       <Item>

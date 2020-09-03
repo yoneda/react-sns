@@ -11,13 +11,14 @@ import Creator from "../components/Creator";
 import Home from "../pages/home";
 import Trash from "../pages/trash";
 import Sidebar from "../components/Sidebar";
+import V0 from "../components/V0";
 
 const Box = styled.div`
   height: 100%;
 `;
 
 const Layout = styled.div`
-  margin-left: 240px;
+  margin-left: 0px;
 `;
 
 function Authed() {
@@ -25,12 +26,13 @@ function Authed() {
   return (
     <Fragment>
       {open && <Creator onClose={() => setOpen(false)} />}
-      <Sidebar onClickAdd={() => setOpen(true)} />
+      {/*<Sidebar onClickAdd={() => setOpen(true)} />*/}
       <Layout>
         <Router>
           <Setting path="/setting" />
           <Home path="/" />
           <Trash path="/trash" />
+          <V0 path="/v0" />
         </Router>
       </Layout>
     </Fragment>
