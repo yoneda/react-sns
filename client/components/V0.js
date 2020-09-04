@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
+import { isEmpty } from "lodash";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
 
@@ -15,12 +16,14 @@ const NewButton = styled.button`
 
 function V0(props) {
   const notes = useStoreState((state) => state.notes.items);
+  const [note, setNote] = useState({});
+  console.log(note);
   return (
     <Box>
       <h2>Days</h2>
       <NewButton>new</NewButton>
-      <ListPanel />
-      <EditPanel title={"タイトル"} body={"内容"} />
+      <ListPanel onSelectNote={(note) => setNote(note)} />
+      {!isEmpty(note) && <EditPanel title={note.title} body={note.body} />}
     </Box>
   );
 }

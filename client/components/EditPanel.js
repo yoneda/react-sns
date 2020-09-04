@@ -7,11 +7,16 @@ const Box = styled.div`
   height: 70px;
   width: 200px;
   margin: 10px;
+  padding: 10px;
 `;
 
 function EditPanel(props) {
   const [title, setTitle] = useState(props.title);
   const [body, setBody] = useState(props.body);
+  useEffect(() => {
+    setTitle(props.title);
+    setBody(props.body);
+  }, [props]);
   return (
     <Box>
       <div>Edit panel</div>
