@@ -16,14 +16,25 @@ const NewButton = styled.button`
 
 function V0(props) {
   const notes = useStoreState((state) => state.notes.items);
+  const createNote = useStoreActions((actions) => actions.notes.create);
   const [note, setNote] = useState({});
-  console.log(note);
   return (
     <Box>
       <h2>Days</h2>
-      <NewButton>new</NewButton>
+      <NewButton
+        onClick={() =>
+          createNote({
+            title: "　",
+            body: "　",
+            trashed: false,
+            onSuccess: () => {},
+          })
+        }
+      >
+        new
+      </NewButton>
       <ListPanel onSelectNote={(note) => setNote(note)} />
-      {!isEmpty(note) && <EditPanel title={note.title} body={note.body} />}
+      {!isEmpty(note) && <EditPanel note={note} />}
     </Box>
   );
 }

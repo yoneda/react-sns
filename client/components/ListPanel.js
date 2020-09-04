@@ -21,6 +21,7 @@ const NoteBox = styled.div`
   background: white;
   margin-bottom: 10px;
   cursor: pointer;
+  height: 32px;
 
   ${(props) =>
     props.selected &&

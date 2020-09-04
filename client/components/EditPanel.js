@@ -11,12 +11,12 @@ const Box = styled.div`
 `;
 
 function EditPanel(props) {
-  const [title, setTitle] = useState(props.title);
-  const [body, setBody] = useState(props.body);
+  const [title, setTitle] = useState(props.note.title);
+  const [body, setBody] = useState(props.note.body);
   useEffect(() => {
-    setTitle(props.title);
-    setBody(props.body);
-  }, [props]);
+    setTitle(props.note.title);
+    setBody(props.note.body);
+  }, [props.note]);
   return (
     <Box>
       <div>Edit panel</div>
