@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useStoreState, useStoreActions } from "easy-peasy";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
 
@@ -13,12 +14,13 @@ const NewButton = styled.button`
 `;
 
 function V0(props) {
+  const notes = useStoreState((state) => state.notes.items);
   return (
     <Box>
       <h2>Days</h2>
       <NewButton>new</NewButton>
       <ListPanel />
-      <EditPanel />
+      <EditPanel title={"タイトル"} body={"内容"} />
     </Box>
   );
 }
