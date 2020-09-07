@@ -19,7 +19,7 @@ module.exports.post = async function (req, res) {
   const user = await db("users").where({ email }).first();
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const certainTitle =
-    payload.title || dayjs().dateformat("YYYY年M月D日の日記");
+    payload.title || dayjs().format("YYYY年M月D日の日記");
   const [id] = await db("notes")
     .insert({
       trashed: false,
