@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
+import MenuPanel from "./MenuPanel";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
 
@@ -32,6 +33,7 @@ function V0(props) {
       >
         new
       </NewButton>
+      <MenuPanel />
       <ListPanel onSelectNote={(note) => setNote(note)} />
       {!isEmpty(note) && <EditPanel note={note} />}
     </Box>
