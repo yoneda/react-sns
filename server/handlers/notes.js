@@ -9,7 +9,7 @@ module.exports.get = async function (req, res) {
   const notes = await db("notes")
     .where({ user: user.id, trashed: trashed || false })
     .limit(limit || 10)
-    .orderBy("updatedAt","desc")
+    .orderBy("updatedAt", "desc");
   res.send({ notes });
 };
 
@@ -18,10 +18,13 @@ module.exports.post = async function (req, res) {
   const payload = pick(req.body.note, ["title", "body", "trashed"]);
   const user = await db("users").where({ email }).first();
   const today = dayjs().format("YYYY-M-D H:mm:ss");
+  const certainTitle =
+    payload.title || dayjs().dateformat("YYYY年M月D日の日記");
   const [id] = await db("notes")
     .insert({
       trashed: false,
       ...payload,
+      title: certainTitle,
       createdAt: today,
       updatedAt: today,
       user: user.id,
