@@ -111,6 +111,8 @@ Required field: `body`
 
 Optional field: `title`, `trashed`
 
+Note: If you don't specify a `title` field, It will automatically named following shape `X月X日の日記`.
+
 ### Edit a Note
 
 `PUT /api/notes/:id`
