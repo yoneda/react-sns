@@ -24,8 +24,7 @@ function V0(props) {
       <NewButton
         onClick={() =>
           createNote({
-            title: "　",
-            body: "　",
+            body:"",
             trashed: false,
             onSuccess: () => {},
           })
