@@ -14,6 +14,8 @@ function EditPanel(props) {
   const note = useStoreState((state) => state.notes.focus);
   const setNote = useStoreActions((actions) => actions.notes.setFocus);
   const removeNote = useStoreActions((actions) => actions.notes.remove);
+  const updateNote = useStoreActions((actions) => actions.notes.update);
+  console.log(note);
   return (
     <Box>
       <div>Edit panel</div>
@@ -28,7 +30,18 @@ function EditPanel(props) {
         onChange={(e) => setNote({ ...note, body: e.target.value })}
       />
       <br />
-      <button>修正</button>
+      <button
+        onClick={(e) => {
+          updateNote({
+            id: note.id,
+            title: note.title,
+            body: note.body,
+            onSuccess: () => {},
+          });
+        }}
+      >
+        修正
+      </button>
       <br />
       <button
         onClick={(e) => {

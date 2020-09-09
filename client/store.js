@@ -25,6 +25,7 @@ const notes = {
     await agent.Note.post({ reqBody });
     const notes = await agent.Note.get();
     actions.set(notes);
+    actions.setFocus(notes[0]);
     if (onSuccess !== undefined) onSuccess();
   }),
   get: thunk(async (actions) => {

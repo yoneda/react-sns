@@ -9,7 +9,7 @@ module.exports.get = async function (req, res) {
   const notes = await db("notes")
     .where({ user: user.id, trashed: trashed || false })
     .limit(limit || 10)
-    .orderBy("updatedAt", "desc");
+    .orderBy("createdAt", "desc");
   res.send({ notes });
 };
 
