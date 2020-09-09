@@ -11,24 +11,20 @@ const Box = styled.div`
 `;
 
 function EditPanel(props) {
-  const [title, setTitle] = useState(props.note.title);
-  const [body, setBody] = useState(props.note.body);
-  useEffect(() => {
-    setTitle(props.note.title);
-    setBody(props.note.body);
-  }, [props.note]);
+  const note = useStoreState((state) => state.notes.focus);
+  const setNote = useStoreActions((actions) => actions.notes.setFocus);
   return (
     <Box>
       <div>Edit panel</div>
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={note.title}
+        onChange={(e) => setNote({ ...note, title: e.target.value })}
       />
       <input
         type="text"
-        value={body}
-        onChange={(e) => setBody(e.target.body)}
+        value={note.body}
+        onChange={(e) => setNote({ ...note, body: e.target.value })}
       />
     </Box>
   );

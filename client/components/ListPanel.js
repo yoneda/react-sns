@@ -41,9 +41,9 @@ function Note(props) {
 }
 
 function ListPanel(props) {
-  const { onSelectNote } = props;
   const notes = useStoreState((state) => state.notes.items);
-  const [index, setIndex] = useState(-1);
+  const index = useStoreState((state) => state.notes.index);
+  const setFocus = useStoreActions((actions) => actions.notes.setFocus);
   return (
     <Box>
       <div>ListPanel</div>
@@ -54,8 +54,7 @@ function ListPanel(props) {
           body={note.body}
           selected={noteIndex === index}
           onClick={() => {
-            setIndex(noteIndex);
-            onSelectNote(note);
+            setFocus(note);
           }}
         />
       ))}

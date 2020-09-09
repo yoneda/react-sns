@@ -2,10 +2,22 @@ import { createStore, action, thunk, computed } from "easy-peasy";
 import agent from "./agent";
 import { isEmpty } from "lodash";
 
+// TODO: store.js をモデルごとにファイルを分ける
+
 const notes = {
   items: [],
+  focus: {},
+  index: computed((state) =>
+    state.items.findIndex((note) => note.id === state.focus.id)
+  ),
   set: action((state, payload) => {
-    return { ...state, items: payload };
+    state.items = payload;
+  }),
+  setFocus: action((state, payload) => {
+    state.focus = payload;
+  }),
+  setIndex: action((state, payload) => {
+    state.index = payload;
   }),
   create: thunk(async (actions, payload) => {
     const { title, body, trashed, onSuccess } = payload;
