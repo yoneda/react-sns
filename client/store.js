@@ -39,9 +39,9 @@ const notes = {
     actions.set(notes);
     if (onSuccess !== undefined) onSuccess();
   }),
-  trash: thunk(async (actions, payload) => {
+  remove: thunk(async (actions, payload) => {
     const { id, onSuccess } = payload;
-    await agent.Note.trash({ id });
+    await agent.Note.remove({ id });
     const notes = await agent.Note.get();
     actions.set(notes);
     if (onSuccess !== undefined) onSuccess();

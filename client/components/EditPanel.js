@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Box = styled.div`
   background: lightgray;
-  height: 70px;
+  height: 110px;
   width: 200px;
   margin: 10px;
   padding: 10px;
@@ -13,6 +13,7 @@ const Box = styled.div`
 function EditPanel(props) {
   const note = useStoreState((state) => state.notes.focus);
   const setNote = useStoreActions((actions) => actions.notes.setFocus);
+  const removeNote = useStoreActions((actions) => actions.notes.remove);
   return (
     <Box>
       <div>Edit panel</div>
@@ -26,6 +27,17 @@ function EditPanel(props) {
         value={note.body}
         onChange={(e) => setNote({ ...note, body: e.target.value })}
       />
+      <br />
+      <button>修正</button>
+      <br />
+      <button
+        onClick={(e) => {
+          removeNote({ id: note.id, onSuccess: () => {} });
+          setNote({});
+        }}
+      >
+        削除
+      </button>
     </Box>
   );
 }
