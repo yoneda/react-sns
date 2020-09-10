@@ -9,6 +9,9 @@ module.exports.get = async function (req, res) {
   const notes = await db("notes")
     .where({ user: user.id, trashed: trashed || false })
     .limit(limit || 10);
+  // MEMO:
+  // PostgreSQLではなくSQLiteの場合、日付でのソートができなかった。
+  // 開発用のために日付をunix時刻に変換してから新しいもの順に並び替えた。
   notes.sort(function (note1, note2) {
     return dayjs(note2.createdAt).unix() - dayjs(note1.createdAt).unix();
   });
