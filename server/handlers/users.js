@@ -17,6 +17,13 @@ module.exports.get = async function (req, res) {
 
 module.exports.post = async function (req, res) {
   const { email, password } = req.body.user;
+  // TODO: HTTPステータスが用途と合っているか要検討
+  if (password.length < 8) {
+    return res.status(401).json({
+      code: "TOO_SHORT_PASSWORD",
+      error: "enter password at least 8 length",
+    });
+  }
   const hashed = await bcrypt.hash(password, 12);
   const today = dayjs().format("YYYY-M-D H:mm:ss");
   const [id] = await db("users").insert({
