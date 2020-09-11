@@ -76,18 +76,21 @@ module.exports.remove = async function (req, res) {
 
 module.exports.login = async function (req, res) {
   const { email, password } = req.body.user;
+  const errorResponse = () =>
+    res.status(401).json({
+      code: "INCORRECT_LOGIN",
+      error: "incorrect email or password",
+    });
   const user = await db("users")
     .where({ email })
     .first()
-    .catch((err) =>
-      res.status(401).json({ error: "incorrect email or password" })
-    );
+    .catch((err) => errorResponse());
   if (isEmpty(user)) {
-    return res.status(401).json({ error: "incorrect email or password" });
+    return errorResponse();
   }
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    return res.status(401).json({ error: "incorrect email or password" });
+    return errorResponse();
   }
   const secret = process.env.SECRET;
   const payload = { email };

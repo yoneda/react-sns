@@ -63,7 +63,11 @@ const User = {
     return request
       .post(`${base}/users/login`)
       .send(reqBody)
-      .then((res) => res.status === 200);
+      .then((res) => res.status === 200)
+      .catch((err) => {
+        const response = JSON.parse(err.response.text);
+        return response.code;
+      });
   },
   logout: function () {
     return request

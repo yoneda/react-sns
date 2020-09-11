@@ -49,14 +49,18 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [serverError, setServerError] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
   const onSuccess = () => navigate("/v0");
+  const onFailure = () =>
+    setServerError("メールアドレスかパスワードが違っています。");
   return (
     <Box>
       <Item>
         <Header>
           <h3>Sign in</h3>
         </Header>
+        {serverError && <Error>{serverError}</Error>}
         <Input
           type="text"
           placeholder="メールアドレス"
@@ -77,6 +81,7 @@ function Login() {
           onClick={() => {
             setEmailError("");
             setPasswordError("");
+            setServerError("");
             if (email === "") {
               return setEmailError("メールアドレスが入力されていません");
             } else if (!isEmail(email)) {
@@ -84,7 +89,7 @@ function Login() {
             } else if (password === "") {
               return setPasswordError("パスワードを入力してください。");
             } else {
-              doLogin({ email, password, onSuccess });
+              doLogin({ email, password, onSuccess, onFailure });
             }
           }}
         >

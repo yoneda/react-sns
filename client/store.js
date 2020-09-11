@@ -96,10 +96,15 @@ const app = {
     if (onSuccess !== undefined) onSuccess();
   }),
   login: thunk(async (actions, payload, { getStoreActions }) => {
-    const { email, password, onSuccess } = payload;
+    const { email, password, onSuccess, onFailure } = payload;
     // ログイン情報をもったクッキーを取得
-    const isSuccess = await agent.User.login({ user: { email, password } });
-    if (!isSuccess) return;
+    const response = await agent.User.login({
+      user: { email, password },
+    });
+    // responseは成功したらtrueを、失敗したらエラーコードの文字列を返す。
+    if (typeof response === "string") {
+      return onFailure();
+    }
     // ユーザを取得
     const user = await agent.User.get();
     actions.setUser(user);
