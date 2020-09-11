@@ -18,6 +18,16 @@ module.exports.get = async function (req, res) {
 module.exports.post = async function (req, res) {
   const { email, password } = req.body.user;
   // TODO: HTTPステータスが用途と合っているか要検討
+  const isExist = await db
+    .raw("select exists ( select * from users where email = ? )", [email])
+    .then((res) => Object.values(res[0])[0]);
+  if (isExist) {
+    return res.status(401).json({
+      code: "EMAIL_ALREADY_EXIST",
+      error: "email is already exist",
+    });
+  }
+  // TODO: HTTPステータスが用途と合っているか要検討
   if (password.length < 8) {
     return res.status(401).json({
       code: "TOO_SHORT_PASSWORD",
