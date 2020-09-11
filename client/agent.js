@@ -57,7 +57,11 @@ const User = {
     return request
       .post(`${base}/users`)
       .send(reqBody)
-      .then((res) => res.body.user);
+      .then((res) => res.body.user)
+      .catch((err) => {
+        const response = JSON.parse(err.response.text);
+        return response.code;
+      });
   },
   login: function (reqBody) {
     return request

@@ -15,7 +15,6 @@ function EditPanel(props) {
   const setNote = useStoreActions((actions) => actions.notes.setFocus);
   const removeNote = useStoreActions((actions) => actions.notes.remove);
   const updateNote = useStoreActions((actions) => actions.notes.update);
-  console.log(note);
   return (
     <Box>
       <div>Edit panel</div>

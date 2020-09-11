@@ -84,10 +84,14 @@ const app = {
     state.user = payload;
   }),
   signup: thunk(async (actions, payload, { getStoreActions }) => {
-    const { email, password, onSuccess } = payload;
+    const { email, password, onSuccess, onFailure } = payload;
     // ユーザを作成
-    const user = await agent.User.post({ user: { email, password } });
-    actions.setUser(user);
+    const response = await agent.User.post({ user: { email, password } });
+    // responseは成功したらユーザー情報を、失敗したらエラーコードの文字列を返す。
+    if (typeof response === "string") {
+      return onFailure(response);
+    }
+    actions.setUser(response);
     // ログイン情報をもったクッキーを取得
     const isSuccess = await agent.User.login({ user: { email, password } });
     // ノートを取得
