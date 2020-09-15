@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import MenuPanel from "./MenuPanel";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
+import Heatmap from "./Heatmap";
 
 const Box = styled.div`
   width: 200px;
@@ -32,6 +33,7 @@ function V0(props) {
       >
         new
       </NewButton>
+      <Heatmap />
       <MenuPanel />
       <ListPanel />
       {!isEmpty(focus) && <EditPanel />}

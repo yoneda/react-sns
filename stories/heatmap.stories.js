@@ -1,7 +1,7 @@
 import React from "react";
-import Heatmap from "../client/components/Heatmap";
+import HeatmapOld from "../client/components/HeatmapOld";
 
 export default {
-  title: "Heatmap",
+  title: "HeatmapOld",
 };
-export const normal = () => <Heatmap />;
+export const normal = () => <HeatmapOld />;
