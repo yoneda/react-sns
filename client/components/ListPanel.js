@@ -4,8 +4,8 @@ import styled, { css } from "styled-components";
 
 const Box = styled.div`
   background: lightgray;
-  height: 300px;
-  width: 200px;
+  height: 450px;
+  width: 250px;
   margin: 10px;
   padding: 10px;
 `;

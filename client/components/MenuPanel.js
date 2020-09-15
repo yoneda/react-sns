@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 const Box = styled.div`
   background: lightgray;
   height: 50px;
-  width: 200px;
+  width: 250px;
   margin: 10px;
   padding: 10px;
 `;
