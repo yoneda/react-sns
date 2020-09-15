@@ -17,7 +17,8 @@ const NewButton = styled.button`
 `;
 
 function V0(props) {
-  const focus = useStoreState(state=>state.notes.focus);
+  const notes = useStoreState((state) => state.notes.items);
+  const focus = useStoreState((state) => state.notes.focus);
   const createNote = useStoreActions((actions) => actions.notes.create);
   return (
     <Box>
@@ -34,6 +35,9 @@ function V0(props) {
         new
       </NewButton>
       <Heatmap />
+      {notes.map((note, key) => (
+        <div key={key}>{note.createdAt}</div>
+      ))}
       <MenuPanel />
       <ListPanel />
       {!isEmpty(focus) && <EditPanel />}

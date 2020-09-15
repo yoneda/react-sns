@@ -8,7 +8,8 @@ module.exports.get = async function (req, res) {
   const user = await db("users").where({ email }).first();
   const notes = await db("notes")
     .where({ user: user.id, trashed: trashed || false })
-    .limit(limit || 10);
+    .limit(100);
+  // TODO: limit の数が反映されない不具合を修正
   // MEMO:
   // PostgreSQLではなくSQLiteの場合、日付でのソートができなかった。
   // 開発用のために日付をunix時刻に変換してから新しいもの順に並び替えた。

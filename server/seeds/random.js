@@ -3,13 +3,13 @@ import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
 const NUM_USERS = 3;
-const NUM_NOTES = 10;
+const NUM_NOTES = 14;
 
 // TODO: 時刻までランダムにする
 // TODO: ランダムの性能を高める
 const randDatetime = function () {
   return dayjs()
-    .subtract(Math.floor(Math.random() * 10), "day")
+    .subtract(Math.floor(Math.random() * 14), "day")
     .format("YYYY-M-D H:mm:ss");
 };
 
