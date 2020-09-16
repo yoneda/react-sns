@@ -1,6 +1,9 @@
 import { createStore, action, thunk, computed } from "easy-peasy";
 import agent from "./agent";
 import { isEmpty } from "lodash";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 
 // TODO: store.js をモデルごとにファイルを分ける
 
@@ -10,6 +13,19 @@ const notes = {
   index: computed((state) =>
     state.items.findIndex((note) => note.id === state.focus.id)
   ),
+  numByDate: computed((state) => (date) =>
+    state.items.reduce(
+      (acc, note) =>
+        dayjs(note.createdAt).isBetween(
+          dayjs(`${date} 00:00:00`),
+          dayjs(`${date} 23:59:59`)
+        )
+          ? acc + 1
+          : acc,
+      0
+    )
+  ),
+  lightByDate: computed((state) => (date) => state.numByDate(date) > 0),
   set: action((state, payload) => {
     state.items = payload;
   }),

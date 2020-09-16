@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import React, { useState, useRef } from "react";
+import { useStoreState } from "easy-peasy";
 import styled, { css } from "styled-components";
 import dayjs from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
-dayjs.extend(isBetween);
 
 const Box = styled.div`
   background: lightgray;
@@ -32,50 +30,61 @@ const Cell = styled.div`
     `}
 `;
 
-function isLight(notes, day) {
-  const check = (note) => {
-    return dayjs(note.createdAt).isBetween(
-      dayjs(`${day} 00:00:00`),
-      dayjs(`${day} 23:59:59`)
-    );
-  };
-  return notes.some(check);
-}
-
-function numByDate(notes, day) {
-  const reducer = function (acc, note) {
-    const isSame = dayjs(note.createdAt).isBetween(
-      dayjs(`${day} 00:00:00`),
-      dayjs(`${day} 23:59:59`)
-    );
-    if (isSame) {
-      acc = acc + 1;
-    }
-    return acc;
-  };
-  return notes.reduce(reducer, 0);
-}
+const Balloon = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  height: 30px;
+  width: 80px;
+  border: solid black 1px;
+  border-radius: 8px;
+  background: white;
+  position: absolute;
+  ${(props) => {
+    return css`
+      left: ${props.x}px;
+      top: ${props.y}px;
+    `;
+  }}
+`;
 
 function Heatmap(props) {
   const notes = useStoreState((state) => state.notes.items);
+  const numByDate = useStoreState((state) => state.notes.numByDate);
   const days = [...Array(14)].map((_, count) =>
     dayjs().add(-count, "day").format("YYYY-MM-DD")
   );
+  // TODO:
+  // 14個の日付の生成部分、ComponentDidUpdateごとに毎回計算されてしまってる
+  // memo化をして一度計算したら次回以降はキャッシュにアクセスして計算量を減らせる
   const [num, setNum] = useState(0);
   const [date, setDate] = useState("0000-00-00");
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const eles = [...Array(14)].map(() => useRef(null));
   return (
     <Box>
-      <div>Heatmap: {notes.length}</div>
-      <div>Num: {num}</div>
-      <div>Date: {date}</div>
+      <Balloon x={x} y={y}>
+        <span>{num}件の投稿</span>
+        <span>{date}</span>
+      </Balloon>
       <br />
       <CellContainer>
         {days.map((day, key) => (
-          <div key={key} onClick={() => {
-            setNum(numByDate(notes, day));
-            setDate(day);
-            }}>
-            <Cell light={isLight(notes, day)} />
+          <div
+            ref={eles[key]}
+            key={key}
+            onMouseOver={() => {
+              setNum(numByDate(day));
+              setDate(day);
+              const eleRect = eles[key].current.getBoundingClientRect();
+              setX(eleRect.x);
+              setY(eleRect.y);
+            }}
+          >
+            <Cell light={numByDate(day) > 0} />
           </div>
         ))}
       </CellContainer>
