@@ -22,7 +22,6 @@ const Cell = styled.div`
   height: 10px;
   width: 10px;
   margin: 5px;
-
   ${(props) =>
     props.light &&
     css`
@@ -62,9 +61,12 @@ function Heatmap(props) {
   // TODO: memo化をして計算量を減らす
   return (
     <Box>
+      <div>Heatmap</div>
       {open && (
         <Balloon x={position.x} y={position.y}>
-          <span>{cellInfo.num}件の投稿</span>
+          <span>
+            {cellInfo.num > 0 ? `${cellInfo.num}件の投稿` : "投稿なし"}
+          </span>
           <span>{cellInfo.date}</span>
         </Balloon>
       )}
@@ -76,8 +78,8 @@ function Heatmap(props) {
             ref={refs[key]}
             light={numByDate(day) > 0}
             onMouseOver={() => {
-              setCellInfo({ num: numByDate(day), date: day });
               const rect = refs[key].current.getBoundingClientRect();
+              setCellInfo({ num: numByDate(day), date: day });
               setPosition({ x: rect.x, y: rect.y });
               setOpen(true);
             }}

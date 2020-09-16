@@ -25,7 +25,6 @@ const notes = {
       0
     )
   ),
-  lightByDate: computed((state) => (date) => state.numByDate(date) > 0),
   set: action((state, payload) => {
     state.items = payload;
   }),

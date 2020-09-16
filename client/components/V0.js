@@ -35,9 +35,6 @@ function V0(props) {
         new
       </NewButton>
       <Heatmap />
-      {notes.map((note, key) => (
-        <div key={key}>{note.createdAt}</div>
-      ))}
       <MenuPanel />
       <ListPanel />
       {!isEmpty(focus) && <EditPanel />}
