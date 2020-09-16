@@ -44,48 +44,49 @@ const Balloon = styled.div`
   position: absolute;
   ${(props) => {
     return css`
-      left: ${props.x}px;
-      top: ${props.y}px;
+      left: ${props.x - 35}px;
+      top: ${props.y - 45}px;
     `;
   }}
 `;
 
 function Heatmap(props) {
-  const notes = useStoreState((state) => state.notes.items);
   const numByDate = useStoreState((state) => state.notes.numByDate);
+  const [cellInfo, setCellInfo] = useState({ num: 0, date: "" });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [open, setOpen] = useState(false);
+  const refs = [...Array(14)].map(() => useRef(null));
   const days = [...Array(14)].map((_, count) =>
     dayjs().add(-count, "day").format("YYYY-MM-DD")
   );
-  // TODO:
-  // 14個の日付の生成部分、ComponentDidUpdateごとに毎回計算されてしまってる
-  // memo化をして一度計算したら次回以降はキャッシュにアクセスして計算量を減らせる
-  const [num, setNum] = useState(0);
-  const [date, setDate] = useState("0000-00-00");
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const eles = [...Array(14)].map(() => useRef(null));
+  // TODO: memo化をして計算量を減らす
   return (
     <Box>
-      <Balloon x={x} y={y}>
-        <span>{num}件の投稿</span>
-        <span>{date}</span>
-      </Balloon>
+      {open && (
+        <Balloon x={position.x} y={position.y}>
+          <span>{cellInfo.num}件の投稿</span>
+          <span>{cellInfo.date}</span>
+        </Balloon>
+      )}
       <br />
       <CellContainer>
         {days.map((day, key) => (
-          <div
-            ref={eles[key]}
+          <Cell
             key={key}
+            ref={refs[key]}
+            light={numByDate(day) > 0}
             onMouseOver={() => {
-              setNum(numByDate(day));
-              setDate(day);
-              const eleRect = eles[key].current.getBoundingClientRect();
-              setX(eleRect.x);
-              setY(eleRect.y);
+              setCellInfo({ num: numByDate(day), date: day });
+              const rect = refs[key].current.getBoundingClientRect();
+              setPosition({ x: rect.x, y: rect.y });
+              setOpen(true);
             }}
-          >
-            <Cell light={numByDate(day) > 0} />
-          </div>
+            onMouseOut={() => {
+              setCellInfo({ num: 0, date: "" });
+              setPosition({ x: 0, y: 0 });
+              setOpen(false);
+            }}
+          />
         ))}
       </CellContainer>
     </Box>
