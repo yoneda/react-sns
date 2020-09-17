@@ -18,6 +18,7 @@ const CheckAuth = function () {
 const Note = {
   get: function (reqQuery) {
     const query = pick(reqQuery, ["trashed", "limit"]);
+    console.log(query);
     return request
       .get(`${base}/notes`)
       .query(query)

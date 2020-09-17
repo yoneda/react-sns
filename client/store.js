@@ -44,22 +44,20 @@ const notes = {
     if (onSuccess !== undefined) onSuccess();
   }),
   get: thunk(async (actions) => {
-    const notes = await agent.Note.get();
+    const notes = await agent.Note.get({ limit: 14 });
     actions.set(notes);
   }),
   update: thunk(async (actions, payload) => {
     const { id, title, body, onSuccess } = payload;
     const reqBody = { note: { title, body } };
     await agent.Note.put({ id, reqBody });
-    const notes = await agent.Note.get();
-    actions.set(notes);
+    await actions.get();
     if (onSuccess !== undefined) onSuccess();
   }),
   remove: thunk(async (actions, payload) => {
     const { id, onSuccess } = payload;
     await agent.Note.remove({ id });
-    const notes = await agent.Note.get();
-    actions.set(notes);
+    await actions.get();
     if (onSuccess !== undefined) onSuccess();
   }),
 };
@@ -110,8 +108,7 @@ const app = {
     // ログイン情報をもったクッキーを取得
     const isSuccess = await agent.User.login({ user: { email, password } });
     // ノートを取得
-    const notes = await agent.Note.get();
-    getStoreActions().notes.set(notes);
+    await getStoreActions().notes.get();
     if (onSuccess !== undefined) onSuccess();
   }),
   login: thunk(async (actions, payload, { getStoreActions }) => {
@@ -128,8 +125,7 @@ const app = {
     const user = await agent.User.get();
     actions.setUser(user);
     // ノートを取得
-    const notes = await agent.Note.get();
-    getStoreActions().notes.set(notes);
+    await getStoreActions().notes.get();
     // ゴミ箱にあるノートを取得
     const trashedNotes = await agent.Note.get({ trashed: 1 });
     getStoreActions().trashed.set(trashedNotes);
@@ -142,8 +138,7 @@ const app = {
     const user = await agent.User.get();
     actions.setUser(user);
     // ノートを取得
-    const notes = await agent.Note.get();
-    getStoreActions().notes.set(notes);
+    await getStoreActions().notes.get();
     // ゴミ箱にあるノートを取得
     const trashedNotes = await agent.Note.get({ trashed: 1 });
     getStoreActions().trashed.set(trashedNotes);
