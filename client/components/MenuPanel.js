@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 const Box = styled.div`
   background: lightgray;
-  height: 50px;
+  height: 60px;
   width: 250px;
   margin: 10px;
   padding: 10px;
@@ -30,10 +30,13 @@ function Popup() {
 
 function MenuPanel(props) {
   const [isPopuped, updateIsPopuped] = useState(false);
+  const user = useStoreState((state) => state.app.user);
+  const openModal = useStoreActions((actions) => actions.ui.openModal);
   return (
     <Box>
       <div>MenuPanel</div>
-      <button onClick={() => updateIsPopuped(!isPopuped)}>kohei</button>
+      <button onClick={() => updateIsPopuped(!isPopuped)}>{user.name}</button><br />
+      <button onClick={() => openModal("SETTING_PANEL")}>setting</button>
       {isPopuped && <Popup />}
     </Box>
   );

@@ -168,6 +168,16 @@ const app = {
   }),
 };
 
-const store = createStore({ notes, trashed, app });
+const ui = {
+  modals: [],
+  openModal: action((state, payload) => {
+    state.modals.push(payload);
+  }),
+  closeModal: action((state) => {
+    state.modals.pop();
+  }),
+};
+
+const store = createStore({ notes, trashed, app, ui });
 
 export default store;

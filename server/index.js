@@ -1,5 +1,6 @@
 const express = require("express");
 const env = require("dotenv");
+const cors = require("cors");
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
 const asyncHandler = require("express-async-handler");
@@ -19,6 +20,9 @@ server.use(express.urlencoded({ extended: true }));
 server.get("/api/helth", (req, res) => {
   res.send({ val: "ok" });
 });
+
+// すべての CORS を許可
+server.use(cors());
 
 server.get(
   "/api/checkAuth",

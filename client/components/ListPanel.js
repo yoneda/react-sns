@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 
 const Box = styled.div`
   background: lightgray;
-  height: 600px;
   width: 250px;
   margin: 10px;
   padding: 10px;
@@ -21,7 +20,7 @@ const NoteBox = styled.div`
   background: white;
   margin-bottom: 10px;
   cursor: pointer;
-  height: 32px;
+  height: 50px;
 
   ${(props) =>
     props.selected &&
@@ -30,12 +29,17 @@ const NoteBox = styled.div`
     `}
 `;
 
+const DateBox = styled.div`
+  color: gray;
+`;
+
 function Note(props) {
-  const { title, body, selected, onClick } = props;
+  const { title, body, createdAt, selected, onClick } = props;
   return (
     <NoteBox onClick={() => onClick()} selected={selected}>
       <div>{title}</div>
       <div>{body}</div>
+      <DateBox>{`[${createdAt}]`}</DateBox>
     </NoteBox>
   );
 }
@@ -52,6 +56,7 @@ function ListPanel(props) {
           key={noteIndex}
           title={note.title}
           body={note.body}
+          createdAt={note.createdAt}
           selected={noteIndex === index}
           onClick={() => {
             setFocus(note);
