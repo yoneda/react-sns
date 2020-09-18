@@ -37,8 +37,8 @@ function Note(props) {
   const { title, body, createdAt, selected, onClick } = props;
   return (
     <NoteBox onClick={() => onClick()} selected={selected}>
-      <div>{title}</div>
-      <div>{body}</div>
+      {title ? <div>{title}</div> : <br />}
+      {body ? <div>{body}</div> : <br />}
       <DateBox>{`[${createdAt}]`}</DateBox>
     </NoteBox>
   );
