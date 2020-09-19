@@ -10,7 +10,7 @@ const Box = styled.div`
 function Name() {
   const user = useStoreState((state) => state.app.user);
   const updateUser = useStoreActions((actions) => actions.app.updateUser);
-  const closeModal = useStoreActions(actions=>actions.ui.closeModal);
+  const closeModal = useStoreActions((actions) => actions.ui.closeModal);
   const [name, setName] = useState("");
   useEffect(() => {
     setName(user.name);

@@ -18,6 +18,25 @@ const NewButton = styled.button`
   margin: 10px;
 `;
 
+function DeleteModal(props) {
+  const { position } = props;
+  const closeModal = useStoreActions((actions) => actions.ui.closeModal);
+  const deleteUser = useStoreActions((actions) => actions.app.deleteUser);
+  return (
+    <Modal
+      position={position}
+      title="DeleteAccount"
+      onClose={() => closeModal()}
+    >
+      <div>Are you sure?</div>
+      <button onClick={() => deleteUser({ onSuccess: closeModal() })}>
+        delete
+      </button><br />
+      <button onClick={() => closeModal()}>close</button>
+    </Modal>
+  );
+}
+
 function V0(props) {
   const user = useStoreState((state) => state.app.user);
   const notes = useStoreState((state) => state.notes.items);
@@ -45,16 +64,7 @@ function V0(props) {
           );
         }
         if (modal === "DELETE_ACCOUNT") {
-          return (
-            <Modal
-              position={position}
-              key={index}
-              title="DeleteAccount"
-              onClose={() => closeModal()}
-            >
-              aaa
-            </Modal>
-          );
+          return <DeleteModal position={position} key={index} />;
         }
         if (modal === "CHANGE_PASS") {
           return (
