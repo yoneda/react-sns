@@ -20,8 +20,11 @@ const NewButton = styled.button`
 
 function DeleteModal(props) {
   const { position } = props;
-  const closeModal = useStoreActions((actions) => actions.ui.closeModal);
-  const deleteUser = useStoreActions((actions) => actions.app.deleteUser);
+  const [deleteUser, closeModal, cleanModal] = useStoreActions((actions) => [
+    actions.app.deleteUser,
+    actions.ui.closeModal,
+    actions.ui.cleanModal,
+  ]);
   return (
     <Modal
       position={position}
@@ -29,9 +32,10 @@ function DeleteModal(props) {
       onClose={() => closeModal()}
     >
       <div>Are you sure?</div>
-      <button onClick={() => deleteUser({ onSuccess: closeModal() })}>
+      <button onClick={() => deleteUser({ onSuccess: () => cleanModal() })}>
         delete
-      </button><br />
+      </button>
+      <br />
       <button onClick={() => closeModal()}>close</button>
     </Modal>
   );

@@ -176,6 +176,9 @@ const ui = {
   closeModal: action((state) => {
     state.modals.pop();
   }),
+  cleanModal: action((state) => {
+    state.modals = [];
+  }),
 };
 
 const store = createStore({ notes, trashed, app, ui });
