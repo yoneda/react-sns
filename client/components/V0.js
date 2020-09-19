@@ -41,15 +41,45 @@ function DeleteModal(props) {
   );
 }
 
+function PasswordModal(props) {
+  const { position } = props;
+  const [word, setWord] = useState("");
+  const [updateUser, closeModal, cleanModal] = useStoreActions((actions) => [
+    actions.app.updateUser,
+    actions.ui.closeModal,
+    actions.ui.cleanModal,
+  ]);
+  return (
+    <Modal
+      position={position}
+      title="ChangePassword"
+      onClose={() => closeModal()}
+    >
+      <input
+        type="text"
+        value={word}
+        onChange={(e) => setWord(e.target.value)}
+      />
+      <br />
+      <button
+        onClick={() =>
+          updateUser({ password: word, onSuccess: () => cleanModal() })
+        }
+      >
+        change
+      </button>
+      <br />
+      <button onClick={() => closeModal()}>close</button>
+    </Modal>
+  );
+}
+
 function V0(props) {
   const user = useStoreState((state) => state.app.user);
-  const notes = useStoreState((state) => state.notes.items);
   const focus = useStoreState((state) => state.notes.focus);
   const createNote = useStoreActions((actions) => actions.notes.create);
-  const openModal = useStoreActions((actions) => actions.ui.openModal);
   const closeModal = useStoreActions((actions) => actions.ui.closeModal);
   const modals = useStoreState((state) => state.ui.modals);
-  const [value, setValue] = useState(0);
   return (
     <Box>
       <h2>Days</h2>
@@ -71,16 +101,7 @@ function V0(props) {
           return <DeleteModal position={position} key={index} />;
         }
         if (modal === "CHANGE_PASS") {
-          return (
-            <Modal
-              position={position}
-              key={index}
-              title="ChangePassword"
-              onClose={() => closeModal()}
-            >
-              bbb
-            </Modal>
-          );
+          return <PasswordModal position={position} key={index} />;
         }
       })}
 

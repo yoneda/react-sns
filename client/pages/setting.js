@@ -53,6 +53,9 @@ function PasswordForm(props) {
           // TODO: バリデーション
           if (password.length >= 8 && password === newPassword) {
             return updateUser({ password, onSuccess: onClose });
+          }// TODO: バリデーション
+          if (password.length >= 8 && password === newPassword) {
+            return updateUser({ password, onSuccess: onClose });
           }
         }}
       >
