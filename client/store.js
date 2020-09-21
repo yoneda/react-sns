@@ -170,6 +170,7 @@ const app = {
 
 const ui = {
   modals: [],
+  popup: false,
   openModal: action((state, payload) => {
     state.modals.push(payload);
   }),
