@@ -13,10 +13,10 @@ const BackBox = styled.div`
 
 const Box = styled.div`
   background: white;
-  height: 100px;
   width: 160px;
   position: absolute;
   border: 1px solid black;
+  border-radius: 8px;
   ${(props) => {
     if (!isEmpty(props.position)) {
       return css`

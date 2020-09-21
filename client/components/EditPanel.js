@@ -17,6 +17,10 @@ const PopupBox = styled.div`
   margin: 10px;
 `;
 
+const DetailBox = styled.div`
+  color: gray;
+`;
+
 function EditPopup(props) {
   const { onClose, position } = props;
   const note = useStoreState((state) => state.notes.focus);
@@ -32,13 +36,15 @@ function EditPopup(props) {
           delete
         </button>
         <hr />
-        <div>
-          date:{" "}
-          {isEmpty(note)
-            ? "XXXX-XX-XX"
-            : dayjs(note.createdAt).format("YYYY-M-d")}
-        </div>
-        <div>count: {isEmpty(note) ? "0" : note.body.length}</div>
+        <DetailBox>
+          <div>
+            date:{" "}
+            {isEmpty(note)
+              ? "XXXX-XX-XX"
+              : dayjs(note.createdAt).format("YYYY-M-d")}
+          </div>
+          <div>count: {isEmpty(note) ? "0" : note.body.length}</div>
+        </DetailBox>
       </PopupBox>
     </Popup>
   );
@@ -54,7 +60,7 @@ function EditPanel(props) {
   useEffect(() => {
     if (ref) {
       const rect = ref.current.getBoundingClientRect();
-      setPopupY(rect.y + rect.height + 10);
+      setPopupY(rect.y + rect.height + 5);
     }
   });
   return (
@@ -86,7 +92,7 @@ function EditPanel(props) {
       <br />
       {open && (
         <EditPopup
-          position={{ x: 10, y: popupY }}
+          position={{ x: 20, y: popupY }}
           onClose={() => setOpen(false)}
         />
       )}

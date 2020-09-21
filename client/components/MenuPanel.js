@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { Link, navigate } from "@reach/router";
 import styled, { css } from "styled-components";
+import Popup from "./Popup";
 
 const Box = styled.div`
   background: lightgray;
@@ -12,19 +13,20 @@ const Box = styled.div`
 `;
 
 const PopupBox = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
+  margin: 10px;
 `;
 
-function Popup() {
+function MenuPopup(props) {
+  const { onClose, position } = props;
   const logout = useStoreActions((actions) => actions.app.logout);
   return (
-    <PopupBox>
-      <button onClick={() => logout({ onSuccess: () => navigate("/login") })}>
-        logout
-      </button>
-    </PopupBox>
+    <Popup onClose={() => onClose()} position={position}>
+      <PopupBox>
+        <button onClick={() => logout({ onSuccess: () => navigate("/login") })}>
+          logout
+        </button>
+      </PopupBox>
+    </Popup>
   );
 }
 
@@ -32,12 +34,28 @@ function MenuPanel(props) {
   const [isPopuped, updateIsPopuped] = useState(false);
   const user = useStoreState((state) => state.app.user);
   const openModal = useStoreActions((actions) => actions.ui.openModal);
+  const [popupY, setPopupY] = useState(0);
+  const ref = useRef();
+  useEffect(() => {
+    if (ref) {
+      const rect = ref.current.getBoundingClientRect();
+      setPopupY(rect.y + rect.height + 5);
+    }
+  });
   return (
     <Box>
       <div>MenuPanel</div>
-      <button onClick={() => updateIsPopuped(!isPopuped)}>{user.name}</button><br />
       <button onClick={() => openModal("SETTING_PANEL")}>setting</button>
-      {isPopuped && <Popup />}
+      <br />
+      <button ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
+        {user.name}
+      </button>
+      {isPopuped && (
+        <MenuPopup
+          position={{ x: 20, y: popupY }}
+          onClose={() => updateIsPopuped(false)}
+        />
+      )}
     </Box>
   );
 }

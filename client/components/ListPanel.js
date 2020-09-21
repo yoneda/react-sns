@@ -20,7 +20,7 @@ const NoteBox = styled.div`
   background: white;
   margin-bottom: 10px;
   cursor: pointer;
-  height: 50px;
+  height: 35px;
 
   ${(props) =>
     props.selected &&
@@ -29,17 +29,12 @@ const NoteBox = styled.div`
     `}
 `;
 
-const DateBox = styled.div`
-  color: gray;
-`;
-
 function Note(props) {
   const { title, body, createdAt, selected, onClick } = props;
   return (
     <NoteBox onClick={() => onClick()} selected={selected}>
       {title ? <div>{title}</div> : <br />}
       {body ? <div>{body}</div> : <br />}
-      <DateBox>{`[${createdAt}]`}</DateBox>
     </NoteBox>
   );
 }
