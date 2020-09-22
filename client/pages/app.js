@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { StoreProvider, useStoreState, useStoreActions } from "easy-peasy";
-import { Router, navigate} from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import { Reset } from "styled-reset";
 import styled from "styled-components";
 import store from "../store";
@@ -62,6 +62,9 @@ function Render() {
 }
 
 function App() {
+  useEffect(() => {
+    navigate("/login");
+  }, []);
   return (
     <Box>
       <Reset />

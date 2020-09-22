@@ -15,7 +15,7 @@ function createWindow(){
   // win.loadFile("index.html");
   // win.loadURL("http://localhost:3000");
   // またはローカルファイルをロード
-  win.loadURL(`file://${__dirname}/dist/index.html`);
+  win.loadURL(`file://${__dirname}/../dist/index.html`);
 
   // 開発者ツールを開く
   // win.webContents.openDevTools();
