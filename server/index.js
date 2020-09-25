@@ -21,8 +21,12 @@ server.get("/api/helth", (req, res) => {
   res.send({ val: "ok" });
 });
 
-// すべての CORS を許可
-server.use(cors());
+// 特定ホストの CORS を許可
+server.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 server.get(
   "/api/checkAuth",
