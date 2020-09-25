@@ -113,7 +113,7 @@ module.exports.login = async function (req, res) {
   const payload = { email };
   const token = jwt.sign(payload, secret, { expiresIn: "1h" });
   res
-    .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
+    .cookie("token", token, { maxAge: 60 * 60 * 1000 })
     .status(200)
     .send({
       message: `Successfully logged in simple diary, your account is ${email}.`,
