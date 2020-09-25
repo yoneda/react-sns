@@ -51,7 +51,7 @@ function Login() {
   const [passwordError, setPasswordError] = useState("");
   const [serverError, setServerError] = useState("");
   const doLogin = useStoreActions((actions) => actions.app.login);
-  const onSuccess = () => navigate("/v0");
+  const onSuccess = () => navigate("/");
   const onFailure = () =>
     setServerError("メールアドレスかパスワードが違っています。");
   return (
