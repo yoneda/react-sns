@@ -6,7 +6,7 @@ import styled from "styled-components";
 import store from "../store";
 import Login from "./Login";
 import Signup from "./Signup";
-import V0 from "./V0";
+import Main from "./Main";
 
 const Box = styled.div`
   height: 100%;
@@ -18,7 +18,7 @@ function Authed() {
       <Router>
         <Login path="/login" />
         <Signup path="/signup" />
-        <V0 path="/" />
+        <Main path="/" />
       </Router>
     </Fragment>
   );
