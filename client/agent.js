@@ -2,7 +2,8 @@ import request from "superagent";
 import { pick } from "lodash";
 
 const port = process.env.PORT || 3000;
-const base = `http://localhost:${port}/api`;
+// const base = `http://localhost:${port}/api`;
+const base = "https://simple-diary-app.herokuapp.com/api";
 
 const CheckHelth = function () {
   return request.get(`${base}/helth`);
