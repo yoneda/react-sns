@@ -11,7 +11,8 @@
     "db:seed": "knex seed:run --specific=random.js --esm",
     "db:migrate": "knex migrate:up 20200529182103_init.js",
     "storybook": "start-storybook",
-    "start": "concurrently 'npm run db:migrate' 'npm run db:seed' 'npm run dev' "
+    "start": "concurrently 'npm run db:migrate' 'npm run db:seed' 'npm run dev' ",
+    "electron": "electron electron.js"
   },
   "repository": {
     "type": "git",

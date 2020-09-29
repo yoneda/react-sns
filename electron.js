@@ -11,18 +11,9 @@ function createWindow(){
     }
   })
 
-  // index.htmlをロード
-  // win.loadFile("index.html");
-  // win.loadURL("http://localhost:3000");
-  // またはローカルファイルをロード
-  win.loadURL(`file://${__dirname}/../dist/index.html`);
-
-  // 開発者ツールを開く
-  // win.webContents.openDevTools();
+  win.loadURL("http://localhost:3000/login");
 }
 
-// Electronが初期化処理とブラウザウィンドウの作成準備が完了したときに呼ばれる
-// 一部のAPIはこのイベントが発生した後にのみ利用できる
 app.whenReady().then(createWindow);
 
 // すべてのウィンドウが閉じられたときに終了します。
@@ -43,6 +34,3 @@ app.on("activate", () => {
     createWindow();
   }
 })
-
-// アプリ固有のメインプロセスコードを含めることができます。
-// 別ファイルに分割しておいてここでrequireしてもよい。
