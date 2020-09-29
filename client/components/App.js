@@ -12,6 +12,13 @@ const Box = styled.div`
   height: 100%;
 `;
 
+const Draggable = styled.div`
+  border-bottom: 1px solid lightgray;
+  height: 40px;
+  width: 100%;
+  -webkit-app-region: drag;
+`;
+
 function Authed() {
   return (
     <Fragment>
@@ -46,6 +53,7 @@ function App() {
   return (
     <Box>
       <Reset />
+      <Draggable />
       <StoreProvider store={store}>
         <Render />
       </StoreProvider>
