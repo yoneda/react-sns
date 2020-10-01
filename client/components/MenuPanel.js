@@ -3,18 +3,35 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import { Link, navigate } from "@reach/router";
 import styled, { css } from "styled-components";
 import Popup from "./Popup";
+import SettingIcon from "./SettingIcon";
+import AccountIcon from "./AccountIcon";
 
 const Box = styled.div`
-  background: lightgray;
-  height: 60px;
-  width: 250px;
-  margin: 10px;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
 `;
 
 const PopupBox = styled.div`
   margin: 10px;
 `;
+
+const MenuItem = styled.button`
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+function MenuSetting() {
+  const openModal = useStoreActions((actions) => actions.ui.openModal);
+  return (
+    <MenuItem onClick={() => openModal("SETTING_PANEL")}>
+      <SettingIcon />
+      setting
+    </MenuItem>
+  );
+}
 
 function MenuPopup(props) {
   const { onClose, position } = props;
@@ -33,7 +50,6 @@ function MenuPopup(props) {
 function MenuPanel(props) {
   const [isPopuped, updateIsPopuped] = useState(false);
   const user = useStoreState((state) => state.app.user);
-  const openModal = useStoreActions((actions) => actions.ui.openModal);
   const [popupY, setPopupY] = useState(0);
   const ref = useRef();
   useEffect(() => {
@@ -44,12 +60,11 @@ function MenuPanel(props) {
   });
   return (
     <Box>
-      <div>MenuPanel</div>
-      <button onClick={() => openModal("SETTING_PANEL")}>setting</button>
-      <br />
-      <button ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
+      <MenuItem ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
+        <AccountIcon />
         {user.name}
-      </button>
+      </MenuItem>
+      <MenuSetting />
       {isPopuped && (
         <MenuPopup
           position={{ x: 20, y: popupY }}

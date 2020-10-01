@@ -98,8 +98,7 @@ function Modals() {
 
 const Draggable = styled.div`
   grid-area: drag;
-  background-color: lightyellow;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid darkgray;
   height: 40px;
   width: 100%;
   -webkit-app-region: drag;
@@ -119,7 +118,6 @@ const Layout = styled.div`
 
 const MenuBox = styled.div`
   grid-area: menu;
-  background-color: lightsalmon;
 `;
 
 const HeatmapBox = styled.div`
