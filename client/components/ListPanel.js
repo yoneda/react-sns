@@ -3,7 +3,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import styled, { css } from "styled-components";
 
 const Box = styled.div`
-  border: solid 1px black;
+  border: solid 1px darkgray;
   height: 100%;
 `;
 

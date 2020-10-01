@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import { isEmpty } from "lodash";
@@ -9,12 +9,7 @@ import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
 
-const Box = styled.div`
-  width: 200px;
-  height: 200px;
-`;
-
-const NewButton = styled.button`
+const NewButtonBox = styled.button`
   margin: 10px;
 `;
 
@@ -74,15 +69,11 @@ function PasswordModal(props) {
   );
 }
 
-function V0(props) {
-  const user = useStoreState((state) => state.app.user);
-  const focus = useStoreState((state) => state.notes.focus);
-  const createNote = useStoreActions((actions) => actions.notes.create);
+function Modals() {
   const closeModal = useStoreActions((actions) => actions.ui.closeModal);
   const modals = useStoreState((state) => state.ui.modals);
   return (
-    <Box>
-      <h2>Days</h2>
+    <Fragment>
       {modals.map((modal, index) => {
         const position = { x: (index + 1) * 10, y: (index + 1) * 10 };
         if (modal === "SETTING_PANEL") {
@@ -104,24 +95,99 @@ function V0(props) {
           return <PasswordModal position={position} key={index} />;
         }
       })}
-
-      <NewButton
-        onClick={() =>
-          createNote({
-            body: "",
-            trashed: false,
-            onSuccess: () => {},
-          })
-        }
-      >
-        new
-      </NewButton>
-      <MenuPanel />
-      {user.showCalendar ? <Heatmap /> : ""}
-      <ListPanel />
-      {!isEmpty(focus) && <EditPanel />}
-    </Box>
+    </Fragment>
   );
 }
 
-export default V0;
+function NewButton() {
+  const createNote = useStoreActions((actions) => actions.notes.create);
+  return (
+    <NewButtonBox
+      onClick={() =>
+        createNote({
+          body: "",
+          trashed: false,
+          onSuccess: () => {},
+        })
+      }
+    >
+      new
+    </NewButtonBox>
+  );
+}
+
+const Draggable = styled.div`
+  grid-area: drag;
+  background-color: lightyellow;
+  border-bottom: 1px solid lightgray;
+  height: 40px;
+  width: 100%;
+  -webkit-app-region: drag;
+`;
+
+const Layout = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 200px 250px 1fr;
+  grid-template-rows: 40px 1fr 1fr 40px;
+  grid-template-areas:
+    "drag drag drag"
+    "menu heatmap edit"
+    "menu list edit"
+    "new list edit";
+`;
+
+const MenuBox = styled.div`
+  grid-area: menu;
+  background-color: lightsalmon;
+`;
+
+const HeatmapBox = styled.div`
+  grid-area: heatmap;
+  background-color: lightblue;
+`;
+
+const EditBox = styled.div`
+  grid-area: edit;
+  background-color: lightpink;
+`;
+
+const ListBox = styled.div`
+  grid-area: list;
+  background-color: lightgreen;
+`;
+
+const NewBox = styled.div`
+  grid-area: new;
+  background-color: lightcoral;
+`;
+
+function Main(props) {
+  const user = useStoreState((state) => state.app.user);
+  const focus = useStoreState((state) => state.notes.focus);
+  return (
+    <Fragment>
+      <Modals />
+      <Layout>
+        <Draggable />
+        <MenuBox>
+          <MenuPanel />
+        </MenuBox>
+        <NewBox>
+          <NewButton />
+        </NewBox>
+        <HeatmapBox>
+          <Heatmap />
+        </HeatmapBox>
+        <ListBox>
+          <ListPanel />
+        </ListBox>
+        <EditBox>
+          <EditPanel />
+        </EditBox>
+      </Layout>
+    </Fragment>
+  );
+}
+
+export default Main;

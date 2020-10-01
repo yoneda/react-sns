@@ -8,13 +8,6 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Main from "./Main";
 
-const Draggable = styled.div`
-  border-bottom: 1px solid lightgray;
-  height: 40px;
-  width: 100%;
-  -webkit-app-region: drag;
-`;
-
 function Authed() {
   return (
     <Fragment>
@@ -49,7 +42,6 @@ function App() {
   return (
     <Fragment>
       <Reset />
-      <Draggable />
       <StoreProvider store={store}>
         <Render />
       </StoreProvider>
