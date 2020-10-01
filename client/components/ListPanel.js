@@ -3,10 +3,8 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import styled, { css } from "styled-components";
 
 const Box = styled.div`
-  background: lightgray;
-  width: 250px;
-  margin: 10px;
-  padding: 10px;
+  border: solid 1px black;
+  height: 100%;
 `;
 
 const TextNoWrap = styled.div`
@@ -18,9 +16,8 @@ const TextNoWrap = styled.div`
 
 const NoteBox = styled.div`
   background: white;
-  margin-bottom: 10px;
+  padding: 20px;
   cursor: pointer;
-  height: 35px;
 
   ${(props) =>
     props.selected &&
@@ -29,12 +26,27 @@ const NoteBox = styled.div`
     `}
 `;
 
+const NoteListBox = styled.div`
+  overflow: scroll;
+  height: 100%;
+`;
+
+const NoteTitle = styled.div`
+  font-size: 15px;
+`;
+
+const NoteBody = styled.div`
+  font-size: 12px;
+  color: dimgray;
+  height: 30px;
+`;
+
 function Note(props) {
   const { title, body, createdAt, selected, onClick } = props;
   return (
     <NoteBox onClick={() => onClick()} selected={selected}>
-      {title ? <div>{title}</div> : <br />}
-      {body ? <div>{body}</div> : <br />}
+      <NoteTitle>{title ? <div>{title}</div> : <br />}</NoteTitle>
+      <NoteBody>{body ? <div>{body}</div> : <br />}</NoteBody>
     </NoteBox>
   );
 }
@@ -45,19 +57,20 @@ function ListPanel(props) {
   const setFocus = useStoreActions((actions) => actions.notes.setFocus);
   return (
     <Box>
-      <div>ListPanel</div>
-      {notes.map((note, noteIndex) => (
-        <Note
-          key={noteIndex}
-          title={note.title}
-          body={note.body}
-          createdAt={note.createdAt}
-          selected={noteIndex === index}
-          onClick={() => {
-            setFocus(note);
-          }}
-        />
-      ))}
+      <NoteListBox>
+        {notes.map((note, noteIndex) => (
+          <Note
+            key={noteIndex}
+            title={note.title}
+            body={note.body}
+            createdAt={note.createdAt}
+            selected={noteIndex === index}
+            onClick={() => {
+              setFocus(note);
+            }}
+          />
+        ))}
+      </NoteListBox>
     </Box>
   );
 }
