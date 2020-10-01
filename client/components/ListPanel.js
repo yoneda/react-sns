@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 const Box = styled.div`
   border: solid 1px darkgray;
   height: 100%;
+  box-sizing: border-box;
 `;
 
 const TextNoWrap = styled.div`

@@ -8,10 +8,7 @@ import EditPanel from "./EditPanel";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
-
-const NewButtonBox = styled.button`
-  margin: 10px;
-`;
+import NewButton from "./NewButton";
 
 function DeleteModal(props) {
   const { position } = props;
@@ -99,23 +96,6 @@ function Modals() {
   );
 }
 
-function NewButton() {
-  const createNote = useStoreActions((actions) => actions.notes.create);
-  return (
-    <NewButtonBox
-      onClick={() =>
-        createNote({
-          body: "",
-          trashed: false,
-          onSuccess: () => {},
-        })
-      }
-    >
-      new
-    </NewButtonBox>
-  );
-}
-
 const Draggable = styled.div`
   grid-area: drag;
   background-color: lightyellow;
@@ -129,7 +109,7 @@ const Layout = styled.div`
   display: grid;
   height: 100vh;
   grid-template-columns: 200px 250px 1fr;
-  grid-template-rows: 40px 1fr 1fr 40px;
+  grid-template-rows: 40px 1fr 1fr 60px;
   grid-template-areas:
     "drag drag drag"
     "menu heatmap edit"
