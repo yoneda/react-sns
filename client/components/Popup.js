@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import { isEmpty } from "lodash";
 
 const BackBox = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   left: 0px;
   top: 0px;

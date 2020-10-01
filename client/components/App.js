@@ -8,10 +8,6 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Main from "./Main";
 
-const Box = styled.div`
-  height: 100%;
-`;
-
 const Draggable = styled.div`
   border-bottom: 1px solid lightgray;
   height: 40px;
@@ -51,13 +47,13 @@ function Render() {
 
 function App() {
   return (
-    <Box>
+    <Fragment>
       <Reset />
       <Draggable />
       <StoreProvider store={store}>
         <Render />
       </StoreProvider>
-    </Box>
+    </Fragment>
   );
 }
 
