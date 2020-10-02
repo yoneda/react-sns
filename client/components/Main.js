@@ -132,7 +132,6 @@ const EditBox = styled.div`
 
 const ListBox = styled.div`
   grid-area: list;
-  background-color: lightgreen;
 `;
 
 const NewBox = styled.div`

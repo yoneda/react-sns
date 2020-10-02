@@ -37,7 +37,7 @@ const Balloon = styled.div`
   font-size: 12px;
   height: 30px;
   width: 80px;
-  border: solid dim 1px;
+  border: solid darkgray 1px;
   border-radius: 8px;
   background: white;
   position: absolute;
