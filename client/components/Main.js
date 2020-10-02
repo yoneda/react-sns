@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import { isEmpty } from "lodash";
 import MenuPanel from "./MenuPanel";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
@@ -122,7 +121,6 @@ const MenuBox = styled.div`
 
 const HeatmapBox = styled.div`
   grid-area: heatmap;
-  background-color: lightblue;
 `;
 
 const EditBox = styled.div`
@@ -137,7 +135,6 @@ const ListBox = styled.div`
 
 const NewBox = styled.div`
   grid-area: new;
-  background-color: lightcoral;
 `;
 
 function Main(props) {

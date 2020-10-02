@@ -7,17 +7,22 @@ import SettingIcon from "./SettingIcon";
 import AccountIcon from "./AccountIcon";
 
 const Box = styled.div`
-  height: 100%;
-  width: 100%;
+  height: 100px;
+  width: 200px;
 `;
 
 const PopupBox = styled.div`
   margin: 10px;
 `;
 
-const MenuItem = styled.button`
-  height: 50px;
-  width: 100%;
+const MenuItem = styled.div`
+  margin-left: 5px;
+  margin-top: 5px;
+`;
+
+const MenuButton = styled.button`
+  height: 40px;
+  width: 190px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,9 +31,11 @@ const MenuItem = styled.button`
 function MenuSetting() {
   const openModal = useStoreActions((actions) => actions.ui.openModal);
   return (
-    <MenuItem onClick={() => openModal("SETTING_PANEL")}>
-      <SettingIcon />
-      setting
+    <MenuItem>
+      <MenuButton onClick={() => openModal("SETTING_PANEL")}>
+        <SettingIcon />
+        setting
+      </MenuButton>
     </MenuItem>
   );
 }
@@ -60,9 +67,11 @@ function MenuPanel(props) {
   });
   return (
     <Box>
-      <MenuItem ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
-        <AccountIcon />
-        {user.name}
+      <MenuItem>
+        <MenuButton ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
+          <AccountIcon />
+          {user.name}
+        </MenuButton>
       </MenuItem>
       <MenuSetting />
       {isPopuped && (

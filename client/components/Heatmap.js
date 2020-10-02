@@ -4,11 +4,11 @@ import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 
 const Box = styled.div`
-  background: lightgray;
-  height: 100px;
-  width: 250px;
-  margin: 10px;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
+  border: 1px solid darkgray;
+  box-sizing: border-box;
+  padding: 20px;
 `;
 
 const CellContainer = styled.div`
@@ -18,10 +18,10 @@ const CellContainer = styled.div`
 
 const Cell = styled.div`
   background: white;
-  border: solid black 1px;
-  height: 10px;
-  width: 10px;
-  margin: 5px;
+  border: solid dimgray 1px;
+  height: 16px;
+  width: 16px;
+  margin: 8px;
   ${(props) =>
     props.light &&
     css`
@@ -37,7 +37,7 @@ const Balloon = styled.div`
   font-size: 12px;
   height: 30px;
   width: 80px;
-  border: solid black 1px;
+  border: solid dim 1px;
   border-radius: 8px;
   background: white;
   position: absolute;
@@ -54,14 +54,13 @@ function Heatmap(props) {
   const [cellInfo, setCellInfo] = useState({ num: 0, date: "" });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [open, setOpen] = useState(false);
-  const refs = [...Array(14)].map(() => useRef(null));
-  const days = [...Array(14)].map((_, count) =>
+  const refs = [...Array(36)].map(() => useRef(null));
+  const days = [...Array(36)].map((_, count) =>
     dayjs().add(-count, "day").format("YYYY-MM-DD")
   );
   // TODO: memo化をして計算量を減らす
   return (
     <Box>
-      <div>Heatmap</div>
       {open && (
         <Balloon x={position.x} y={position.y}>
           <span>
