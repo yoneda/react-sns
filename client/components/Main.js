@@ -8,6 +8,8 @@ import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
 import NewButton from "./NewButton";
+import EmptyPanel from "./EmptyPanel";
+import { isEmpty } from "lodash";
 
 function DeleteModal(props) {
   const { position } = props;
@@ -157,9 +159,7 @@ function Main(props) {
         <ListBox>
           <ListPanel />
         </ListBox>
-        <EditBox>
-          <EditPanel />
-        </EditBox>
+        <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
       </Layout>
     </Fragment>
   );
