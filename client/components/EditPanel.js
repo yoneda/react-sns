@@ -6,11 +6,15 @@ import { isEmpty } from "lodash";
 import dayjs from "dayjs";
 
 const Box = styled.div`
-  background: lightgray;
-  height: 110px;
-  width: 250px;
-  margin: 10px;
-  padding: 10px;
+  border: solid 1px darkgray;
+  box-sizing: border-box;
+  background: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
 `;
 
 const PopupBox = styled.div`
@@ -65,7 +69,6 @@ function EditPanel(props) {
   });
   return (
     <Box>
-      <div>Edit panel</div>
       <input
         type="text"
         value={note.title}
@@ -76,7 +79,6 @@ function EditPanel(props) {
         value={note.body}
         onChange={(e) => setNote({ ...note, body: e.target.value })}
       />
-      <br />
       <button
         onClick={(e) => {
           updateNote({
@@ -89,7 +91,6 @@ function EditPanel(props) {
       >
         update
       </button>
-      <br />
       {open && (
         <EditPopup
           position={{ x: 20, y: popupY }}
@@ -97,7 +98,7 @@ function EditPanel(props) {
         />
       )}
       <button ref={ref} onClick={() => setOpen(true)}>
-        …
+        menu
       </button>
     </Box>
   );
