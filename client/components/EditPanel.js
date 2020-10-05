@@ -4,17 +4,30 @@ import Popup from "./Popup";
 import styled from "styled-components";
 import { isEmpty } from "lodash";
 import dayjs from "dayjs";
+import EditIcon from "./EditIcon";
+import MenuIcon from "./MenuIcon";
 
 const Box = styled.div`
-  border: solid 1px darkgray;
+  border: solid 2px black;
+  border-radius: 10px;
   box-sizing: border-box;
   background: white;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
+  width: 300px;
+  height: 500px;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 1fr 80px;
+  grid-template-areas:
+    ". buttons"
+    "main main";
+`;
+
+const ButtonBox = styled.div`
+  grid-area: buttons;
+`;
+
+const MainBox = styled.div`
+  grid-area: main;
 `;
 
 const PopupBox = styled.div`
@@ -69,37 +82,41 @@ function EditPanel(props) {
   });
   return (
     <Box>
-      <input
-        type="text"
-        value={note.title}
-        onChange={(e) => setNote({ ...note, title: e.target.value })}
-      />
-      <input
-        type="text"
-        value={note.body}
-        onChange={(e) => setNote({ ...note, body: e.target.value })}
-      />
-      <button
-        onClick={(e) => {
-          updateNote({
-            id: note.id,
-            title: note.title,
-            body: note.body,
-            onSuccess: () => {},
-          });
-        }}
-      >
-        update
-      </button>
+      <ButtonBox>
+        <button
+          onClick={(e) => {
+            updateNote({
+              id: note.id,
+              title: note.title,
+              body: note.body,
+              onSuccess: () => {},
+            });
+          }}
+        >
+          <EditIcon />
+        </button>
+        <button ref={ref} onClick={() => setOpen(true)}>
+          <MenuIcon />
+        </button>
+      </ButtonBox>
+      <MainBox>
+        <input
+          type="text"
+          value={note.title}
+          onChange={(e) => setNote({ ...note, title: e.target.value })}
+        />
+        <input
+          type="text"
+          value={note.body}
+          onChange={(e) => setNote({ ...note, body: e.target.value })}
+        />
+      </MainBox>
       {open && (
         <EditPopup
-          position={{ x: 20, y: popupY }}
+          position={{ x: 600, y: popupY }}
           onClose={() => setOpen(false)}
         />
       )}
-      <button ref={ref} onClick={() => setOpen(true)}>
-        menu
-      </button>
     </Box>
   );
 }
