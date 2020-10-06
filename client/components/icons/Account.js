@@ -1,6 +1,6 @@
 import React from "react";
 
-function AccountIcon() {
+function Account() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,4 @@ function AccountIcon() {
   );
 }
 
-export default AccountIcon;
+export default Account;

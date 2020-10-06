@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import Icon from "./NewIcon";
+import New from "./icons/New";
 
 const Box = styled.div`
   height: 60px;
@@ -31,7 +31,7 @@ function NewButton() {
           })
         }
       >
-        <Icon />
+        <New />
         New
       </Button>
     </Box>

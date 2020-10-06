@@ -1,6 +1,6 @@
 import React from "react";
 
-function SettingIcon() {
+function Setting() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,4 @@ function SettingIcon() {
   );
 }
 
-export default SettingIcon;
+export default Setting;

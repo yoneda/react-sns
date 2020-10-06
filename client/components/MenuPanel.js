@@ -3,8 +3,8 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import { Link, navigate } from "@reach/router";
 import styled, { css } from "styled-components";
 import Popup from "./Popup";
-import SettingIcon from "./SettingIcon";
-import AccountIcon from "./AccountIcon";
+import Setting from "./icons/Setting";
+import Account from "./icons/Account";
 
 const Box = styled.div`
   height: 100px;
@@ -33,7 +33,7 @@ function MenuSetting() {
   return (
     <MenuItem>
       <MenuButton onClick={() => openModal("SETTING_PANEL")}>
-        <SettingIcon />
+        <Setting />
         setting
       </MenuButton>
     </MenuItem>
@@ -69,7 +69,7 @@ function MenuPanel(props) {
     <Box>
       <MenuItem>
         <MenuButton ref={ref} onClick={() => updateIsPopuped(!isPopuped)}>
-          <AccountIcon />
+          <Account />
           {user.name}
         </MenuButton>
       </MenuItem>

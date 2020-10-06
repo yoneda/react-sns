@@ -4,8 +4,8 @@ import Popup from "./Popup";
 import styled from "styled-components";
 import { isEmpty } from "lodash";
 import dayjs from "dayjs";
-import EditIcon from "./EditIcon";
-import MenuIcon from "./MenuIcon";
+import Edit from "./icons/Edit";
+import Menu from "./icons/Menu";
 
 const Box = styled.div`
   border: solid 2px black;
@@ -93,23 +93,25 @@ function EditPanel(props) {
             });
           }}
         >
-          <EditIcon />
+          <Edit />
         </button>
         <button ref={ref} onClick={() => setOpen(true)}>
-          <MenuIcon />
+          <Menu />
         </button>
       </ButtonBox>
       <MainBox>
-        <input
-          type="text"
-          value={note.title}
+        <div
+          contentEditable={true}
           onChange={(e) => setNote({ ...note, title: e.target.value })}
-        />
-        <input
-          type="text"
-          value={note.body}
+        >
+          {note.title}
+        </div>
+        <div
+          contentEditable={true}
           onChange={(e) => setNote({ ...note, body: e.target.value })}
-        />
+        >
+          {note.body}
+        </div>
       </MainBox>
       {open && (
         <EditPopup

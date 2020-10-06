@@ -1,6 +1,6 @@
 import React from "react";
 
-function PenIcon() {
+function Pen() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,4 +28,4 @@ function PenIcon() {
   );
 }
 
-export default PenIcon;
+export default Pen;

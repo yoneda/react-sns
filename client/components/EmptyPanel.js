@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PenIcon from "./PenIcon";
+import Pen from "./icons/Pen";
 
 const Box = styled.div`
   background: whitesmoke;
@@ -14,7 +14,7 @@ const Box = styled.div`
 function EmptyPanel(props) {
   return (
     <Box>
-      <PenIcon />
+      <Pen />
     </Box>
   );
 }

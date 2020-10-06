@@ -53,9 +53,7 @@ function Note(props) {
 }
 
 function ListPanel(props) {
-  const notes = useStoreState((state) => state.notes.items);
-  const index = useStoreState((state) => state.notes.index);
-  const setFocus = useStoreActions((actions) => actions.notes.setFocus);
+  const { notes, index, setFocus } = props;
   return (
     <Box>
       <NoteListBox>
@@ -76,4 +74,11 @@ function ListPanel(props) {
   );
 }
 
-export default ListPanel;
+const ListPanelInjected = function () {
+  const notes = useStoreState((state) => state.notes.items);
+  const index = useStoreState((state) => state.notes.index);
+  const setFocus = useStoreActions((actions) => actions.notes.setFocus);
+  return <ListPanel {...{ notes, index, setFocus }} />;
+};
+
+export { ListPanel, ListPanelInjected as default };
