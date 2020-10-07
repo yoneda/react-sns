@@ -30,10 +30,6 @@ const MainBox = styled.div`
   grid-area: main;
 `;
 
-const PopupBox = styled.div`
-  margin: 10px;
-`;
-
 const DetailBox = styled.div`
   color: gray;
 `;
@@ -44,7 +40,6 @@ function EditPopup(props) {
   const removeNote = useStoreActions((actions) => actions.notes.remove);
   return (
     <Popup onClose={() => onClose()} position={position}>
-      <PopupBox>
         <button
           onClick={() =>
             removeNote({ id: note.id, onSuccess: () => onClose() })
@@ -62,7 +57,6 @@ function EditPopup(props) {
           </div>
           <div>count: {isEmpty(note) ? "0" : note.body.length}</div>
         </DetailBox>
-      </PopupBox>
     </Popup>
   );
 }
