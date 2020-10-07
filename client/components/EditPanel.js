@@ -40,23 +40,21 @@ function EditPopup(props) {
   const removeNote = useStoreActions((actions) => actions.notes.remove);
   return (
     <Popup onClose={() => onClose()} position={position}>
-        <button
-          onClick={() =>
-            removeNote({ id: note.id, onSuccess: () => onClose() })
-          }
-        >
-          delete
-        </button>
-        <hr />
-        <DetailBox>
-          <div>
-            date:{" "}
-            {isEmpty(note)
-              ? "XXXX-XX-XX"
-              : dayjs(note.createdAt).format("YYYY-M-d")}
-          </div>
-          <div>count: {isEmpty(note) ? "0" : note.body.length}</div>
-        </DetailBox>
+      <button
+        onClick={() => removeNote({ id: note.id, onSuccess: () => onClose() })}
+      >
+        delete
+      </button>
+      <hr />
+      <DetailBox>
+        <div>
+          date:{" "}
+          {isEmpty(note)
+            ? "XXXX-XX-XX"
+            : dayjs(note.createdAt).format("YYYY-M-d")}
+        </div>
+        <div>count: {isEmpty(note) ? "0" : note.body.length}</div>
+      </DetailBox>
     </Popup>
   );
 }
@@ -94,18 +92,16 @@ function EditPanel(props) {
         </button>
       </ButtonBox>
       <MainBox>
-        <div
-          contentEditable={true}
+        <input
+          type="text"
+          value={note.title}
           onChange={(e) => setNote({ ...note, title: e.target.value })}
-        >
-          {note.title}
-        </div>
-        <div
-          contentEditable={true}
+        />
+        <input
+          type="text"
+          value={note.body}
           onChange={(e) => setNote({ ...note, body: e.target.value })}
-        >
-          {note.body}
-        </div>
+        />
       </MainBox>
       {open && (
         <EditPopup

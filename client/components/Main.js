@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import MenuPane from "./MenuPane";
-import ListPanel from "./ListPanel";
+import ListPane from "./ListPane";
 import EditPanel from "./EditPanel";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
@@ -154,7 +154,7 @@ function Main(props) {
           <Heatmap />
         </HeatmapBox>
         <ListBox>
-          <ListPanel />
+          <ListPane />
         </ListBox>
         <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
       </Layout>
@@ -170,7 +170,7 @@ function Main2(props) {
       <Draggable />
       <MenuPane />
       <Heatmap />
-      <ListPanel />
+      <ListPane />
       <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
     </Fragment>
   );
