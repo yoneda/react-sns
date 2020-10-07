@@ -15,7 +15,7 @@ const Box = styled.div`
   background: white;
   width: 160px;
   position: absolute;
-  border: 1px solid black;
+  border: 2px gray solid;
   border-radius: 8px;
   padding: 10px;
   ${(props) => {
