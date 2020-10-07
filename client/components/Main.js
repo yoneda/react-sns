@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
-import MenuPanel from "./MenuPanel";
+import MenuPane from "./MenuPane";
 import ListPanel from "./ListPanel";
 import EditPanel from "./EditPanel";
 import Heatmap from "./Heatmap";
@@ -147,7 +147,7 @@ function Main(props) {
       <Layout>
         <Draggable />
         <MenuBox>
-          <MenuPanel />
+          <MenuPane />
         </MenuBox>
         <NewBox>
           <NewButton />
@@ -164,4 +164,19 @@ function Main(props) {
   );
 }
 
-export default Main;
+function Main2(props) {
+  const focus = useStoreState((state) => state.notes.focus);
+  return (
+    <Fragment>
+      <Modals />
+      <Draggable />
+      <MenuPane />
+      <NewButton />
+      <Heatmap />
+      <ListPanel />
+      <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
+    </Fragment>
+  );
+}
+
+export default Main2;

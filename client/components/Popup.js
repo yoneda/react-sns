@@ -17,6 +17,7 @@ const Box = styled.div`
   position: absolute;
   border: 1px solid black;
   border-radius: 8px;
+  padding: 10px;
   ${(props) => {
     if (!isEmpty(props.position)) {
       return css`
