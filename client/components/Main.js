@@ -168,8 +168,8 @@ function Main2(props) {
     <Fragment>
       <Modals />
       <Draggable />
-      <MenuPane />
       <Heatmap />
+      <MenuPane />
       <ListPane />
       <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
     </Fragment>

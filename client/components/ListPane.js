@@ -6,6 +6,7 @@ const Box = styled.div`
   height: 200px;
   width: 250px;
   border: 2px gray solid;
+  box-sizing: border-box;
 `;
 
 function ListPane() {

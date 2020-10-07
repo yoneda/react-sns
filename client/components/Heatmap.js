@@ -1,33 +1,37 @@
-import React, { useState, useRef } from "react";
+import React, { Fragment, useState, useRef } from "react";
 import { useStoreState } from "easy-peasy";
 import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 
 const Box = styled.div`
-  height: 100%;
-  width: 100%;
-  border: 1px solid darkgray;
+  width: 250px;
+  height: 100px;
+  border: 2px solid gray;
   box-sizing: border-box;
-  padding: 20px;
-`;
-
-const CellContainer = styled.div`
-  display: flex;
-  flex-flow: row wrap;
 `;
 
 const Cell = styled.div`
   background: white;
-  border: solid dimgray 1px;
-  height: 16px;
-  width: 16px;
-  margin: 8px;
+  border: solid gray 2px;
+  border-radius: 4px;
+  height: 8px;
+  width: 8px;
   ${(props) =>
     props.light &&
     css`
-      background: skyblue;
+      background: lightgray;
     `}
 `;
+
+const CellRowBox = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+`;
+
+function CellRow(props) {
+  const { children } = props;
+  return <CellRowBox>{children}</CellRowBox>;
+}
 
 const Balloon = styled.div`
   display: flex;
@@ -49,47 +53,55 @@ const Balloon = styled.div`
   }}
 `;
 
-function Heatmap(props) {
+function CellTable() {
   const numByDate = useStoreState((state) => state.notes.numByDate);
-  const [cellInfo, setCellInfo] = useState({ num: 0, date: "" });
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [info, setInfo] = useState({ num: 0, date: "", x: 0, y: 0 });
   const [open, setOpen] = useState(false);
-  const refs = [...Array(36)].map(() => useRef(null));
-  const days = [...Array(36)].map((_, count) =>
-    dayjs().add(-count, "day").format("YYYY-MM-DD")
-  );
-  // TODO: memo化をして計算量を減らす
+  const refs = [...Array(14)].map(() => useRef(null));
+  const onMouseOver = (index, day) => {
+    const rect = refs[index].current.getBoundingClientRect();
+    const num = numByDate(day);
+    setInfo({ num, date: day, x: rect.x, y: rect.y });
+    setOpen(true);
+  };
+  const onMouseOut = () => {
+    setInfo({ num: 0, date: "", x: 0, y: 0 });
+    setOpen(false);
+  };
+
   return (
-    <Box>
+    <Fragment>
       {open && (
-        <Balloon x={position.x} y={position.y}>
-          <span>
-            {cellInfo.num > 0 ? `${cellInfo.num}件の投稿` : "投稿なし"}
-          </span>
-          <span>{cellInfo.date}</span>
+        <Balloon x={info.x} y={info.y}>
+          <span>{info.num > 0 ? `${info.num}件の投稿` : "投稿なし"}</span>
+          <span>{info.date}</span>
         </Balloon>
       )}
-      <br />
-      <CellContainer>
-        {days.map((day, key) => (
-          <Cell
-            key={key}
-            ref={refs[key]}
-            light={numByDate(day) > 0}
-            onMouseOver={() => {
-              const rect = refs[key].current.getBoundingClientRect();
-              setCellInfo({ num: numByDate(day), date: day });
-              setPosition({ x: rect.x, y: rect.y });
-              setOpen(true);
-            }}
-            onMouseOut={() => {
-              setCellInfo({ num: 0, date: "" });
-              setPosition({ x: 0, y: 0 });
-              setOpen(false);
-            }}
-          />
-        ))}
-      </CellContainer>
+      {[...Array(2)].map((_, row) => (
+        <CellRow>
+          {[...Array(7)].map((_, column) => {
+            const index = row * 7 + column;
+            const day = dayjs().add(-index, "day").format("YYYY-MM-DD");
+            return (
+              <Cell
+                key={index}
+                ref={refs[index]}
+                light={numByDate(day) > 0}
+                onMouseOver={() => onMouseOver(index, day)}
+                onMouseOut={() => onMouseOut()}
+              />
+            );
+          })}
+        </CellRow>
+      ))}
+    </Fragment>
+  );
+}
+
+function Heatmap() {
+  return (
+    <Box>
+      <CellTable />
     </Box>
   );
 }
