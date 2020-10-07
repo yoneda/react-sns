@@ -7,7 +7,6 @@ import EditPanel from "./EditPanel";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
-import NewButton from "./NewButton";
 import EmptyPanel from "./EmptyPanel";
 import { isEmpty } from "lodash";
 
@@ -150,7 +149,6 @@ function Main(props) {
           <MenuPane />
         </MenuBox>
         <NewBox>
-          <NewButton />
         </NewBox>
         <HeatmapBox>
           <Heatmap />
@@ -171,7 +169,6 @@ function Main2(props) {
       <Modals />
       <Draggable />
       <MenuPane />
-      <NewButton />
       <Heatmap />
       <ListPanel />
       <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>

@@ -6,6 +6,7 @@ import MenuItem from "./MenuItem";
 import Popup from "./Popup";
 import Setting from "./icons/Setting";
 import Account from "./icons/Account";
+import New from "./icons/New";
 
 const Box = styled.div`
   height: 100px;
@@ -19,6 +20,7 @@ function MenuPane() {
   const user = useStoreState((state) => state.app.user);
   const openModal = useStoreActions((actions) => actions.ui.openModal);
   const logout = useStoreActions((actions) => actions.app.logout);
+  const createNote = useStoreActions((actions) => actions.notes.create);
   const doLogout = () => logout({ onSuccess: () => navigate("/login") });
   const [pos, setPos] = useState({});
   const measuredRef = useCallback((node) => {
@@ -27,6 +29,12 @@ function MenuPane() {
       setPos({ x: rect.x, y: rect.y });
     }
   }, []);
+  const addNote = () =>
+    createNote({
+      body: "",
+      trashed: false,
+      onSuccess: () => {},
+    });
   return (
     <Box>
       {open && (
@@ -41,6 +49,10 @@ function MenuPane() {
       <MenuItem onClick={() => openModal("SETTING_PANEL")}>
         <Setting />
         setting
+      </MenuItem>
+      <MenuItem onClick={() => addNote()}>
+        <New />
+        new
       </MenuItem>
     </Box>
   );
