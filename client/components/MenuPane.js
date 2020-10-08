@@ -27,7 +27,6 @@ function MenuPane() {
     if (node !== null) {
       const rect = node.getBoundingClientRect();
       setPos({ x: rect.x, y: rect.y + 30});
-      console.log(pos);
     }
   }, []);
   const addNote = () =>

@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 
 const Input = styled.input`
+  padding: 0px;
   width: 200px;
+  height: 30px;
   box-sizing: border-box;
   border: none;
   background-color: white;
   color: gray;
-  font-size: 15px;
-  font-weight: lighter;
+  font-size: 16px;
+  font-family: sans-serif;
   outline: none;
   &:focus{
     background-color: whitesmoke;
@@ -17,16 +19,16 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
+  padding: 0px;
   width: 200px;
-  height: 80px;
+  height: 60px;
   box-sizing: border-box;
   border: none;
   background-color: white;
   color: gray;
-  font-size: 15px;
+  font-size: 16px;
   outline: none;
   resize: none;
-  overflow: hidden;
   &:focus{
     background-color: whitesmoke;
   }
