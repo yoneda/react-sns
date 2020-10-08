@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useStoreState, useStoreActions } from "easy-peasy";
 import MenuPane from "./MenuPane";
 import ListPane from "./ListPane";
-import EditPanel from "./EditPanel";
+import EditPane from "./EditPane";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
@@ -155,7 +155,7 @@ function Main(props) {
         <ListBox>
           <ListPane />
         </ListBox>
-        <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
+        <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPane />}</EditBox>
       </Layout>
     </Fragment>
   );
@@ -170,7 +170,7 @@ function Main2(props) {
       <Heatmap />
       <MenuPane />
       <ListPane />
-      {isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}
+      {isEmpty(focus) ? <EmptyPanel /> : <EditPane />}
     </Fragment>
   );
 }
