@@ -26,7 +26,8 @@ function MenuPane() {
   const measuredRef = useCallback((node) => {
     if (node !== null) {
       const rect = node.getBoundingClientRect();
-      setPos({ x: rect.x, y: rect.y });
+      setPos({ x: rect.x, y: rect.y + 30});
+      console.log(pos);
     }
   }, []);
   const addNote = () =>
@@ -38,7 +39,10 @@ function MenuPane() {
   return (
     <Box>
       {open && (
-        <Popup position={{ x: pos.x, y: pos.y }} onClose={() => setOpen(false)}>
+        <Popup
+          position={{ x: pos.x, y: pos.y }}
+          onClose={() => setOpen(false)}
+        >
           <button onClick={() => doLogout()}>logout</button>
         </Popup>
       )}

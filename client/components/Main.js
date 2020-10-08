@@ -148,8 +148,7 @@ function Main(props) {
         <MenuBox>
           <MenuPane />
         </MenuBox>
-        <NewBox>
-        </NewBox>
+        <NewBox></NewBox>
         <HeatmapBox>
           <Heatmap />
         </HeatmapBox>
@@ -171,7 +170,7 @@ function Main2(props) {
       <Heatmap />
       <MenuPane />
       <ListPane />
-      <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}</EditBox>
+      {isEmpty(focus) ? <EmptyPanel /> : <EditPanel />}
     </Fragment>
   );
 }

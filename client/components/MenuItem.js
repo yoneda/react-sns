@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -16,9 +16,13 @@ const Box = styled.div`
   }
 `;
 
-function MenuItem(props) {
+const MenuItem = forwardRef(function (props, ref) {
   const { children, onClick } = props;
-  return <Box onClick={onClick}>{children}</Box>;
-}
+  return (
+    <Box ref={ref} onClick={onClick}>
+      {children}
+    </Box>
+  );
+});
 
 export default MenuItem;
