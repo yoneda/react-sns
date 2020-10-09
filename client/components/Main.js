@@ -72,7 +72,7 @@ function Modals() {
   return (
     <Fragment>
       {modals.map((modal, index) => {
-        const position = { x: (index + 1) * 10, y: (index + 1) * 10 };
+        const position = { x: (index + 1) * 10, y: (index + 1) * 10 + 40 };
         if (modal === "SETTING_PANEL") {
           return (
             <Modal
