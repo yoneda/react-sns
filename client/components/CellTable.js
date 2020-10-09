@@ -56,7 +56,7 @@ function CellTable() {
         </Balloon>
       )}
       {[...Array(2)].map((_, row) => (
-        <CellRow>
+        <CellRow key={row}>
           {[...Array(7)].map((_, column) => {
             const index = row * 7 + column;
             const day = dayjs().add(-index, "day").format("YYYY-MM-DD");
