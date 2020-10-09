@@ -7,7 +7,7 @@ import EditPane from "./EditPane";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
-import EmptyPanel from "./EmptyPanel";
+import Empty from "./Empty";
 import { isEmpty } from "lodash";
 
 function DeleteModal(props) {
@@ -155,14 +155,13 @@ function Main(props) {
         <ListBox>
           <ListPane />
         </ListBox>
-        <EditBox>{isEmpty(focus) ? <EmptyPanel /> : <EditPane />}</EditBox>
+        <EditBox>{isEmpty(focus) ? <Empty /> : <EditPane />}</EditBox>
       </Layout>
     </Fragment>
   );
 }
 
 function Main2(props) {
-  const focus = useStoreState((state) => state.notes.focus);
   return (
     <Fragment>
       <Modals />
@@ -170,7 +169,7 @@ function Main2(props) {
       <Heatmap />
       <MenuPane />
       <ListPane />
-      {isEmpty(focus) ? <EmptyPanel /> : <EditPane />}
+      <EditPane />
     </Fragment>
   );
 }

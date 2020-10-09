@@ -34,6 +34,7 @@ const Icon = styled.div`
   color: gray;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   &:hover {
     background-color: whitesmoke;
   }

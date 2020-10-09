@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useStoreState } from "easy-peasy";
 import Editor from "./Editor";
+import Empty from "./Empty";
+import { isEmpty } from "lodash";
 
 const Box = styled.div`
   height: 200px;
@@ -11,11 +14,8 @@ const Box = styled.div`
 `;
 
 function EditPane() {
-  return (
-    <Box>
-      <Editor />
-    </Box>
-  );
+  const focus = useStoreState((state) => state.notes.focus);
+  return <Box>{isEmpty(focus) ? <Empty /> : <Editor />}</Box>;
 }
 
 export default EditPane;
