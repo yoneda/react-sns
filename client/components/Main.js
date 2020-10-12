@@ -7,6 +7,7 @@ import EditPane from "./EditPane";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
+import { modal as modalIds} from "../consts/identifiers";
 
 const Draggable = styled.div`
   grid-area: drag;
@@ -79,7 +80,7 @@ function Modals() {
     <Fragment>
       {modals.map((modal, index) => {
         const position = { x: (index + 1) * 10, y: (index + 1) * 10 };
-        if (modal === "SETTING_PANEL") {
+        if (modal === modalIds.SETTING_PANEL) {
           return (
             <Modal
               position={position}
@@ -91,10 +92,10 @@ function Modals() {
             </Modal>
           );
         }
-        if (modal === "DELETE_ACCOUNT") {
+        if (modal === modalIds.DELETE_ACCOUNT) {
           return <DeleteModal position={position} key={index} />;
         }
-        if (modal === "CHANGE_PASS") {
+        if (modal === modalIds.CHANGE_PASS) {
           return <PasswordModal position={position} key={index} />;
         }
       })}
