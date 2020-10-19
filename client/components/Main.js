@@ -7,7 +7,7 @@ import EditPane from "./EditPane";
 import Heatmap from "./Heatmap";
 import Modal from "./Modal";
 import SettingPanel from "./SettingPanel";
-import { modal as modalIds} from "../consts/identifiers";
+import { modal as modalIds } from "../const/const";
 
 const Draggable = styled.div`
   grid-area: drag;
