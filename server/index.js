@@ -37,7 +37,7 @@ server.get(
 server.use("/api", routes);
 
 const options = {
-  outDir: "./client/dist",
+  outDir: "./client/build",
   cacheDir: "./client/.cache",
 };
 const bundler = new Bundler("./client/index.html", options);
