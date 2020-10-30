@@ -7,7 +7,6 @@
     "build": "parcel build client/index.html --out-dir build --public-url ./",
     "dev": "nodemon --ignore client server/index.js",
     "test": "newman run tests/simple-diary-tests.postman_collection.json -e tests/development.postman_environment.json",
-    "lint": "eslint client",
     "db:seed": "knex seed:run --specific=random.js --esm",
     "db:migrate": "knex migrate:up 20200529182103_init.js",
     "storybook": "start-storybook",
